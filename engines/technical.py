@@ -211,12 +211,15 @@ class TechnicalAnalyzer:
 
         rsi = row["RSI"]
 
-        if 45 <= rsi <= 65:
+        if 30 <= rsi <= 50:
             score.append(100)
-
-        elif 35 <= rsi <= 75:
+        
+        elif 50 < rsi <= 70:
+            score.append(70)
+        
+        elif 20 <= rsi < 30:
             score.append(80)
-
+        
         else:
             score.append(40)
 
