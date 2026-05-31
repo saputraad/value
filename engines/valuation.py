@@ -3,11 +3,13 @@ import numpy as np
 class ValuationAnalyzer:
 
     def __init__(self, data_dict):
-        # Menerima paket data matang dari app.py, tidak menembak internet sendiri
+        # Menerima paket data matang dari app.py
         self.data = data_dict if data_dict else {}
         self.info = self.data.get("info", {})
         self.price = self.data.get("price", None)
         self.balance = self.data.get("balance_sheet", None)
+        # Tetap simpan ticker sebagai string untuk fallback
+        self.ticker = self.info.get("symbol", "BBCA.JK")
 
     # ==========================================
     # BASIC METRICS
@@ -27,7 +29,6 @@ class ValuationAnalyzer:
             financials = self.data.get("income_statement")
             shares = self.data.get("shares")
             if financials is not None and not financials.empty and shares:
-                # Mengambil Net Income baris teratas laporan keuangan terbaru
                 net_income = financials.iloc[0].iloc[0] if hasattr(financials, 'iloc') else None
                 if net_income:
                     return net_income / shares
