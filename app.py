@@ -167,11 +167,11 @@ with tabs[0]:
         st.markdown("---")
         st.write("### Interpretasi Detail")
 
-for item in growth.get(
-    "commentary",
-    []
-):
-    st.write(f"• {item}")
+        for item in growth.get(
+            "commentary",
+            []
+        ):
+            st.write(f"• {item}")
 
         # ==========================
         # SCORE BREAKDOWN
