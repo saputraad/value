@@ -345,7 +345,7 @@ with tabs[3]:
             f"{score}/100"
         )
 
-                st.markdown("---")
+        st.markdown("---")
 
         st.write("### Interpretasi")
 
