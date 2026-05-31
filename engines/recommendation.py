@@ -219,6 +219,7 @@ class RecommendationEngine:
 
             "recommendation":
                 self.recommendation(),
+            
             "commentary":
                 self.recommendation_commentary()
         }
