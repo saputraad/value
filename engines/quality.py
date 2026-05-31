@@ -1,297 +1,236 @@
 import pandas as pd
 import numpy as np
 
-from core.data_provider import (
-    get_company_info,
-    get_income_statement,
-    get_balance_sheet,
-    get_cashflow
-)
 
+# ==========================================
+# SAFE GETTER
+# ==========================================
 
-class QualityAnalyzer:
+def safe_get(df, row_names):
 
-    def __init__(self, ticker):
+    if df is None or df.empty:
+        return None
 
-        self.ticker = ticker
+    for row in row_names:
 
-        self.info = get_company_info(ticker)
+        if row in df.index:
+            return df.loc[row]
 
-        self.income = get_income_statement(ticker)
+    return None
 
-        self.balance = get_balance_sheet(ticker)
 
-        self.cashflow = get_cashflow(ticker)
+# ==========================================
+# ROE
+# ==========================================
 
-    # ==========================================
-    # SAFE ROW FINDER
-    # ==========================================
+def calculate_roe(data):
 
-    def find_row(self, df, possible_names):
+    try:
 
-        try:
+        income = data["income_statement"]
+        balance = data["balance_sheet"]
 
-            for name in possible_names:
-
-                if name in df.index:
-                    return df.loc[name]
-
-            return None
-
-        except:
-            return None
-
-    # ==========================================
-    # ROE
-    # ==========================================
-
-    def roe(self):
-
-        try:
-
-            return self.info.get("returnOnEquity", None)
-
-        except:
-            return None
-
-    # ==========================================
-    # ROA
-    # ==========================================
-
-    def roa(self):
-
-        try:
-
-            return self.info.get("returnOnAssets", None)
-
-        except:
-            return None
-
-    # ==========================================
-    # PROFIT MARGIN
-    # ==========================================
-
-    def net_margin(self):
-
-        try:
-
-            return self.info.get("profitMargins", None)
-
-        except:
-            return None
-
-    # ==========================================
-    # OPERATING MARGIN
-    # ==========================================
-
-    def operating_margin(self):
-
-        try:
-
-            return self.info.get("operatingMargins", None)
-
-        except:
-            return None
-
-    # ==========================================
-    # GROSS MARGIN
-    # ==========================================
-
-    def gross_margin(self):
-
-        try:
-
-            return self.info.get("grossMargins", None)
-
-        except:
-            return None
-
-    # ==========================================
-    # ROIC
-    # ==========================================
-
-    def roic(self):
-
-        """
-        Approximation.
-        Yahoo tidak selalu menyediakan ROIC.
-        """
-
-        try:
-
-            ebit_series = self.find_row(
-                self.income,
-                [
-                    "EBIT",
-                    "Operating Income"
-                ]
-            )
-
-            debt_series = self.find_row(
-                self.balance,
-                [
-                    "Total Debt"
-                ]
-            )
-
-            equity_series = self.find_row(
-                self.balance,
-                [
-                    "Stockholders Equity",
-                    "Total Equity Gross Minority Interest"
-                ]
-            )
-
-            if (
-                ebit_series is None
-                or debt_series is None
-                or equity_series is None
-            ):
-                return None
-
-            ebit = float(ebit_series.iloc[0])
-
-            debt = float(debt_series.iloc[0])
-
-            equity = float(equity_series.iloc[0])
-
-            invested_capital = debt + equity
-
-            if invested_capital <= 0:
-                return None
-
-            return ebit / invested_capital
-
-        except:
-            return None
-
-    # ==========================================
-    # FCF POSITIVE
-    # ==========================================
-
-    def positive_fcf(self):
-
-        try:
-
-            ocf = self.find_row(
-                self.cashflow,
-                [
-                    "Operating Cash Flow",
-                    "Cash Flow From Continuing Operating Activities"
-                ]
-            )
-
-            capex = self.find_row(
-                self.cashflow,
-                [
-                    "Capital Expenditure"
-                ]
-            )
-
-            if ocf is None or capex is None:
-                return None
-
-            fcf = float(
-                ocf.iloc[0]
-            ) - abs(
-                float(capex.iloc[0])
-            )
-
-            return fcf > 0
-
-        except:
-            return None
-
-    # ==========================================
-    # QUALITY SCORE
-    # ==========================================
-
-    def quality_score(self):
-
-        score = []
-
-        roe = self.roe()
-
-        if roe is not None:
-
-            roe = roe * 100
-
-            if roe >= 20:
-                score.append(100)
-
-            elif roe >= 15:
-                score.append(90)
-
-            elif roe >= 10:
-                score.append(75)
-
-            elif roe >= 5:
-                score.append(50)
-
-            else:
-                score.append(20)
-
-        roic = self.roic()
-
-        if roic is not None:
-
-            roic = roic * 100
-
-            if roic >= 20:
-                score.append(100)
-
-            elif roic >= 15:
-                score.append(90)
-
-            elif roic >= 10:
-                score.append(75)
-
-            elif roic >= 5:
-                score.append(50)
-
-            else:
-                score.append(20)
-
-        if self.positive_fcf():
-            score.append(90)
-
-        if len(score) == 0:
-            return None
-
-        return round(
-            np.mean(score),
-            2
+        net_income = safe_get(
+            income,
+            [
+                "Net Income",
+                "NetIncome"
+            ]
         )
 
-    # ==========================================
-    # SUMMARY
-    # ==========================================
+        equity = safe_get(
+            balance,
+            [
+                "Stockholders Equity",
+                "Common Stock Equity",
+                "Total Equity Gross Minority Interest"
+            ]
+        )
 
-    def summary(self):
+        if net_income is None or equity is None:
+            return None
 
-        return {
+        ni = float(net_income.iloc[0])
+        eq = float(equity.iloc[0])
 
-            "roe":
-                self.roe(),
+        if eq <= 0:
+            return None
 
-            "roa":
-                self.roa(),
+        return ni / eq
 
-            "roic":
-                self.roic(),
+    except:
+        return None
 
-            "gross_margin":
-                self.gross_margin(),
 
-            "operating_margin":
-                self.operating_margin(),
+# ==========================================
+# ROA
+# ==========================================
 
-            "net_margin":
-                self.net_margin(),
+def calculate_roa(data):
 
-            "positive_fcf":
-                self.positive_fcf(),
+    try:
 
-            "quality_score":
-                self.quality_score()
-        }
+        income = data["income_statement"]
+        balance = data["balance_sheet"]
+
+        net_income = safe_get(
+            income,
+            [
+                "Net Income",
+                "NetIncome"
+            ]
+        )
+
+        assets = safe_get(
+            balance,
+            [
+                "Total Assets"
+            ]
+        )
+
+        if net_income is None or assets is None:
+            return None
+
+        ni = float(net_income.iloc[0])
+        ta = float(assets.iloc[0])
+
+        if ta <= 0:
+            return None
+
+        return ni / ta
+
+    except:
+        return None
+
+
+# ==========================================
+# DEBT TO EQUITY
+# ==========================================
+
+def calculate_debt_to_equity(data):
+
+    try:
+
+        balance = data["balance_sheet"]
+
+        debt = safe_get(
+            balance,
+            [
+                "Total Debt",
+                "Long Term Debt"
+            ]
+        )
+
+        equity = safe_get(
+            balance,
+            [
+                "Stockholders Equity",
+                "Common Stock Equity",
+                "Total Equity Gross Minority Interest"
+            ]
+        )
+
+        if debt is None or equity is None:
+            return None
+
+        debt_value = float(debt.iloc[0])
+        equity_value = float(equity.iloc[0])
+
+        if equity_value <= 0:
+            return None
+
+        return debt_value / equity_value
+
+    except:
+        return None
+
+
+# ==========================================
+# QUALITY SCORE
+# ==========================================
+
+def calculate_quality_score(
+    roe,
+    roa,
+    debt_to_equity
+):
+
+    score = 0
+
+    # ROE
+
+    if roe is not None:
+
+        roe_pct = roe * 100
+
+        if roe_pct >= 20:
+            score += 40
+
+        elif roe_pct >= 15:
+            score += 35
+
+        elif roe_pct >= 10:
+            score += 25
+
+        elif roe_pct >= 5:
+            score += 15
+
+    # ROA
+
+    if roa is not None:
+
+        roa_pct = roa * 100
+
+        if roa_pct >= 10:
+            score += 30
+
+        elif roa_pct >= 5:
+            score += 20
+
+        elif roa_pct >= 2:
+            score += 10
+
+    # Debt
+
+    if debt_to_equity is not None:
+
+        if debt_to_equity <= 0.5:
+            score += 30
+
+        elif debt_to_equity <= 1:
+            score += 20
+
+        elif debt_to_equity <= 2:
+            score += 10
+
+    return min(score, 100)
+
+
+# ==========================================
+# MASTER ANALYZER
+# ==========================================
+
+def analyze_quality(data):
+
+    roe = calculate_roe(data)
+
+    roa = calculate_roa(data)
+
+    debt_to_equity = calculate_debt_to_equity(data)
+
+    score = calculate_quality_score(
+        roe,
+        roa,
+        debt_to_equity
+    )
+
+    return {
+
+        "roe": roe,
+
+        "roa": roa,
+
+        "debt_to_equity": debt_to_equity,
+
+        "quality_score": score
+    }
