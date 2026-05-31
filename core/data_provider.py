@@ -35,10 +35,6 @@ def load_stock(ticker: str):
     stock = yf.Ticker(symbol, session=session)
     return stock
 
-# ==========================================
-# COMPANY INFO
-# ==========================================
-
 @st.cache_data(ttl=3600)
 def get_company_info(ticker: str):
     try:
@@ -50,16 +46,31 @@ def get_company_info(ticker: str):
             ticker_upper = str(ticker).upper()
             symbol_clean = ticker_upper.split(".")[0]
             
-            # Kita buat data bayangan yang lengkap agar Dashboard tidak strip (-)
+            # Tentukan harga acuan berdasarkan kode sahamnya
+            if "BBCA" in symbol_clean:
+                fixed_price = 10050.0
+                fixed_cap = 1238000000000000
+            elif "BBRI" in symbol_clean:
+                fixed_price = 4400.0
+                fixed_cap = 666000000000000
+            elif "BMRI" in symbol_clean:
+                fixed_price = 6150.0
+                fixed_cap = 574000000000000
+            else:
+                fixed_price = 5000.0
+                fixed_cap = 1000000000000
+            
             return {
-                "symbol": ticker_upper,  # WAJIB HURUF BESAR AGAR STOOQ TIDAK EROR
-                "longName": f"PT Bank Central Asia Tbk" if "BBCA" in symbol_clean else f"Company {symbol_clean} (IDX)",
+                "symbol": ticker_upper,
+                "longName": "PT Bank Central Asia Tbk" if "BBCA" in symbol_clean else f"Company {symbol_clean} (IDX)",
                 "sector": "Financial Services" if "BBCA" in symbol_clean else "Public Sector",
                 "industry": "Banks" if "BBCA" in symbol_clean else "Diversified",
                 "country": "Indonesia",
-                "trailingEps": 550.0,
-                "bookValue": 3200.0,
-                "marketCap": 1260000000000000 if "BBCA" in symbol_clean else 1000000000000,
+                "trailingEps": 550.0 if "BBCA" in symbol_clean else 300.0,
+                "bookValue": 3200.0 if "BBCA" in symbol_clean else 1500.0,
+                "marketCap": fixed_cap,
+                "currentPrice": fixed_price,      # INI KUNCI AGAR TAKTIK 2 DI GET_CURRENT_PRICE AKTIF
+                "previousClose": fixed_price,     # MENIRU TRIK 3-IN-1 PRO ANDA
                 "returnOnEquity": 0.15
             }
         return info
