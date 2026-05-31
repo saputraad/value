@@ -192,16 +192,13 @@ def analyze_growth(data):
     if equity.get("equity_cagr", 0) > 0.10:
         score += 30
 
-    results = {
+    return {
 
-    "revenue": revenue,
-    "earnings": earnings,
-    "equity": equity,
-    "growth_score": score
-}
+        "revenue": revenue,
 
-results["commentary"] = (
-    growth_commentary(results)
-)
+        "earnings": earnings,
 
-return results
+        "equity": equity,
+
+        "growth_score": score
+    }
