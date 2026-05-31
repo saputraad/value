@@ -241,72 +241,72 @@ def analyze_growth(data):
 
     score = 0
 
-rev = revenue.get("revenue_cagr")
-ear = earnings.get("earnings_cagr")
-equ = equity.get("equity_cagr")
-
-# Revenue
-
-if rev is not None:
-
-    if rev >= 0.15:
-        score += 30
-
-    elif rev >= 0.10:
-        score += 25
-
-    elif rev >= 0.05:
-        score += 15
-
-# Earnings
-
-if ear is not None:
-
-    if ear >= 0.15:
-        score += 40
-
-    elif ear >= 0.10:
-        score += 35
-
-    elif ear >= 0.05:
-        score += 20
-
-# Equity
-
-if equ is not None:
-
-    if equ >= 0.15:
-        score += 30
-
-    elif equ >= 0.10:
-        score += 25
-
-    elif equ >= 0.05:
-        score += 15
-
-    return {
-
+    rev = revenue.get("revenue_cagr")
+    ear = earnings.get("earnings_cagr")
+    equ = equity.get("equity_cagr")
+    
+    # Revenue
+    
+    if rev is not None:
+    
+        if rev >= 0.15:
+            score += 30
+    
+        elif rev >= 0.10:
+            score += 25
+    
+        elif rev >= 0.05:
+            score += 15
+    
+    # Earnings
+    
+    if ear is not None:
+    
+        if ear >= 0.15:
+            score += 40
+    
+        elif ear >= 0.10:
+            score += 35
+    
+        elif ear >= 0.05:
+            score += 20
+    
+    # Equity
+    
+    if equ is not None:
+    
+        if equ >= 0.15:
+            score += 30
+    
+        elif equ >= 0.10:
+            score += 25
+    
+        elif equ >= 0.05:
+            score += 15
+    
+        return {
+    
+            "revenue": revenue,
+    
+            "earnings": earnings,
+    
+            "equity": equity,
+    
+            "growth_score": score
+        }
+    results = {
+    
         "revenue": revenue,
-
+    
         "earnings": earnings,
-
+    
         "equity": equity,
-
+    
         "growth_score": score
     }
-results = {
-
-    "revenue": revenue,
-
-    "earnings": earnings,
-
-    "equity": equity,
-
-    "growth_score": score
-}
-
-results["commentary"] = (
-    growth_commentary(results)
-)
-
-return results
+    
+    results["commentary"] = (
+        growth_commentary(results)
+    )
+    
+    return results
