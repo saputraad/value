@@ -245,26 +245,31 @@ class BankValuationAnalyzer:
 
     def summary(self):
 
-        return {
+    return {
 
-            "price":
-                self.price,
+        "current_price":
+            self.price,
 
-            "roe":
-                self.roe(),
+        "roe":
+            self.roe(),
 
-            "pbv":
-                self.pbv(),
+        "pbv":
+            self.pbv(),
 
-            "justified_pbv":
-                self.justified_pbv(),
+        "justified_pbv":
+            self.justified_pbv(),
 
-            "fair_value":
-                self.fair_value(),
+        "fair_value_pbv":
+            self.fair_value(),
 
-            "margin_of_safety":
-                self.margin_of_safety(),
+        "margin_of_safety":
+            self.margin_of_safety() / 100
+            if self.margin_of_safety() is not None
+            else None,
 
-            "bank_score":
-                self.bank_score()
-        }
+        "value_score":
+            self.bank_score(),
+
+        "model":
+            "BANK"
+    }
