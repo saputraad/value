@@ -46,7 +46,8 @@ data = get_company_data(ticker)
 
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
-info = data.get("info", {}) if data else {}
+
+profile = data.get("profile", {}) if data else {}
 
 # ==========================================
 # 2. PANGGIL ENGINE VALUASI
@@ -202,13 +203,38 @@ with tabs[0]:
 # ==========================================
 with tabs[1]:
 
-    st.subheader("DEBUG INFO")
+    st.subheader("Company Overview")
 
-    st.write(info)
+    st.write(
+        "**Company Name:**",
+        profile.get("name", "-")
+    )
 
-    st.write("TYPE:", type(info))
+    st.write(
+        "**Sector:**",
+        profile.get("sector", "-")
+    )
 
-    st.write("KEY COUNT:", len(info))
+    st.write(
+        "**Industry:**",
+        profile.get("industry", "-")
+    )
+
+    st.write(
+        "**Country:**",
+        profile.get("country", "-")
+    )
+
+    st.write(
+        "**Website:**",
+        profile.get("website", "-")
+    )
+
+    st.write("---")
+
+    st.write("Raw Profile Data")
+
+    st.json(profile)
 
 # ==========================================
 # 2. VALUATION
