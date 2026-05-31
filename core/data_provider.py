@@ -25,11 +25,13 @@ def format_ticker(ticker: str) -> str:
 def load_stock(ticker: str):
     symbol = format_ticker(ticker)
     
-    # Membuat session agar yfinance mengirimkan data seperti browser manusia asli (mencegah blokir)
+    # Rekayasa Session agar dianggap sebagai browser Google Chrome asli oleh Yahoo Finance
     import requests
     session = requests.Session()
     session.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
     })
     
     stock = yf.Ticker(symbol, session=session)
@@ -155,25 +157,24 @@ def get_current_price(ticker: str, info_dict: dict = None):
     try:
         stock = load_stock(ticker)
         
-        # Cara 1: Ambil dari fast_info (Paling cepat & stabil di versi yfinance baru)
+        # Metode 1: Ambil dari history 1 hari terakhir (Paling aman dari blokir)
+        df = stock.history(period="1d")
+        if not df.empty:
+            close_col = [col for col in df.columns if col.lower() == 'close']
+            if close_col:
+                return float(df[close_col[0]].iloc[-1])
+                
+        # Metode 2: Alternatif Fast Info jika history gagal
         if hasattr(stock, 'fast_info') and 'last_price' in stock.fast_info:
             price = stock.fast_info['last_price']
             if price and price > 0:
                 return float(price)
                 
-        # Cara 2: Ambil dari kamus info jika disediakan
+        # Metode 3: Ambil dari dictionary info
         if info_dict:
             price = info_dict.get("currentPrice") or info_dict.get("regularMarketPrice")
             if price:
                 return float(price)
-                
-        # Cara 3: Fallback terakhir menggunakan history
-        df = stock.history(period="1d")
-        if not df.empty:
-            # Mencari kolom close tanpa memedulikan sensitivitas huruf besar/kecil
-            close_col = [col for col in df.columns if col.lower() == 'close']
-            if close_col:
-                return float(df[close_col[0]].iloc[-1])
                 
         return None
     except Exception as e:
