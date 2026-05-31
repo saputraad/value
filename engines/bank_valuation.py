@@ -239,39 +239,39 @@ class BankValuationAnalyzer:
             2
         )
 
-# ====================================
-# SUMMARY
-# ====================================
-
-def summary(self):
-
-    mos = self.margin_of_safety()
-
-    return {
-
-        "current_price":
-            self.price,
-
-        "roe":
-            self.roe(),
-
-        "pbv":
-            self.pbv(),
-
-        "justified_pbv":
-            self.justified_pbv(),
-
-        "fair_value_pbv":
-            self.fair_value(),
-
-        "margin_of_safety":
-            (mos / 100)
-            if mos is not None
-            else None,
-
-        "value_score":
-            self.bank_score(),
-
-        "model":
-            "BANK"
-    }
+    # ====================================
+    # SUMMARY
+    # ====================================
+    
+    def summary(self):
+    
+        mos = self.margin_of_safety()
+    
+        return {
+    
+            "current_price":
+                self.price,
+    
+            "roe":
+                self.roe(),
+    
+            "pbv":
+                self.pbv(),
+    
+            "justified_pbv":
+                self.justified_pbv(),
+    
+            "fair_value_pbv":
+                self.fair_value(),
+    
+            "margin_of_safety":
+                (mos / 100)
+                if mos is not None
+                else None,
+    
+            "value_score":
+                self.bank_score(),
+    
+            "model":
+                "BANK"
+        }
