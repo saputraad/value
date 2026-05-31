@@ -226,14 +226,7 @@ class RecommendationEngine:
 
     def recommendation_commentary(self):
 
-        growth = analyze_growth(
-            self.data
-        )
-    
-        score = growth.get(
-            "growth_score",
-            0
-        )
+        score = self.overall_score()
     
         if score is None:
             return "Data tidak cukup."
