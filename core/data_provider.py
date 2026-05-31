@@ -2,238 +2,377 @@ import yfinance as yf
 import pandas as pd
 import streamlit as st
 
-# ==========================================
-# HELPERS
-# ==========================================
+
+# ==================================================
+# TICKER FORMATTER
+# ==================================================
 
 def format_ticker(ticker: str) -> str:
-    """
-    Convert BBCA -> BBCA.JK
-    """
+
     ticker = ticker.upper().strip()
+
     if not ticker.endswith(".JK"):
         ticker += ".JK"
+
     return ticker
 
-# ==========================================
-# MAIN DATA LOADER
-# ==========================================
 
-@st.cache_data(ttl=3600)
+# ==================================================
+# LOAD STOCK
+# ==================================================
+
+@st.cache_resource
 def load_stock(ticker: str):
+
     symbol = format_ticker(ticker)
-    
-    # Rekayasa Session agar dianggap sebagai browser Google Chrome asli oleh Yahoo Finance
-    import requests
-    session = requests.Session()
-    session.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-    })
-    
-    stock = yf.Ticker(symbol, session=session)
-    return stock
+
+    return yf.Ticker(symbol)
+
+
+# ==================================================
+# COMPANY INFO
+# ==================================================
 
 @st.cache_data(ttl=3600)
 def get_company_info(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
+
         info = stock.info
-        
-        # JALUR PENYELAMAT: Jika yfinance diblokir dan mengembalikan kosong
-        if not info or len(info) <= 2:
-            ticker_upper = str(ticker).upper()
-            symbol_clean = ticker_upper.split(".")[0]
-            
-            # Tentukan harga acuan berdasarkan kode sahamnya
-            if "BBCA" in symbol_clean:
-                fixed_price = 10050.0
-                fixed_cap = 1238000000000000
-            elif "BBRI" in symbol_clean:
-                fixed_price = 4400.0
-                fixed_cap = 666000000000000
-            elif "BMRI" in symbol_clean:
-                fixed_price = 6150.0
-                fixed_cap = 574000000000000
-            else:
-                fixed_price = 5000.0
-                fixed_cap = 1000000000000
-            
-            return {
-                "symbol": ticker_upper,
-                "longName": "PT Bank Central Asia Tbk" if "BBCA" in symbol_clean else f"Company {symbol_clean} (IDX)",
-                "sector": "Financial Services" if "BBCA" in symbol_clean else "Public Sector",
-                "industry": "Banks" if "BBCA" in symbol_clean else "Diversified",
-                "country": "Indonesia",
-                "trailingEps": 550.0 if "BBCA" in symbol_clean else 300.0,
-                "bookValue": 3200.0 if "BBCA" in symbol_clean else 1500.0,
-                "marketCap": fixed_cap,
-                "currentPrice": fixed_price,      # INI KUNCI AGAR TAKTIK 2 DI GET_CURRENT_PRICE AKTIF
-                "previousClose": fixed_price,     # MENIRU TRIK 3-IN-1 PRO ANDA
-                "returnOnEquity": 0.15
-            }
+
+        if not isinstance(info, dict):
+            return {}
+
         return info
-    except Exception as e:
-        print(f"Error get_company_info: {e}")
+
+    except Exception:
+
         return {}
 
-# ==========================================
-# PRICE HISTORY
-# ==========================================
 
-@st.cache_data(ttl=3600)
-def get_price_history(ticker: str, period: str = "10y"):
+# ==================================================
+# FAST INFO
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_fast_info(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
-        df = stock.history(period=period, auto_adjust=True)
+
+        return dict(stock.fast_info)
+
+    except Exception:
+
+        return {}
+
+
+# ==================================================
+# PRICE HISTORY
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_price_history(
+    ticker: str,
+    period: str = "10y"
+):
+
+    try:
+
+        stock = load_stock(ticker)
+
+        df = stock.history(
+            period=period,
+            auto_adjust=True
+        )
+
+        if df is None:
+            return pd.DataFrame()
+
         return df
-    except Exception as e:
-        print(f"Error get_price_history: {e}")
+
+    except Exception:
+
         return pd.DataFrame()
 
-# ==========================================
+
+# ==================================================
+# CURRENT PRICE
+# ==================================================
+
+@st.cache_data(ttl=300)
+def get_current_price(ticker: str):
+
+    try:
+
+        fast = get_fast_info(ticker)
+
+        if fast:
+
+            last_price = (
+                fast.get("lastPrice")
+                or fast.get("regularMarketPrice")
+            )
+
+            if last_price:
+                return float(last_price)
+
+    except Exception:
+        pass
+
+    try:
+
+        history = get_price_history(
+            ticker,
+            period="1mo"
+        )
+
+        if not history.empty:
+
+            return float(
+                history["Close"].dropna().iloc[-1]
+            )
+
+    except Exception:
+        pass
+
+    return None
+
+
+# ==================================================
+# MARKET CAP
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_market_cap(ticker: str):
+
+    try:
+
+        fast = get_fast_info(ticker)
+
+        market_cap = fast.get("marketCap")
+
+        if market_cap:
+            return float(market_cap)
+
+    except Exception:
+        pass
+
+    try:
+
+        info = get_company_info(ticker)
+
+        market_cap = info.get("marketCap")
+
+        if market_cap:
+            return float(market_cap)
+
+    except Exception:
+        pass
+
+    return None
+
+
+# ==================================================
+# SHARES OUTSTANDING
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_shares_outstanding(ticker: str):
+
+    try:
+
+        fast = get_fast_info(ticker)
+
+        shares = fast.get("shares")
+
+        if shares:
+            return float(shares)
+
+    except Exception:
+        pass
+
+    try:
+
+        info = get_company_info(ticker)
+
+        shares = info.get("sharesOutstanding")
+
+        if shares:
+            return float(shares)
+
+    except Exception:
+        pass
+
+    return None
+
+
+# ==================================================
 # INCOME STATEMENT
-# ==========================================
+# ==================================================
 
 @st.cache_data(ttl=3600)
 def get_income_statement(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
+
         return stock.financials
-    except Exception as e:
-        print(f"Error get_income_statement: {e}")
+
+    except Exception:
+
         return pd.DataFrame()
 
-# ==========================================
+
+# ==================================================
 # BALANCE SHEET
-# ==========================================
+# ==================================================
 
 @st.cache_data(ttl=3600)
 def get_balance_sheet(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
+
         return stock.balance_sheet
-    except Exception as e:
-        print(f"Error get_balance_sheet: {e}")
+
+    except Exception:
+
         return pd.DataFrame()
 
-# ==========================================
-# CASH FLOW
-# ==========================================
+
+# ==================================================
+# CASHFLOW
+# ==================================================
 
 @st.cache_data(ttl=3600)
 def get_cashflow(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
+
         return stock.cashflow
-    except Exception as e:
-        print(f"Error get_cashflow: {e}")
+
+    except Exception:
+
         return pd.DataFrame()
 
-# ==========================================
-# DIVIDEND HISTORY
-# ==========================================
+
+# ==================================================
+# DIVIDENDS
+# ==================================================
 
 @st.cache_data(ttl=3600)
 def get_dividends(ticker: str):
+
     try:
+
         stock = load_stock(ticker)
+
         return stock.dividends
-    except Exception as e:
-        print(f"Error get_dividends: {e}")
+
+    except Exception:
+
         return pd.Series(dtype=float)
 
-# ==========================================
-# SHARES OUTSTANDING & MARKET CAP
-# ==========================================
 
-@st.cache_data(ttl=3600)
-def get_shares_outstanding(ticker: str, info_dict: dict = None):
-    try:
-        info = info_dict if info_dict is not None else get_company_info(ticker)
-        shares = info.get("sharesOutstanding")
-        if shares:
-            return shares
-        return info.get("impliedSharesOutstanding", None)
-    except:
-        return None
+# ==================================================
+# PROFILE
+# ==================================================
 
-@st.cache_data(ttl=3600)
-def get_market_cap(ticker: str, info_dict: dict = None):
-    try:
-        info = info_dict if info_dict is not None else get_company_info(ticker)
-        return info.get("marketCap", None)
-    except:
-        return None
+@st.cache_data(ttl=1800)
+def get_profile(ticker: str):
 
-# ==========================================
-# CURRENT PRICE (Bypass / Stooq API fallback)
-# ==========================================
-
-@st.cache_data(ttl=60)  # Data me-refresh setiap 1 menit
-def get_current_price(ticker: str, info_dict: dict = None):
-    try:
-        # Bersihkan nama ticker (misal: "BBCA.JK" menjadi "BBCA")
-        symbol_clean = str(ticker).upper().split(".")[0]
-        
-        # 🚀 TAKTIK 1: Ambil Langsung dari Stooq API (Bebas Blokir & Live)
-        try:
-            import pandas_datareader.data as web
-            # Format saham Indonesia di Stooq wajib menggunakan ".ID" (HURUF BESAR)
-            df_stooq = web.DataReader(f"{symbol_clean}.ID", 'stooq')
-            if not df_stooq.empty and 'Close' in df_stooq.columns:
-                price_stooq = df_stooq['Close'].iloc[0]
-                if price_stooq and price_stooq > 0:
-                    return float(price_stooq)
-        except Exception as stooq_err:
-            print(f"Stooq API mampet: {stooq_err}")
-
-        # 🔄 TAKTIK 2: Jika Stooq gagal, gunakan trik aman dari aplikasi 3-in-1 Pro Anda
-        if info_dict:
-            price = info_dict.get("currentPrice") or info_dict.get("regularMarketPrice") or info_dict.get("previousClose")
-            if price and price > 0:
-                return float(price)
-
-        # 📉 TAKTIK 3: Fallback terakhir ke Yahoo History 5 hari (mengantisipasi market tutup)
-        stock = load_stock(ticker)
-        df = stock.history(period="5d")
-        if df is not None and not df.empty:
-            close_col = [col for col in df.columns if col.lower() == 'close']
-            if close_col:
-                valid_prices = df[close_col[0]].dropna()
-                if not valid_prices.empty:
-                    return float(valid_prices.iloc[-1])
-
-        # 🦺 TAKTIK 4: Jaring Pengaman Statis Terakhir jika seluruh internet lumpuh
-        if "BBCA" in symbol_clean: return 10250.0
-        elif "BBRI" in symbol_clean: return 4450.0
-        elif "BMRI" in symbol_clean: return 6200.0
-        return 5000.0
-        
-    except Exception as e:
-        print(f"Error fatal pada get_current_price: {e}")
-        return 10250.0
-
-# ==========================================
-# MASTER FUNCTION
-# ==========================================
-
-@st.cache_data(ttl=3600)
-def get_company_data(ticker: str):
     info = get_company_info(ticker)
-    price = get_current_price(ticker, info_dict=info)
-    market_cap = get_market_cap(ticker, info_dict=info)
-    shares = get_shares_outstanding(ticker, info_dict=info)
 
     return {
-        "info": info,
-        "price": price,
-        "market_cap": market_cap,
-        "shares": shares,
-        "income_statement": get_income_statement(ticker),
-        "balance_sheet": get_balance_sheet(ticker),
-        "cashflow": get_cashflow(ticker),
-        "history": get_price_history(ticker),
-        "dividends": get_dividends(ticker)
+
+        "name":
+            info.get("longName"),
+
+        "sector":
+            info.get("sector"),
+
+        "industry":
+            info.get("industry"),
+
+        "country":
+            info.get("country"),
+
+        "website":
+            info.get("website"),
+    }
+
+
+# ==================================================
+# HEALTH CHECK
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_data_health(ticker: str):
+
+    income = get_income_statement(ticker)
+    balance = get_balance_sheet(ticker)
+    cashflow = get_cashflow(ticker)
+
+    return {
+
+        "income_statement":
+            not income.empty,
+
+        "balance_sheet":
+            not balance.empty,
+
+        "cashflow":
+            not cashflow.empty,
+    }
+
+
+# ==================================================
+# MASTER DATA OBJECT
+# ==================================================
+
+@st.cache_data(ttl=1800)
+def get_company_data(ticker: str):
+
+    return {
+
+        "ticker":
+            ticker,
+
+        "profile":
+            get_profile(ticker),
+
+        "price":
+            get_current_price(ticker),
+
+        "market_cap":
+            get_market_cap(ticker),
+
+        "shares_outstanding":
+            get_shares_outstanding(ticker),
+
+        "income_statement":
+            get_income_statement(ticker),
+
+        "balance_sheet":
+            get_balance_sheet(ticker),
+
+        "cashflow":
+            get_cashflow(ticker),
+
+        "history":
+            get_price_history(ticker),
+
+        "dividends":
+            get_dividends(ticker),
+
+        "health":
+            get_data_health(ticker),
     }
