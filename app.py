@@ -4,6 +4,7 @@ from engines.growth import analyze_growth
 from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
 from engines.technical import TechnicalAnalyzer
+from engines.recommendation import RecommendationEngine
 
 # Mengamankan import engine valuation Anda
 try:
@@ -482,4 +483,92 @@ with tabs[6]:
 # ==========================================
 
 with tabs[7]:
-    st.write("Coming soon...")
+
+    st.subheader("Final Recommendation")
+
+    try:
+
+        engine = RecommendationEngine(
+            ticker=ticker,
+            data=data,
+            valuation_results=valuation_results
+        )
+
+        result = engine.summary()
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Overall Score",
+            result["overall_score"]
+        )
+
+        col2.metric(
+            "Recommendation",
+            result["recommendation"]
+        )
+
+        col3.metric(
+            "Risk Score",
+            result["risk_score"]
+        )
+
+        st.markdown("---")
+
+        st.write("### Score Breakdown")
+
+        st.write(
+            f"Valuation Score: {result['valuation_score']}"
+        )
+
+        st.write(
+            f"Growth Score: {result['growth_score']}"
+        )
+
+        st.write(
+            f"Quality Score: {result['quality_score']}"
+        )
+
+        st.write(
+            f"Risk Score: {result['risk_score']}"
+        )
+
+        st.write(
+            f"Technical Score: {result['technical_score']}"
+        )
+
+        st.markdown("---")
+
+        recommendation = result[
+            "recommendation"
+        ]
+
+        if recommendation == "STRONG BUY":
+
+            st.success(
+                "Sangat menarik untuk akumulasi."
+            )
+
+        elif recommendation == "BUY":
+
+            st.success(
+                "Layak dipertimbangkan untuk dibeli."
+            )
+
+        elif recommendation == "HOLD":
+
+            st.info(
+                "Fundamental cukup baik namun belum ideal untuk entry agresif."
+            )
+
+        else:
+
+            st.warning(
+                "Belum menarik berdasarkan kombinasi fundamental dan teknikal."
+            )
+
+    except Exception as e:
+
+        st.error(
+            f"Recommendation Engine Error: {e}"
+        )
