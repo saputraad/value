@@ -114,7 +114,7 @@ with tabs[0]:
             data=data,
             valuation_results=valuation_results
         )
-
+        growth = analyze_growth(data)
         rec = rec_engine.summary()
 
         current_price = data.get("price")
