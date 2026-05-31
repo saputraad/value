@@ -48,7 +48,7 @@ valuation_results = {}
 if ValuationAnalyzer and ticker:
     try:
         # Perbaikan krusial: Mengirimkan string 'ticker', bukan objek dictionary 'data'
-        analyzer = ValuationAnalyzer(ticker)
+        analyzer = ValuationAnalyzer(data)
         # Memanggil method .summary() yang mengembalikan kamus metrik lengkap Anda
         valuation_results = analyzer.summary()
     except Exception as val_err:
