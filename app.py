@@ -43,12 +43,24 @@ current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
 info = data.get("info", {}) if data else {}
 
-# 2. PANGGIL ENGINE VALUASI (Memasukkan parameter string 'ticker' sesuai struktur kelas Anda)
+# 2. PANGGIL ENGINE VALUASI
 valuation_results = {}
-if ValuationAnalyzer and ticker:
+if ValuationAnalyzer and ticker and data:
     try:
-        # Perbaikan krusial: Mengirimkan string 'ticker', bukan objek dictionary 'data'
-        analyzer = ValuationAnalyzer(data)
+        # PERBAIKAN UTAMA:
+        # Jika valuation.py Anda masih versi LAMA (butuh string), gunakan: ValuationAnalyzer(ticker)
+        # Jika valuation.py Anda sudah versi BARU (butuh dict), gunakan: ValuationAnalyzer(data)
+        # Kode di bawah ini otomatis mendeteksi kedua versi tersebut agar AMAN dan TIDAK CRASH:
+        
+        import inspect
+        init_params = inspect.signature(ValuationAnalyzer.__init__).parameters
+        
+        # Deteksi otomatis kebutuhan parameter kelas engine Anda
+        if "data_dict" in init_params or len(init_params) == 2 and list(init_params.keys())[1] != 'ticker':
+            analyzer = ValuationAnalyzer(data)
+        else:
+            analyzer = ValuationAnalyzer(ticker)
+            
         # Memanggil method .summary() yang mengembalikan kamus metrik lengkap Anda
         valuation_results = analyzer.summary()
     except Exception as val_err:
@@ -106,7 +118,7 @@ with tabs[1]:
     st.write("**Business Summary:**", info.get("longBusinessSummary", "Tidak ada ringkasan bisnis."))
 
 # ==========================================
-# 2. VALUATION (Kini Terhubung Sempurna dengan valuation.py Anda!)
+# 2. VALUATION
 # ==========================================
 with tabs[2]:
     st.subheader("Valuation Analysis")
