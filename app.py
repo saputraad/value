@@ -81,24 +81,122 @@ tabs = st.tabs([
 # ==========================================
 # 0. DASHBOARD
 # ==========================================
+
 with tabs[0]:
-    st.subheader("Dashboard")
 
-    col1, col2, col3, col4 = st.columns(4)
+    st.subheader("Investment Dashboard")
 
-    col1.metric(
-        "Current Price",
-        f"Rp {current_price:,.0f}" if current_price else "-"
-    )
+    try:
 
-    col2.metric(
-        "Market Cap",
-        f"{market_cap/1e12:.1f} T" if market_cap else "-"
-    )
+        rec_engine = RecommendationEngine(
+            ticker=ticker,
+            data=data,
+            valuation_results=valuation_results
+        )
 
-    col3.metric("Sector", info.get("sector", "-"))
-    col4.metric("Industry", info.get("industry", "-"))
+        rec = rec_engine.summary()
 
+        current_price = data.get("price")
+
+        fair_value = valuation_results.get(
+            "graham_value"
+        )
+
+        mos = valuation_results.get(
+            "margin_of_safety"
+        )
+
+        recommendation = rec.get(
+            "recommendation"
+        )
+
+        overall_score = rec.get(
+            "overall_score"
+        )
+
+        # ==========================
+        # MAIN METRICS
+        # ==========================
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Current Price",
+            f"Rp {current_price:,.0f}"
+            if current_price else "-"
+        )
+
+        col2.metric(
+            "Fair Value",
+            f"Rp {fair_value:,.0f}"
+            if fair_value else "-"
+        )
+
+        col3.metric(
+            "Margin of Safety",
+            f"{mos*100:.1f}%"
+            if mos is not None else "-"
+        )
+
+        col4.metric(
+            "Recommendation",
+            recommendation
+        )
+
+        st.markdown("---")
+
+        # ==========================
+        # SCORE BREAKDOWN
+        # ==========================
+
+        s1, s2, s3, s4, s5 = st.columns(5)
+
+        s1.metric(
+            "Valuation",
+            rec["valuation_score"]
+        )
+
+        s2.metric(
+            "Growth",
+            rec["growth_score"]
+        )
+
+        s3.metric(
+            "Quality",
+            rec["quality_score"]
+        )
+
+        s4.metric(
+            "Risk",
+            rec["risk_score"]
+        )
+
+        s5.metric(
+            "Technical",
+            rec["technical_score"]
+        )
+
+        st.markdown("---")
+
+        st.write(
+            f"### Overall Score: {overall_score}/100"
+        )
+
+        st.progress(
+            min(
+                max(
+                    overall_score / 100,
+                    0
+                ),
+                1
+            )
+        )
+
+    except Exception as e:
+
+        st.error(
+            f"Dashboard Error: {e}"
+        )
 # ==========================================
 # 1. OVERVIEW
 # ==========================================
