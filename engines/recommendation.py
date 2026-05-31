@@ -128,42 +128,42 @@ class RecommendationEngine:
 
     def overall_score(self):
 
-    val = self.valuation_score()
-    gro = self.growth_score()
-    qua = self.quality_score()
-    ris = self.risk_score()
-    tec = self.technical_score()
-
-    score = 0
-    weight = 0
-
-    if val is not None:
-        score += val * 0.30
-        weight += 0.30
-
-    if qua is not None:
-        score += qua * 0.25
-        weight += 0.25
-
-    if gro is not None:
-        score += gro * 0.20
-        weight += 0.20
-
-    if ris is not None:
-        score += ris * 0.15
-        weight += 0.15
-
-    if tec is not None:
-        score += tec * 0.10
-        weight += 0.10
-
-    if weight == 0:
-        return None
-
-    return round(
-        score / weight,
-        2
-    )
+        val = self.valuation_score()
+        gro = self.growth_score()
+        qua = self.quality_score()
+        ris = self.risk_score()
+        tec = self.technical_score()
+    
+        score = 0
+        weight = 0
+    
+        if val is not None:
+            score += val * 0.30
+            weight += 0.30
+    
+        if qua is not None:
+            score += qua * 0.25
+            weight += 0.25
+    
+        if gro is not None:
+            score += gro * 0.20
+            weight += 0.20
+    
+        if ris is not None:
+            score += ris * 0.15
+            weight += 0.15
+    
+        if tec is not None:
+            score += tec * 0.10
+            weight += 0.10
+    
+        if weight == 0:
+            return None
+    
+        return round(
+            score / weight,
+            2
+        )
 
     # ==========================================
     # RECOMMENDATION
