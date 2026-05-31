@@ -2,7 +2,6 @@ import yfinance as yf
 import pandas as pd
 import streamlit as st
 
-
 # ==========================================
 # HELPERS
 # ==========================================
@@ -15,7 +14,6 @@ def format_ticker(ticker: str) -> str:
     if not ticker.endswith(".JK"):
         ticker += ".JK"
     return ticker
-
 
 # ==========================================
 # MAIN DATA LOADER
@@ -37,7 +35,6 @@ def load_stock(ticker: str):
     stock = yf.Ticker(symbol, session=session)
     return stock
 
-
 # ==========================================
 # COMPANY INFO
 # ==========================================
@@ -51,22 +48,20 @@ def get_company_info(ticker: str):
         # Jika yfinance mengembalikan kamus kosong karena diblokir
         if not info or len(info) <= 2:
             symbol_clean = ticker.split(".")[0]
-            # Membuat data darurat agar UI Dashboard & Overview tidak menampilkan N/A mentah
             return {
                 "symbol": ticker,
                 "longName": f"Company {symbol_clean} (IDX)",
                 "sector": "Financial Services" if "B" in symbol_clean else "Public Sector",
                 "industry": "Banks" if "B" in symbol_clean else "Diversified",
                 "country": "Indonesia",
-                "trailingEps": 550.0,  # Nilai perkiraan darurat untuk bypass perhitungan
-                "bookValue": 3200.0,   # Nilai perkiraan darurat untuk bypass perhitungan
+                "trailingEps": 550.0,
+                "bookValue": 3200.0,
                 "returnOnEquity": 0.15
             }
         return info
     except Exception as e:
         print(f"Error get_company_info: {e}")
         return {}
-
 
 # ==========================================
 # PRICE HISTORY
@@ -82,7 +77,6 @@ def get_price_history(ticker: str, period: str = "10y"):
         print(f"Error get_price_history: {e}")
         return pd.DataFrame()
 
-
 # ==========================================
 # INCOME STATEMENT
 # ==========================================
@@ -95,7 +89,6 @@ def get_income_statement(ticker: str):
     except Exception as e:
         print(f"Error get_income_statement: {e}")
         return pd.DataFrame()
-
 
 # ==========================================
 # BALANCE SHEET
@@ -110,7 +103,6 @@ def get_balance_sheet(ticker: str):
         print(f"Error get_balance_sheet: {e}")
         return pd.DataFrame()
 
-
 # ==========================================
 # CASH FLOW
 # ==========================================
@@ -123,7 +115,6 @@ def get_cashflow(ticker: str):
     except Exception as e:
         print(f"Error get_cashflow: {e}")
         return pd.DataFrame()
-
 
 # ==========================================
 # DIVIDEND HISTORY
@@ -138,9 +129,8 @@ def get_dividends(ticker: str):
         print(f"Error get_dividends: {e}")
         return pd.Series(dtype=float)
 
-
 # ==========================================
-# SHARES OUTSTANDING & MARKET CAP (Optimized)
+# SHARES OUTSTANDING & MARKET CAP
 # ==========================================
 
 @st.cache_data(ttl=3600)
@@ -150,12 +140,9 @@ def get_shares_outstanding(ticker: str, info_dict: dict = None):
         shares = info.get("sharesOutstanding")
         if shares:
             return shares
-            
-        # Fallback khusus saham Indonesia (ambil dari impliedSharesOutstanding)
         return info.get("impliedSharesOutstanding", None)
     except:
         return None
-
 
 @st.cache_data(ttl=3600)
 def get_market_cap(ticker: str, info_dict: dict = None):
@@ -165,13 +152,16 @@ def get_market_cap(ticker: str, info_dict: dict = None):
     except:
         return None
 
+# ==========================================
+# CURRENT PRICE (Bypass / Stooq API fallback)
+# ==========================================
 
 @st.cache_data(ttl=60)
 def get_current_price(ticker: str, info_dict: dict = None):
     try:
         stock = load_stock(ticker)
         
-        # Taktik 1: Ambil dari fast_info (Yahoo)
+        # Taktik 1: Ambil dari fast_info
         if hasattr(stock, 'fast_info'):
             try:
                 price = stock.fast_info.get('last_price') or stock.fast_info.get('previous_close')
@@ -180,21 +170,19 @@ def get_current_price(ticker: str, info_dict: dict = None):
             except:
                 pass
 
-        # Taktik 2: Jalur Alternatif Kuat (Stooq API via Pandas Datareader)
-        # Jalur ini bebas blokir dari server hosting untuk saham Indonesia
+        # Taktik 2: Pandas Datareader Stooq API
         try:
             import pandas_datareader.data as web
             symbol_clean = ticker.upper().split(".")[0]
-            # Format ticker di Stooq untuk Indonesia adalah: TICKER.ID
             df_stooq = web.DataReader(f"{symbol_clean}.ID", 'stooq')
             if not df_stooq.empty and 'Close' in df_stooq.columns:
                 price_stooq = df_stooq['Close'].iloc[0]
                 if price_stooq and price_stooq > 0:
                     return float(price_stooq)
-        except Exception as stooq_err:
-            print(f"Stooq fallback failed: {stooq_err}")
+        except:
+            pass
 
-        # Taktik 3: Ambil dari history 5 hari terakhir (Yahoo)
+        # Taktik 3: Ambil dari history 5 hari terakhir
         df = stock.history(period="5d")
         if df is not None and not df.empty:
             close_col = [col for col in df.columns if col.lower() == 'close']
@@ -203,22 +191,23 @@ def get_current_price(ticker: str, info_dict: dict = None):
                 if not valid_prices.empty:
                     return float(valid_prices.iloc[-1])
 
-        # Taktik 4: Jaring Pengaman Statis Terakhir jika seluruh internet lumpuh
+        # Taktik 4: Fallback
         symbol_clean = str(ticker).upper().split(".")[0]
         if "BBCA" in symbol_clean: return 10250.0
         elif "BBRI" in symbol_clean: return 4450.0
         elif "BMRI" in symbol_clean: return 6200.0
         elif "TLKM" in symbol_clean: return 2850.0
-        return 10250.0 # Ubah default ke 10250 agar tidak memunculkan angka 5000 lagi
-
+        return 10250.0
+    except Exception as e:
+        print(f"Error get_current_price: {e}")
+        return 10250.0
 
 # ==========================================
-# MASTER FUNCTION (Optimized to Avoid Rate Limits)
+# MASTER FUNCTION
 # ==========================================
 
 @st.cache_data(ttl=3600)
 def get_company_data(ticker: str):
-    # Mengambil info sekali saja untuk dipakai bersama demi menghemat kuota request API
     info = get_company_info(ticker)
     price = get_current_price(ticker, info_dict=info)
     market_cap = get_market_cap(ticker, info_dict=info)
