@@ -1,5 +1,6 @@
 import streamlit as st
 from core.data_provider import get_company_data
+from engines.growth import analyze_growth
 
 # Mengamankan import engine valuation Anda
 try:
@@ -162,7 +163,110 @@ with tabs[2]:
             st.write(f"- Current P/B Ratio: **{pbv:.2f}x**" if pbv else "- Current P/B Ratio: N/A")
             st.write(f"- Earnings Yield: **{e_yield_pct:.2f}%**" if e_yield_pct else "- Earnings Yield: N/A")
 
-# Tab sisanya (Placeholder)
-for i in range(3, 8):
-    with tabs[i]:
-        st.write("Coming soon...")
+# ==========================================
+# 3. GROWTH
+# ==========================================
+
+with tabs[3]:
+
+    st.subheader("Growth Analysis")
+
+    try:
+
+        growth = analyze_growth(data)
+
+        revenue = growth["revenue"]
+        earnings = growth["earnings"]
+        equity = growth["equity"]
+
+        score = growth["growth_score"]
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        revenue_pct = (
+            revenue.get("revenue_cagr", 0) * 100
+        )
+
+        earnings_pct = (
+            earnings.get("earnings_cagr", 0) * 100
+        )
+
+        equity_pct = (
+            equity.get("equity_cagr", 0) * 100
+        )
+
+        col1.metric(
+            "Revenue CAGR",
+            f"{revenue_pct:.2f}%"
+        )
+
+        col2.metric(
+            "Net Income CAGR",
+            f"{earnings_pct:.2f}%"
+        )
+
+        col3.metric(
+            "Equity CAGR",
+            f"{equity_pct:.2f}%"
+        )
+
+        col4.metric(
+            "Growth Score",
+            f"{score}/100"
+        )
+
+        st.markdown("---")
+
+        st.write("### Interpretasi")
+
+        if score >= 80:
+
+            st.success(
+                "Perusahaan menunjukkan pertumbuhan sangat kuat."
+            )
+
+        elif score >= 60:
+
+            st.info(
+                "Pertumbuhan cukup baik."
+            )
+
+        else:
+
+            st.warning(
+                "Pertumbuhan masih kurang konsisten."
+            )
+
+    except Exception as e:
+
+        st.error(
+            f"Growth Engine Error: {e}"
+        )
+
+# ==========================================
+# 4. QUALITY
+# ==========================================
+
+with tabs[4]:
+    st.write("Coming soon...")
+
+# ==========================================
+# 5. RISK
+# ==========================================
+
+with tabs[5]:
+    st.write("Coming soon...")
+
+# ==========================================
+# 6. TECHNICAL
+# ==========================================
+
+with tabs[6]:
+    st.write("Coming soon...")
+
+# ==========================================
+# 7. RECOMMENDATION
+# ==========================================
+
+with tabs[7]:
+    st.write("Coming soon...")
