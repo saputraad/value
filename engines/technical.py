@@ -244,23 +244,41 @@ class TechnicalAnalyzer:
             "price":
                 float(row["Close"]),
 
-            "ma20":
-                float(row["MA20"]),
+            "ma20": (
+                float(row["MA20"])
+                if pd.notna(row["MA20"])
+                else None
+            ),
 
-            "ma50":
-                float(row["MA50"]),
+            "ma50": (
+                float(row["MA50"])
+                if pd.notna(row["MA50"])
+                else None
+            ),
 
-            "ma200":
-                float(row["MA200"]),
+            "ma200": (
+                float(row["MA200"])
+                if pd.notna(row["MA200"])
+                else None
+            ),
 
-            "rsi":
-                float(row["RSI"]),
+            "rsi": (
+                float(row["RSI"])
+                if pd.notna(row["RSI"])
+                else None
+            ),
 
-            "macd":
-                float(row["MACD"]),
+            "macd": (
+                float(row["MACD"])
+                if pd.notna(row["MACD"])
+                else None
+            ),
 
-            "macd_signal":
-                float(row["MACD_SIGNAL"]),
+            "macd_signal": (
+                float(row["MACD_SIGNAL"])
+                if pd.notna(row["MACD_SIGNAL"])
+                else None
+            ),
 
             "trend":
                 self.trend_signal(),
