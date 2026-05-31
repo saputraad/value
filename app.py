@@ -373,14 +373,6 @@ with tabs[3]:
 
         st.markdown("---")
 
-        st.write("### Interpretasi Detail")
-
-        for item in growth.get(
-            "commentary",
-            []
-        ):
-            st.write(item)
-
     except Exception as e:
 
         st.error(
