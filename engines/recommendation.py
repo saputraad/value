@@ -128,32 +128,42 @@ class RecommendationEngine:
 
     def overall_score(self):
 
-        scores = []
+    val = self.valuation_score()
+    gro = self.growth_score()
+    qua = self.quality_score()
+    ris = self.risk_score()
+    tec = self.technical_score()
 
-        val = self.valuation_score()
-        gro = self.growth_score()
-        qua = self.quality_score()
-        ris = self.risk_score()
-        tec = self.technical_score()
+    score = 0
+    weight = 0
 
-        for s in [
-            val,
-            gro,
-            qua,
-            ris,
-            tec
-        ]:
+    if val is not None:
+        score += val * 0.30
+        weight += 0.30
 
-            if s is not None:
-                scores.append(s)
+    if qua is not None:
+        score += qua * 0.25
+        weight += 0.25
 
-        if len(scores) == 0:
-            return None
+    if gro is not None:
+        score += gro * 0.20
+        weight += 0.20
 
-        return round(
-            np.mean(scores),
-            2
-        )
+    if ris is not None:
+        score += ris * 0.15
+        weight += 0.15
+
+    if tec is not None:
+        score += tec * 0.10
+        weight += 0.10
+
+    if weight == 0:
+        return None
+
+    return round(
+        score / weight,
+        2
+    )
 
     # ==========================================
     # RECOMMENDATION
@@ -168,15 +178,60 @@ class RecommendationEngine:
 
         if score >= 85:
             return "STRONG BUY"
-
-        elif score >= 70:
+        
+        elif score >= 75:
             return "BUY"
-
-        elif score >= 55:
+        
+        elif score >= 60:
             return "HOLD"
-
+        
+        elif score >= 45:
+            return "WATCHLIST"
+        
         else:
             return "AVOID"
+
+        def recommendation_commentary(self):
+
+    score = self.overall_score()
+
+    if score is None:
+        return "Data tidak cukup."
+
+    if score >= 85:
+
+        return (
+            "Fundamental kuat, valuasi menarik, "
+            "dan risiko relatif rendah."
+        )
+
+    elif score >= 75:
+
+        return (
+            "Kualitas bisnis baik dengan "
+            "potensi investasi menarik."
+        )
+
+    elif score >= 60:
+
+        return (
+            "Fundamental cukup baik namun "
+            "belum ideal untuk entry agresif."
+        )
+
+    elif score >= 45:
+
+        return (
+            "Layak dipantau tetapi belum "
+            "memberikan margin of safety yang kuat."
+        )
+
+    else:
+
+        return (
+            "Risiko dan valuasi belum "
+            "mendukung keputusan investasi."
+        )
 
     # ==========================================
     # SUMMARY
@@ -205,5 +260,7 @@ class RecommendationEngine:
                 self.overall_score(),
 
             "recommendation":
-                self.recommendation()
+                self.recommendation(),
+            "commentary":
+                self.recommendation_commentary()
         }
