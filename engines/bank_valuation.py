@@ -239,11 +239,13 @@ class BankValuationAnalyzer:
             2
         )
 
-    # ====================================
-    # SUMMARY
-    # ====================================
+# ====================================
+# SUMMARY
+# ====================================
 
-    def summary(self):
+def summary(self):
+
+    mos = self.margin_of_safety()
 
     return {
 
@@ -263,8 +265,8 @@ class BankValuationAnalyzer:
             self.fair_value(),
 
         "margin_of_safety":
-            self.margin_of_safety() / 100
-            if self.margin_of_safety() is not None
+            (mos / 100)
+            if mos is not None
             else None,
 
         "value_score":
