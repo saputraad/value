@@ -1,6 +1,7 @@
 import streamlit as st
 from core.data_provider import get_company_data
 from engines.growth import analyze_growth
+from engines.quality import analyze_quality
 
 # Mengamankan import engine valuation Anda
 try:
@@ -248,7 +249,71 @@ with tabs[3]:
 # ==========================================
 
 with tabs[4]:
-    st.write("Coming soon...")
+
+    st.subheader("Quality Analysis")
+
+    try:
+
+        quality = analyze_quality(data)
+
+        roe = quality["roe"]
+        roa = quality["roa"]
+        debt = quality["debt_to_equity"]
+        score = quality["quality_score"]
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "ROE",
+            f"{roe*100:.2f}%"
+            if roe is not None
+            else "-"
+        )
+
+        col2.metric(
+            "ROA",
+            f"{roa*100:.2f}%"
+            if roa is not None
+            else "-"
+        )
+
+        col3.metric(
+            "Debt / Equity",
+            f"{debt:.2f}x"
+            if debt is not None
+            else "-"
+        )
+
+        col4.metric(
+            "Quality Score",
+            f"{score}/100"
+        )
+
+        st.markdown("---")
+
+        if score >= 80:
+
+            st.success(
+                "Perusahaan berkualitas tinggi."
+            )
+
+        elif score >= 60:
+
+            st.info(
+                "Kualitas perusahaan cukup baik."
+            )
+
+        else:
+
+            st.warning(
+                "Kualitas perusahaan masih perlu diperhatikan."
+            )
+
+    except Exception as e:
+
+        st.error(
+            f"Quality Engine Error: {e}"
+        )
 
 # ==========================================
 # 5. RISK
