@@ -345,7 +345,7 @@ with tabs[3]:
             f"{score}/100"
         )
 
-        st.markdown("---")
+                st.markdown("---")
 
         st.write("### Interpretasi")
 
@@ -367,11 +367,27 @@ with tabs[3]:
                 "Pertumbuhan masih kurang konsisten."
             )
 
+        # ==========================================
+        # COMMENTARY
+        # ==========================================
+
+        st.markdown("---")
+
+        st.write("### Interpretasi Detail")
+
+        for item in growth.get(
+            "commentary",
+            []
+        ):
+            st.write(item)
+
     except Exception as e:
 
         st.error(
             f"Growth Engine Error: {e}"
         )
+
+
 
 # ==========================================
 # 4. QUALITY
