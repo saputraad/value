@@ -261,7 +261,7 @@ class BankValuationAnalyzer:
             "justified_pbv":
                 self.justified_pbv(),
     
-            "fair_value":
+            "graham_value":
                 self.fair_value(),
     
             "margin_of_safety":
