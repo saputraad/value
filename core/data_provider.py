@@ -134,7 +134,12 @@ def get_dividends(ticker: str):
 def get_shares_outstanding(ticker: str, info_dict: dict = None):
     try:
         info = info_dict if info_dict is not None else get_company_info(ticker)
-        return info.get("sharesOutstanding", None)
+        shares = info.get("sharesOutstanding")
+        if shares:
+            return shares
+            
+        # Fallback khusus saham Indonesia (ambil dari impliedSharesOutstanding)
+        return info.get("impliedSharesOutstanding", None)
     except:
         return None
 
