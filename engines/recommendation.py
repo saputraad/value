@@ -226,49 +226,49 @@ class RecommendationEngine:
 
     def recommendation_commentary(self):
 
-       growth = analyze_growth(
-        self.data
-        )
-    
-        score = growth.get(
-            "growth_score",
-            0
-        )
-    
-        if score is None:
-            return "Data tidak cukup."
-    
-        if score >= 85:
-    
-            return (
-                "Fundamental kuat, valuasi menarik, "
-                "dan risiko relatif rendah."
+           growth = analyze_growth(
+            self.data
             )
-    
-        elif score >= 75:
-    
-            return (
-                "Kualitas bisnis baik dengan "
-                "potensi investasi menarik."
+        
+            score = growth.get(
+                "growth_score",
+                0
             )
-    
-        elif score >= 60:
-    
-            return (
-                "Fundamental cukup baik namun "
-                "belum ideal untuk entry agresif."
-            )
-    
-        elif score >= 45:
-    
-            return (
-                "Layak dipantau tetapi belum "
-                "memberikan margin of safety yang kuat."
-            )
-    
-        else:
-    
-            return (
-                "Risiko dan valuasi belum "
-                "mendukung keputusan investasi."
-            )
+        
+            if score is None:
+                return "Data tidak cukup."
+        
+            if score >= 85:
+        
+                return (
+                    "Fundamental kuat, valuasi menarik, "
+                    "dan risiko relatif rendah."
+                )
+        
+            elif score >= 75:
+        
+                return (
+                    "Kualitas bisnis baik dengan "
+                    "potensi investasi menarik."
+                )
+        
+            elif score >= 60:
+        
+                return (
+                    "Fundamental cukup baik namun "
+                    "belum ideal untuk entry agresif."
+                )
+        
+            elif score >= 45:
+        
+                return (
+                    "Layak dipantau tetapi belum "
+                    "memberikan margin of safety yang kuat."
+                )
+        
+            else:
+        
+                return (
+                    "Risiko dan valuasi belum "
+                    "mendukung keputusan investasi."
+                )
