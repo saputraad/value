@@ -43,25 +43,14 @@ current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
 info = data.get("info", {}) if data else {}
 
-# 2. PANGGIL ENGINE VALUASI
+# ==========================================
+# 2. PANGGIL ENGINE VALUASI (DIKUNCI KE DATA DICT)
+# ==========================================
 valuation_results = {}
-if ValuationAnalyzer and ticker and data:
+if ValuationAnalyzer and data:
     try:
-        # PERBAIKAN UTAMA:
-        # Jika valuation.py Anda masih versi LAMA (butuh string), gunakan: ValuationAnalyzer(ticker)
-        # Jika valuation.py Anda sudah versi BARU (butuh dict), gunakan: ValuationAnalyzer(data)
-        # Kode di bawah ini otomatis mendeteksi kedua versi tersebut agar AMAN dan TIDAK CRASH:
-        
-        import inspect
-        init_params = inspect.signature(ValuationAnalyzer.__init__).parameters
-        
-        # Deteksi otomatis kebutuhan parameter kelas engine Anda
-        if "data_dict" in init_params or len(init_params) == 2 and list(init_params.keys())[1] != 'ticker':
-            analyzer = ValuationAnalyzer(data)
-        else:
-            analyzer = ValuationAnalyzer(ticker)
-            
-        # Memanggil method .summary() yang mengembalikan kamus metrik lengkap Anda
+        # Langsung panggil menggunakan objek 'data' tanpa fungsi inspect
+        analyzer = ValuationAnalyzer(data)
         valuation_results = analyzer.summary()
     except Exception as val_err:
         st.sidebar.error(f"Engine Valuation bermasalah: {val_err}")
