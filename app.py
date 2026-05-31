@@ -5,6 +5,8 @@ from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
 from engines.technical import TechnicalAnalyzer
 from engines.recommendation import RecommendationEngine
+from engines.sector_classifier import SectorClassifier
+from engines.bank_valuation import BankValuationAnalyzer
 
 # Mengamankan import engine valuation Anda
 try:
@@ -53,20 +55,38 @@ profile = data.get("profile", {}) if data else {}
 # 2. PANGGIL ENGINE VALUASI
 # ==========================================
 valuation_results = {}
-if ValuationAnalyzer and data:
-    try:
-        analyzer = ValuationAnalyzer(data)
-        valuation_results = analyzer.summary()
-    except Exception as val_err:
-        st.sidebar.error(f"Engine Valuation bermasalah: {val_err}")
 
-st.sidebar.markdown("---")
-st.sidebar.info(
-    """
-    V1 Foundation
-    Data Source: Yahoo Finance
-    """
-)
+try:
+
+    sector = SectorClassifier(
+        ticker
+    ).classify()
+
+    if sector == "BANK":
+
+        analyzer = BankValuationAnalyzer(
+            ticker
+        )
+
+        valuation_results = (
+            analyzer.summary()
+        )
+
+    else:
+
+        analyzer = ValuationAnalyzer(
+            data
+        )
+
+        valuation_results = (
+            analyzer.summary()
+        )
+
+except Exception as e:
+
+    st.sidebar.error(
+        f"Valuation Engine Error: {e}"
+    )
 
 # ==========================================
 # HEADER & TABS
