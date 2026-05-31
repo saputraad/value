@@ -195,11 +195,8 @@ def analyze_growth(data):
     results = {
 
     "revenue": revenue,
-
     "earnings": earnings,
-
     "equity": equity,
-
     "growth_score": score
 }
 
