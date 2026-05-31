@@ -2,6 +2,7 @@ import streamlit as st
 from core.data_provider import get_company_data
 from engines.growth import analyze_growth
 from engines.quality import analyze_quality
+from engines.risk import RiskAnalyzer
 
 # Mengamankan import engine valuation Anda
 try:
@@ -320,7 +321,80 @@ with tabs[4]:
 # ==========================================
 
 with tabs[5]:
-    st.write("Coming soon...")
+
+    st.subheader("Risk Analysis")
+
+    try:
+
+        risk = RiskAnalyzer(ticker)
+
+        result = risk.summary()
+
+        piotroski = result.get(
+            "piotroski_score"
+        )
+
+        altman = result.get(
+            "altman_z"
+        )
+
+        beneish = result.get(
+            "beneish_m"
+        )
+
+        score = result.get(
+            "risk_score"
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Piotroski",
+            piotroski if piotroski is not None else "-"
+        )
+
+        col2.metric(
+            "Altman Z",
+            altman if altman is not None else "-"
+        )
+
+        col3.metric(
+            "Beneish M",
+            beneish if beneish is not None else "-"
+        )
+
+        col4.metric(
+            "Risk Score",
+            score if score is not None else "-"
+        )
+
+        st.markdown("---")
+
+        if score is not None:
+
+            if score >= 80:
+
+                st.success(
+                    "Financial risk rendah."
+                )
+
+            elif score >= 60:
+
+                st.info(
+                    "Financial risk moderat."
+                )
+
+            else:
+
+                st.warning(
+                    "Financial risk cukup tinggi."
+                )
+
+    except Exception as e:
+
+        st.error(
+            f"Risk Engine Error: {e}"
+        )
 
 # ==========================================
 # 6. TECHNICAL
