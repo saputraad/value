@@ -1,184 +1,204 @@
 import pandas as pd
 import numpy as np
-from core.utils import get_metric
-
-from core.data_provider import (
-    get_income_statement,
-    get_balance_sheet,
-)
 
 
-class GrowthAnalyzer:
+# ==========================================
+# CAGR HELPER
+# ==========================================
 
-    def __init__(self, ticker):
+def calculate_cagr(start_value, end_value, years):
 
-        self.ticker = ticker
+    try:
 
-        self.income = get_income_statement(ticker)
+        if (
+            start_value is None
+            or end_value is None
+            or start_value <= 0
+            or end_value <= 0
+            or years <= 0
+        ):
+            return None
 
-        self.balance = get_balance_sheet(ticker)
+        return (
+            (end_value / start_value)
+            ** (1 / years)
+            - 1
+        )
 
-    # ==========================================
-    # CAGR
-    # ==========================================
+    except:
+        return None
 
-    @staticmethod
-    def calculate_cagr(
-        start_value,
-        end_value,
+
+# ==========================================
+# GET ROW SAFE
+# ==========================================
+
+def get_row(df, possible_names):
+
+    if df.empty:
+        return None
+
+    for row in possible_names:
+
+        if row in df.index:
+
+            return df.loc[row]
+
+    return None
+
+
+# ==========================================
+# REVENUE CAGR
+# ==========================================
+
+def revenue_cagr(income_statement):
+
+    revenue = get_row(
+        income_statement,
+        [
+            "Total Revenue",
+            "Revenue"
+        ]
+    )
+
+    if revenue is None:
+        return {}
+
+    values = revenue.dropna().values
+
+    if len(values) < 2:
+        return {}
+
+    newest = float(values[0])
+    oldest = float(values[-1])
+
+    years = len(values) - 1
+
+    cagr = calculate_cagr(
+        oldest,
+        newest,
         years
-    ):
+    )
 
-        try:
+    return {
+        "revenue_cagr": cagr,
+        "years": years
+    }
 
-            if start_value <= 0:
-                return None
 
-            if end_value <= 0:
-                return None
+# ==========================================
+# NET INCOME CAGR
+# ==========================================
 
-            return (
-                (
-                    end_value / start_value
-                ) ** (1 / years) - 1
-            ) * 100
+def earnings_cagr(income_statement):
 
-        except:
-            return None
+    earnings = get_row(
+        income_statement,
+        [
+            "Net Income",
+            "NetIncome"
+        ]
+    )
 
-    # ==========================================
-    # REVENUE SERIES
-    # ==========================================
+    if earnings is None:
+        return {}
 
-    def get_revenue_series(self):
+    values = earnings.dropna().values
 
-        try:
+    if len(values) < 2:
+        return {}
 
-            revenue = get_metric(
-    self.income,
-    "revenue"
-)
+    newest = float(values[0])
+    oldest = float(values[-1])
 
-            revenue = revenue.sort_index()
+    years = len(values) - 1
 
-            return revenue
+    cagr = calculate_cagr(
+        oldest,
+        newest,
+        years
+    )
 
-        except:
+    return {
+        "earnings_cagr": cagr,
+        "years": years
+    }
 
-            return pd.Series(dtype=float)
 
-    # ==========================================
-    # REVENUE CAGR
-    # ==========================================
+# ==========================================
+# EQUITY CAGR
+# ==========================================
 
-    def revenue_cagr(self, years=5):
+def equity_cagr(balance_sheet):
 
-        revenue = self.get_revenue_series()
+    equity = get_row(
+        balance_sheet,
+        [
+            "Stockholders Equity",
+            "Total Equity Gross Minority Interest",
+            "Common Stock Equity"
+        ]
+    )
 
-        if len(revenue) < years:
-            return None
+    if equity is None:
+        return {}
 
-        start = revenue.iloc[-years]
-        end = revenue.iloc[-1]
+    values = equity.dropna().values
 
-        return self.calculate_cagr(
-            start,
-            end,
-            years - 1
-        )
+    if len(values) < 2:
+        return {}
 
-    # ==========================================
-    # BOOK VALUE SERIES
-    # ==========================================
+    newest = float(values[0])
+    oldest = float(values[-1])
 
-    def get_book_value_series(self):
+    years = len(values) - 1
 
-        try:
+    cagr = calculate_cagr(
+        oldest,
+        newest,
+        years
+    )
 
-            equity = self.balance.loc[
-                "Stockholders Equity"
-            ]
+    return {
+        "equity_cagr": cagr,
+        "years": years
+    }
 
-            equity = equity.sort_index()
 
-            return equity
+# ==========================================
+# MASTER GROWTH ENGINE
+# ==========================================
 
-        except:
+def analyze_growth(data):
 
-            return pd.Series(dtype=float)
+    income = data["income_statement"]
 
-    # ==========================================
-    # BV CAGR
-    # ==========================================
+    balance = data["balance_sheet"]
 
-    def bv_cagr(self, years=5):
+    revenue = revenue_cagr(income)
 
-        bv = self.get_book_value_series()
+    earnings = earnings_cagr(income)
 
-        if len(bv) < years:
-            return None
+    equity = equity_cagr(balance)
 
-        start = bv.iloc[-years]
-        end = bv.iloc[-1]
+    score = 0
 
-        return self.calculate_cagr(
-            start,
-            end,
-            years - 1
-        )
+    if revenue.get("revenue_cagr", 0) > 0.10:
+        score += 30
 
-    # ==========================================
-    # GROWTH SCORE
-    # ==========================================
+    if earnings.get("earnings_cagr", 0) > 0.10:
+        score += 40
 
-    def growth_score(self):
+    if equity.get("equity_cagr", 0) > 0.10:
+        score += 30
 
-        scores = []
+    return {
 
-        rev5 = self.revenue_cagr(5)
+        "revenue": revenue,
 
-        if rev5 is not None:
+        "earnings": earnings,
 
-            if rev5 >= 20:
-                scores.append(100)
+        "equity": equity,
 
-            elif rev5 >= 15:
-                scores.append(90)
-
-            elif rev5 >= 10:
-                scores.append(80)
-
-            elif rev5 >= 5:
-                scores.append(60)
-
-            else:
-                scores.append(30)
-
-        if len(scores) == 0:
-            return None
-
-        return round(np.mean(scores), 2)
-
-    # ==========================================
-    # SUMMARY
-    # ==========================================
-
-    def summary(self):
-
-        return {
-
-            "revenue_cagr_5y":
-                self.revenue_cagr(5),
-
-            "revenue_cagr_10y":
-                self.revenue_cagr(10),
-
-            "book_value_cagr_5y":
-                self.bv_cagr(5),
-
-            "book_value_cagr_10y":
-                self.bv_cagr(10),
-
-            "growth_score":
-                self.growth_score()
-        }
+        "growth_score": score
+    }
