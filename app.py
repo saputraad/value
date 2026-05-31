@@ -201,12 +201,14 @@ with tabs[0]:
 # 1. OVERVIEW
 # ==========================================
 with tabs[1]:
-    st.subheader("Company Overview")
-    st.write("**Company Name:**", info.get("longName", "-"))
-    st.write("**Sector:**", info.get("sector", "-"))
-    st.write("**Industry:**", info.get("industry", "-"))
-    st.write("**Country:**", info.get("country", "-"))
-    st.write("**Business Summary:**", info.get("longBusinessSummary", "Tidak ada ringkasan bisnis."))
+
+    st.subheader("DEBUG INFO")
+
+    st.write(info)
+
+    st.write("TYPE:", type(info))
+
+    st.write("KEY COUNT:", len(info))
 
 # ==========================================
 # 2. VALUATION
