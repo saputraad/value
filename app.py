@@ -3,6 +3,7 @@ from core.data_provider import get_company_data
 from engines.growth import analyze_growth
 from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
+from engines.technical import TechnicalAnalyzer
 
 # Mengamankan import engine valuation Anda
 try:
@@ -401,8 +402,81 @@ with tabs[5]:
 # ==========================================
 
 with tabs[6]:
-    st.write("Coming soon...")
 
+    st.subheader("Technical Analysis")
+
+    try:
+
+        tech = TechnicalAnalyzer(ticker)
+
+        result = tech.summary()
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "MA20",
+            f"{result['ma20']:,.0f}"
+        )
+
+        col2.metric(
+            "MA50",
+            f"{result['ma50']:,.0f}"
+        )
+
+        col3.metric(
+            "MA200",
+            f"{result['ma200']:,.0f}"
+        )
+
+        col4.metric(
+            "RSI",
+            f"{result['rsi']:.2f}"
+        )
+
+        st.markdown("---")
+
+        c1, c2, c3 = st.columns(3)
+
+        c1.metric(
+            "Trend",
+            result["trend"]
+        )
+
+        c2.metric(
+            "Golden Cross",
+            "YES" if result["golden_cross"] else "NO"
+        )
+
+        c3.metric(
+            "Entry Score",
+            result["entry_score"]
+        )
+
+        st.markdown("---")
+
+        if result["entry_score"] >= 80:
+
+            st.success(
+                "Timing entry sangat menarik."
+            )
+
+        elif result["entry_score"] >= 60:
+
+            st.info(
+                "Timing entry cukup baik."
+            )
+
+        else:
+
+            st.warning(
+                "Belum ideal untuk entry."
+            )
+
+    except Exception as e:
+
+        st.error(
+            f"Technical Error: {e}"
+        )
 # ==========================================
 # 7. RECOMMENDATION
 # ==========================================
