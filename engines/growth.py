@@ -164,7 +164,65 @@ def equity_cagr(balance_sheet):
         "years": years
     }
 
+# ==========================================
+# GROWTH COMMENTARY
+# ==========================================
 
+def growth_commentary(results):
+
+    comments = []
+
+    rev = (
+        results["revenue"]
+        .get("revenue_cagr")
+    )
+
+    earn = (
+        results["earnings"]
+        .get("earnings_cagr")
+    )
+
+    eq = (
+        results["equity"]
+        .get("equity_cagr")
+    )
+
+    if rev is not None:
+
+        comments.append(
+            f"Revenue tumbuh {rev*100:.2f}% per tahun."
+        )
+
+    if earn is not None:
+
+        comments.append(
+            f"Laba bersih tumbuh {earn*100:.2f}% per tahun."
+        )
+
+    if eq is not None:
+
+        comments.append(
+            f"Ekuitas tumbuh {eq*100:.2f}% per tahun."
+        )
+
+    if (
+        rev is not None
+        and earn is not None
+    ):
+
+        if earn > rev:
+
+            comments.append(
+                "Laba tumbuh lebih cepat daripada pendapatan."
+            )
+
+        elif earn < rev:
+
+            comments.append(
+                "Pertumbuhan laba tertinggal dari pendapatan."
+            )
+
+    return comments
 # ==========================================
 # MASTER GROWTH ENGINE
 # ==========================================
@@ -183,14 +241,48 @@ def analyze_growth(data):
 
     score = 0
 
-    if revenue.get("revenue_cagr", 0) > 0.10:
+rev = revenue.get("revenue_cagr")
+ear = earnings.get("earnings_cagr")
+equ = equity.get("equity_cagr")
+
+# Revenue
+
+if rev is not None:
+
+    if rev >= 0.15:
         score += 30
 
-    if earnings.get("earnings_cagr", 0) > 0.10:
+    elif rev >= 0.10:
+        score += 25
+
+    elif rev >= 0.05:
+        score += 15
+
+# Earnings
+
+if ear is not None:
+
+    if ear >= 0.15:
         score += 40
 
-    if equity.get("equity_cagr", 0) > 0.10:
+    elif ear >= 0.10:
+        score += 35
+
+    elif ear >= 0.05:
+        score += 20
+
+# Equity
+
+if equ is not None:
+
+    if equ >= 0.15:
         score += 30
+
+    elif equ >= 0.10:
+        score += 25
+
+    elif equ >= 0.05:
+        score += 15
 
     return {
 
@@ -202,3 +294,19 @@ def analyze_growth(data):
 
         "growth_score": score
     }
+results = {
+
+    "revenue": revenue,
+
+    "earnings": earnings,
+
+    "equity": equity,
+
+    "growth_score": score
+}
+
+results["commentary"] = (
+    growth_commentary(results)
+)
+
+return results
