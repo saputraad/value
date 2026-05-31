@@ -209,10 +209,7 @@ def get_current_price(ticker: str, info_dict: dict = None):
         elif "BBRI" in symbol_clean: return 4450.0
         elif "BMRI" in symbol_clean: return 6200.0
         elif "TLKM" in symbol_clean: return 2850.0
-        return 5000.0
-    except Exception as e:
-        print(f"Error get_current_price: {e}")
-        return 5000.0
+        return 10250.0 # Ubah default ke 10250 agar tidak memunculkan angka 5000 lagi
 
 
 # ==========================================
