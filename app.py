@@ -44,12 +44,11 @@ market_cap = data.get("market_cap") if data else None
 info = data.get("info", {}) if data else {}
 
 # ==========================================
-# 2. PANGGIL ENGINE VALUASI (DIKUNCI KE DATA DICT)
+# 2. PANGGIL ENGINE VALUASI
 # ==========================================
 valuation_results = {}
 if ValuationAnalyzer and data:
     try:
-        # Langsung panggil menggunakan objek 'data' tanpa fungsi inspect
         analyzer = ValuationAnalyzer(data)
         valuation_results = analyzer.summary()
     except Exception as val_err:
