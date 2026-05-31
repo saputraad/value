@@ -191,7 +191,7 @@ class RecommendationEngine:
         else:
             return "AVOID"
 
-        def recommendation_commentary(self):
+    def recommendation_commentary(self):
 
     score = self.overall_score()
 
