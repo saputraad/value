@@ -28,16 +28,45 @@ class ValuationAnalyzer:
         return self.price
 
     def eps(self):
-
         try:
-            return self.info.get("trailingEps", None)
+            # Cara 1: Ambil dari info utama
+            eps_val = self.info.get("trailingEps") or self.info.get("forwardEps")
+            if eps_val is not None:
+                return eps_val
+                
+            # Cara 2: Fallback hitung manual dari Net Income / Shares Outstanding
+            from core.data_provider import get_income_statement, get_shares_outstanding
+            financials = get_income_statement(self.ticker)
+            shares = get_shares_outstanding(self.ticker)
+            
+            if not financials.empty and shares:
+                # Mengambil Net Income dari baris teratas laporan keuangan terbaru
+                net_income = financials.loc["Net Income"].iloc[0]
+                return net_income / shares
+            return None
         except:
             return None
 
     def book_value_per_share(self):
-
         try:
-            return self.info.get("bookValue", None)
+            # Cara 1: Ambil dari info utama
+            bvps_val = self.info.get("bookValue")
+            if bvps_val is not None:
+                return bvps_val
+                
+            # Cara 2: Fallback hitung manual dari Total Equity / Shares Outstanding
+            from core.data_provider import get_balance_sheet, get_shares_outstanding
+            balance_sheet = get_balance_sheet(self.ticker)
+            shares = get_shares_outstanding(self.ticker)
+            
+            if not balance_sheet.empty and shares:
+                # Mencari total ekuitas pemegang saham
+                equity_keys = ["Stockholders Equity", "Total Stockholders Equity"]
+                for key in equity_keys:
+                    if key in balance_sheet.index:
+                        total_equity = balance_sheet.loc[key].iloc[0]
+                        return total_equity / shares
+            return None
         except:
             return None
 
