@@ -192,13 +192,100 @@ def analyze_growth(data):
     if equity.get("equity_cagr", 0) > 0.10:
         score += 30
 
-    return {
+    results = {
 
-        "revenue": revenue,
+    "revenue": revenue,
 
-        "earnings": earnings,
+    "earnings": earnings,
 
-        "equity": equity,
+    "equity": equity,
 
-        "growth_score": score
-    }
+    "growth_score": score
+}
+
+results["commentary"] = (
+    growth_commentary(results)
+)
+
+return results
+# ==========================================
+# GROWTH INTERPRETATION
+# ==========================================
+
+def growth_commentary(results):
+
+    comments = []
+
+    revenue = (
+        results["revenue"]
+        .get("revenue_cagr")
+    )
+
+    earnings = (
+        results["earnings"]
+        .get("earnings_cagr")
+    )
+
+    equity = (
+        results["equity"]
+        .get("equity_cagr")
+    )
+
+    # Revenue
+
+    if revenue is not None:
+
+        if revenue >= 0.15:
+            comments.append(
+                "✓ Revenue growth sangat kuat"
+            )
+
+        elif revenue >= 0.10:
+            comments.append(
+                "✓ Revenue growth sehat"
+            )
+
+        else:
+            comments.append(
+                "⚠ Revenue growth masih moderat"
+            )
+
+    # Earnings
+
+    if earnings is not None:
+
+        if earnings >= 0.15:
+            comments.append(
+                "✓ Laba tumbuh sangat cepat"
+            )
+
+        elif earnings >= 0.10:
+            comments.append(
+                "✓ Pertumbuhan laba sehat"
+            )
+
+        else:
+            comments.append(
+                "⚠ Pertumbuhan laba kurang konsisten"
+            )
+
+    # Equity
+
+    if equity is not None:
+
+        if equity >= 0.12:
+            comments.append(
+                "✓ Ekuitas bertumbuh kuat"
+            )
+
+        elif equity >= 0.08:
+            comments.append(
+                "✓ Ekuitas bertumbuh stabil"
+            )
+
+        else:
+            comments.append(
+                "⚠ Pertumbuhan ekuitas lemah"
+            )
+
+    return comments
