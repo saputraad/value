@@ -52,6 +52,11 @@ ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 data = get_company_data(
     ticker
 )
+st.subheader("Balance Sheet Rows")
+
+st.write(
+    data["balance_sheet"].index.tolist()
+)
 st.write(
     data["income_statement"].index.tolist()
 )
