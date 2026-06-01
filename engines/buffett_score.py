@@ -111,59 +111,59 @@ class BuffettScoreAnalyzer:
 
     def summary(self):
 
-    quality = (
-        analyze_quality(
-            self.data
+        quality = (
+            analyze_quality(
+                self.data
+            )
+            .get(
+                "quality_score",
+                0
+            )
         )
-        .get(
-            "quality_score",
-            0
+    
+        predictability = (
+            PredictabilityAnalyzer(
+                self.data
+            )
+            .summary()
+            .get(
+                "predictability_score",
+                0
+            )
         )
-    )
-
-    predictability = (
-        PredictabilityAnalyzer(
-            self.data
+    
+        cashflow = (
+            CashflowQualityAnalyzer(
+                self.data
+            )
+            .summary()
+            .get(
+                "cashflow_score",
+                0
+            )
         )
-        .summary()
-        .get(
-            "predictability_score",
-            0
+    
+        valuation = (
+            self.valuation
+            .get(
+                "valuation_score",
+                50
+            )
         )
-    )
-
-    cashflow = (
-        CashflowQualityAnalyzer(
-            self.data
-        )
-        .summary()
-        .get(
-            "cashflow_score",
-            0
-        )
-    )
-
-    valuation = (
-        self.valuation
-        .get(
-            "valuation_score",
-            50
-        )
-    )
-
-    return {
-
-        "quality": quality,
-
-        "predictability": predictability,
-
-        "cashflow": cashflow,
-
-        "valuation": valuation,
-
-        "buffett_score":
-            self.score(),
-
-        "rating":
-            self.rating()
-    }
+    
+        return {
+    
+            "quality": quality,
+    
+            "predictability": predictability,
+    
+            "cashflow": cashflow,
+    
+            "valuation": valuation,
+    
+            "buffett_score":
+                self.score(),
+    
+            "rating":
+                self.rating()
+        }
