@@ -50,10 +50,6 @@ data = get_company_data(ticker)
 audit = DataAudit(data)
 
 audit_result = audit.summary()
-current_price = data.get("price") if data else None
-market_cap = data.get("market_cap") if data else None
-
-profile = data.get("profile", {}) if data else {}
 forecast = ForecastEngine(
     ticker,
     data
@@ -66,6 +62,11 @@ st.subheader(
 st.json(
     forecast
 )
+current_price = data.get("price") if data else None
+market_cap = data.get("market_cap") if data else None
+
+profile = data.get("profile", {}) if data else {}
+
 
 # ==========================================
 # 2. PANGGIL ENGINE VALUASI
