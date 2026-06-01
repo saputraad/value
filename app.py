@@ -52,11 +52,10 @@ ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 data = get_company_data(
     ticker
 )
-st.subheader("Cashflow Debug")
-st.write(data["cashflow"])
-
 st.subheader("Cashflow Score Debug")
 st.json(cashflow)
+st.subheader("Cashflow Debug")
+st.write(data["cashflow"])
 
 audit = DataAudit(
     data
