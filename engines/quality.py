@@ -262,27 +262,12 @@ def analyze_quality(data):
         )
     )    
 
-    sector = SectorClassifier(
-        ticker
-    ).classify()
-    
-    if sector == "BANK":
-    
-        score = (
-            BankQualityAnalyzer(
-                ticker,
-                data
-            )
-            .score()
-        )
-    
-    else:
-    
-        score = calculate_quality_score(
-            roe,
-            roa,
-            debt_to_equity
-        )
+    score = calculate_quality_score(
+        roe,
+        roa,
+        debt_to_equity,
+        roic
+    )
 
     return {
 
