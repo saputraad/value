@@ -171,7 +171,7 @@ try:
     )
 st.subheader(
     "Valuation Debug"
-         )   
+)   
         
         st.json(
             valuation_results
