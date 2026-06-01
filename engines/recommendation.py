@@ -26,7 +26,22 @@ class RecommendationEngine:
     # ==========================================
 
     def valuation_score(self):
+    def margin_of_safety(self):
 
+    try:
+
+        mos = self.valuation.get(
+            "margin_of_safety"
+        )
+
+        if mos is None:
+            return None
+
+        return float(mos)
+
+    except:
+
+        return None
         try:
 
             score = self.valuation.get(
@@ -159,9 +174,29 @@ class RecommendationEngine:
     
         if weight == 0:
             return None
-    
+        
+        final_score = (
+            score / weight
+        )
+        
+        mos = self.margin_of_safety()
+        
+        if mos is not None:
+        
+            # Overvalued >20%
+        
+            if mos < -0.20:
+        
+                final_score *= 0.85
+        
+            # Overvalued >40%
+        
+            if mos < -0.40:
+        
+                final_score *= 0.75
+        
         return round(
-            score / weight,
+            final_score,
             2
         )
 
@@ -213,6 +248,9 @@ class RecommendationEngine:
 
             "technical_score":
                 self.technical_score(),
+            
+            "margin_of_safety":
+                self.margin_of_safety(),
 
             "overall_score":
                 self.overall_score(),
