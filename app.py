@@ -8,6 +8,7 @@ from engines.recommendation import RecommendationEngine
 from engines.sector_classifier import SectorClassifier
 from engines.bank_valuation import BankValuationAnalyzer
 from engines.data_audit import DataAudit
+from engines.forecast import ForecastEngine
 
 # Mengamankan import engine valuation Anda
 try:
@@ -53,6 +54,18 @@ current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
 
 profile = data.get("profile", {}) if data else {}
+forecast = ForecastEngine(
+    ticker,
+    data
+).summary()
+
+st.subheader(
+    "Forecast Debug"
+)
+
+st.json(
+    forecast
+)
 
 # ==========================================
 # 2. PANGGIL ENGINE VALUASI
