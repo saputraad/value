@@ -147,22 +147,6 @@ st.json(
     quality
 )
 
-buffett = (
-    BuffettScoreAnalyzer(
-        data,
-        valuation_results
-    )
-    .summary()
-)
-
-st.subheader(
-    "Buffett Score Debug"
-)
-
-st.json(
-    buffett
-)
-
 
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
@@ -196,9 +180,23 @@ try:
         )
 
     valuation_results = (
-    analyzer.summary()
-)
-
+        analyzer.summary()
+    )
+    buffett = (
+        BuffettScoreAnalyzer(
+            data,
+            valuation_results
+        )
+        .summary()
+    )
+    
+    st.subheader(
+        "Buffett Score Debug"
+    )
+    
+    st.json(
+        buffett
+    )
     expected_return = (
         ExpectedReturnEngine(
             ticker,
