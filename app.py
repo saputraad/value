@@ -217,26 +217,23 @@ with tabs[0]:
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
-            "Current Price",
-            f"Rp {current_price:,.0f}"
-            if current_price else "-"
+            "Overall Score",
+            result["overall_score"]
         )
-
+        
         col2.metric(
-            "Fair Value",
-            f"Rp {fair_value:,.0f}"
-            if fair_value else "-"
-        )
-
-        col3.metric(
-            "Margin of Safety",
-            f"{mos*100:.1f}%"
-            if mos is not None else "-"
-        )
-
-        col4.metric(
             "Recommendation",
-            recommendation
+            result["recommendation"]
+        )
+        
+        col3.metric(
+            "Confidence",
+            f"{result['confidence']}%"
+        )
+        
+        col4.metric(
+            "Risk Score",
+            result["risk_score"]
         )
 
         st.markdown("---")
