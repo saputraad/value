@@ -7,6 +7,7 @@ from engines.technical import TechnicalAnalyzer
 from engines.recommendation import RecommendationEngine
 from engines.sector_classifier import SectorClassifier
 from engines.bank_valuation import BankValuationAnalyzer
+from engines.data_audit import DataAudit
 
 # Mengamankan import engine valuation Anda
 try:
@@ -45,7 +46,9 @@ ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 
 # 1. Ambil data utama untuk Dashboard melalui data_provider
 data = get_company_data(ticker)
+audit = DataAudit(data)
 
+audit_result = audit.summary()
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
 
