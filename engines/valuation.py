@@ -4,7 +4,7 @@ class ValuationAnalyzer:
 
     def __init__(self, data_dict):
         self.data = data_dict if data_dict else {}
-        self.info = self.data.get("info", {})
+        self.info = self.data.get("profile", {})
         self.price = self.data.get("price", None)
         self.balance = self.data.get("balance_sheet", None)
         self.ticker = self.info.get("symbol", "BBCA.JK")
@@ -25,7 +25,7 @@ class ValuationAnalyzer:
                 
             # 2. Hitung manual dari Income Statement / Shares Outstanding
             financials = self.data.get("income_statement")
-            shares = self.data.get("shares")
+            shares = self.data.get(     "shares_outstanding" )
             
             if financials is not None and not financials.empty and shares:
                 # Cari baris Net Income secara fleksibel
@@ -34,9 +34,9 @@ class ValuationAnalyzer:
                     if key in financials.index:
                         net_income = financials.loc[key].iloc[0]
                         return net_income / shares
-            return 550.0 # Default fallback saham BBCA jika API macet total
+            return None # Default fallback saham BBCA jika API macet total
         except:
-            return 550.0
+            return None
 
     def book_value_per_share(self):
         try:
@@ -47,7 +47,7 @@ class ValuationAnalyzer:
                 
             # 2. Hitung manual dari Balance Sheet / Shares Outstanding
             balance_sheet = self.balance
-            shares = self.data.get("shares")
+            shares = self.data.get(     "shares_outstanding" )
             
             if balance_sheet is not None and not balance_sheet.empty and shares:
                 equity_keys = ["Stockholders Equity", "Total Stockholders Equity", "Total Equity Gross Minority Interest"]
@@ -55,9 +55,9 @@ class ValuationAnalyzer:
                     if key in balance_sheet.index:
                         total_equity = balance_sheet.loc[key].iloc[0]
                         return total_equity / shares
-            return 3200.0 # Default fallback saham BBCA jika API macet total
+            return None # Default fallback saham BBCA jika API macet total
         except:
-            return 3200.0
+            return None
 
     def pe_ratio(self):
         try:
