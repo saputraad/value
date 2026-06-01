@@ -165,7 +165,33 @@ class RecommendationEngine:
     # ==========================================
     # OVERALL SCORE
     # ==========================================
+    def business_quality_score(self):
 
+        try:
+    
+            quality = self.quality_score()
+    
+            growth = self.growth_score()
+    
+            cashflow = self.cashflow_score()
+    
+            score = (
+                quality * 0.40
+                +
+                cashflow * 0.35
+                +
+                growth * 0.25
+            )
+    
+            return round(
+                score,
+                2
+            )
+    
+        except:
+    
+            return None
+    
     def overall_score(self):
 
         val = self.valuation_score()
