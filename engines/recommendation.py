@@ -143,24 +143,24 @@ class RecommendationEngine:
 
     def cashflow_score(self):
 
-    try:
-
-        result = (
-            CashflowQualityAnalyzer(
-                self.data
-            ).summary()
-        )
-
-        return float(
-            result.get(
-                "cashflow_score",
-                0
+        try:
+    
+            result = (
+                CashflowQualityAnalyzer(
+                    self.data
+                ).summary()
             )
-        )
-
-    except:
-
-        return None
+    
+            return float(
+                result.get(
+                    "cashflow_score",
+                    0
+                )
+            )
+    
+        except:
+    
+            return None
 
     # ==========================================
     # OVERALL SCORE
