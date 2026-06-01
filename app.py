@@ -102,6 +102,21 @@ st.write(
     forecast
 )
 
+predictability = (
+    PredictabilityAnalyzer(
+        data
+    )
+    .summary()
+)
+
+st.subheader(
+    "Predictability Debug"
+)
+
+st.json(
+    predictability
+)
+
 from engines.roic import (
     ROICAnalyzer
 )
@@ -129,20 +144,7 @@ st.subheader(
 st.json(
     quality
 )
-predictability = (
-    PredictabilityAnalyzer(
-        data
-    )
-    .summary()
-)
 
-st.subheader(
-    "Predictability Debug"
-)
-
-st.json(
-    predictability
-)
 
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
