@@ -87,10 +87,6 @@ st.json(cashflow)
 
 st.subheader("Fraud Detection Debug")
 st.json(fraud)
-forecast = ForecastEngine(
-    ticker,
-    data
-).summary()
 expected_return = (
     ExpectedReturnEngine(
         ticker,
@@ -99,6 +95,11 @@ expected_return = (
     )
     .summary()
 )
+forecast = ForecastEngine(
+    ticker,
+    data
+).summary()
+
 st.subheader(
     "Expected Return Debug"
 )
