@@ -139,30 +139,6 @@ class RecommendationEngine:
 
             return None
 
-    def confidence_score(self):
-
-        confidence = 100
-    
-        if self.valuation_score() is None:
-            confidence -= 25
-    
-        if self.growth_score() is None:
-            confidence -= 20
-    
-        if self.quality_score() is None:
-            confidence -= 20
-    
-        if self.risk_score() is None:
-            confidence -= 15
-    
-        if self.technical_score() is None:
-            confidence -= 10
-    
-        return max(
-            confidence,
-            0
-        )
-
     # ==========================================
     # OVERALL SCORE
     # ==========================================
