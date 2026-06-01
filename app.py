@@ -111,10 +111,20 @@ st.subheader(
     "ROIC Debug"
 )
 
-st.json(roic)
+st.json(
+    roic
+)
 
-growth_debug = analyze_growth(
+quality = analyze_quality(
     data
+)
+
+st.subheader(
+    "Quality Debug"
+)
+
+st.json(
+    quality
 )
 
 current_price = data.get("price") if data else None
