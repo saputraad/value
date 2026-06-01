@@ -73,6 +73,21 @@ forecast = ForecastEngine(
     ticker,
     data
 ).summary()
+
+from engines.roic import (
+    ROICAnalyzer
+)
+
+roic = ROICAnalyzer(
+    data
+).summary()
+
+st.subheader(
+    "ROIC Debug"
+)
+
+st.json(roic)
+
 growth_debug = analyze_growth(
     data
 )
