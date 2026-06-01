@@ -1,5 +1,8 @@
 import streamlit as st
-from core.data_provider import get_company_data
+from core.data_provider import (
+    get_company_data,
+    get_company_info
+)
 from engines.growth import analyze_growth
 from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
