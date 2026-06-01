@@ -9,6 +9,9 @@ from engines.sector_classifier import SectorClassifier
 from engines.bank_valuation import BankValuationAnalyzer
 from engines.data_audit import DataAudit
 from engines.forecast import ForecastEngine
+from engines.cashflow_quality import (
+    CashflowQualityAnalyzer
+)
 
 # Mengamankan import engine valuation Anda
 try:
@@ -52,11 +55,18 @@ data = get_company_data(
 st.subheader("Cashflow Debug")
 st.write(data["cashflow"])
 
+st.subheader("Cashflow Score Debug")
+st.json(cashflow)
+
 audit = DataAudit(
     data
 )
 
 audit_result = audit.summary()
+
+cashflow = CashflowQualityAnalyzer(
+    data
+).summary()
 
 forecast = ForecastEngine(
     ticker,
