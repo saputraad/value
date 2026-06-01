@@ -62,6 +62,38 @@ forecast = ForecastEngine(
 ).summary()
 
 st.subheader(
+    "Bank Debug"
+)
+
+st.json(
+    {
+        "bookValue":
+            data.get(
+                "info",
+                {}
+            ).get(
+                "bookValue"
+            ),
+
+        "returnOnEquity":
+            data.get(
+                "info",
+                {}
+            ).get(
+                "returnOnEquity"
+            ),
+
+        "sharesOutstanding":
+            data.get(
+                "info",
+                {}
+            ).get(
+                "sharesOutstanding"
+            )
+    }
+)
+
+st.subheader(
     "Forecast Debug"
 )
 
