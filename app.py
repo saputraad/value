@@ -88,7 +88,8 @@ try:
     if sector == "BANK":
 
         analyzer = BankValuationAnalyzer(
-            ticker
+            ticker,
+            data
         )
 
         valuation_results = (
