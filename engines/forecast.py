@@ -1,238 +1,140 @@
-import numpy as np
-
-from engines.growth import GrowthAnalyzer
-from engines.valuation import ValuationAnalyzer
-from core.data_provider import (
-    get_current_price,
-    get_company_info
-)
+from engines.growth import analyze_growth
+from engines.risk import RiskAnalyzer
+from engines.data_audit import DataAudit
 
 
-class ForecastAnalyzer:
+class ForecastEngine:
 
-    def __init__(self, ticker):
+    def __init__(
+        self,
+        ticker,
+        data
+    ):
 
         self.ticker = ticker
+        self.data = data
 
-        self.growth = GrowthAnalyzer(ticker)
-
-        self.valuation = ValuationAnalyzer(ticker)
-
-        self.info = get_company_info(ticker)
-
-        self.price = get_current_price(ticker)
-
-    # ==========================================
-    # HISTORICAL EPS CAGR
-    # ==========================================
+    # ==========================
+    # HISTORICAL GROWTH
+    # ==========================
 
     def historical_growth(self):
 
-        growth = self.growth.summary()
+        try:
 
-        candidates = [
+            growth = analyze_growth(
+                self.data
+            )
 
-            growth.get("revenue_cagr_5y"),
-            growth.get("revenue_cagr_10y"),
-            growth.get("book_value_cagr_5y")
-        ]
+            revenue = growth[
+                "revenue"
+            ].get(
+                "revenue_cagr",
+                0
+            )
 
-        candidates = [
-            x for x in candidates
-            if x is not None
-        ]
+            earnings = growth[
+                "earnings"
+            ].get(
+                "earnings_cagr",
+                0
+            )
 
-        if len(candidates) == 0:
+            equity = growth[
+                "equity"
+            ].get(
+                "equity_cagr",
+                0
+            )
+
+            return (
+                revenue * 0.2
+                +
+                earnings * 0.6
+                +
+                equity * 0.2
+            )
+
+        except:
+
             return None
 
-        return np.mean(candidates)
+    # ==========================
+    # FORECAST GROWTH
+    # ==========================
 
-    # ==========================================
-    # GROWTH SCENARIOS
-    # ==========================================
+    def forecast_growth(self):
 
-    def growth_scenarios(self):
-
-        historical = self.historical_growth()
+        historical = (
+            self.historical_growth()
+        )
 
         if historical is None:
-
-            return {
-
-                "bear": 5,
-                "base": 10,
-                "bull": 15
-            }
-
-        return {
-
-            "bear":
-                max(
-                    historical * 0.5,
-                    3
-                ),
-
-            "base":
-                historical,
-
-            "bull":
-                historical * 1.3
-        }
-
-    # ==========================================
-    # FUTURE EPS
-    # ==========================================
-
-    def future_eps(
-        self,
-        years=5,
-        scenario="base"
-    ):
-
-        eps = self.info.get(
-            "trailingEps",
-            None
-        )
-
-        if eps is None:
             return None
 
-        growth = self.growth_scenarios()[
-            scenario
-        ]
+        return historical * 0.8
 
-        return eps * (
-            (1 + growth / 100)
-            ** years
-        )
+    # ==========================
+    # REQUIRED RETURN
+    # ==========================
 
-    # ==========================================
-    # FUTURE PE
-    # ==========================================
+    def required_return(self):
 
-    def future_pe(self):
+        try:
 
-        pe = self.valuation.pe_ratio()
-
-        if pe is None:
-            return 12
-
-        return pe
-
-    # ==========================================
-    # FUTURE PRICE
-    # ==========================================
-
-    def future_price(
-        self,
-        years=5,
-        scenario="base"
-    ):
-
-        eps = self.future_eps(
-            years,
-            scenario
-        )
-
-        if eps is None:
-            return None
-
-        return eps * self.future_pe()
-
-    # ==========================================
-    # EXPECTED CAGR
-    # ==========================================
-
-    def expected_return_cagr(
-        self,
-        years=5,
-        scenario="base"
-    ):
-
-        future_price = self.future_price(
-            years,
-            scenario
-        )
-
-        if future_price is None:
-            return None
-
-        return (
-            (
-                future_price /
-                self.price
-            ) ** (1 / years)
-            - 1
-        ) * 100
-
-    # ==========================================
-    # UPSIDE
-    # ==========================================
-
-    def upside(
-        self,
-        years=5,
-        scenario="base"
-    ):
-
-        future_price = self.future_price(
-            years,
-            scenario
-        )
-
-        if future_price is None:
-            return None
-
-        return (
-            (
-                future_price -
-                self.price
+            risk = RiskAnalyzer(
+                self.ticker
             )
-            /
-            self.price
-        ) * 100
 
-    # ==========================================
+            score = risk.summary().get(
+                "risk_score"
+            )
+
+            if score is None:
+                return 15
+
+            return round(
+                10 +
+                (
+                    (100 - score)
+                    / 10
+                ),
+                2
+            )
+
+        except:
+
+            return 15
+
+    # ==========================
+    # CONFIDENCE
+    # ==========================
+
+    def confidence(self):
+
+        audit = DataAudit(
+            self.data
+        )
+
+        return audit.score()
+
+    # ==========================
     # SUMMARY
-    # ==========================================
+    # ==========================
 
     def summary(self):
 
         return {
 
-            "current_price":
-                self.price,
+            "historical_growth":
+                self.historical_growth(),
 
-            "growth_scenarios":
-                self.growth_scenarios(),
+            "forecast_growth":
+                self.forecast_growth(),
 
-            "bear_price_5y":
-                self.future_price(
-                    5,
-                    "bear"
-                ),
+            "required_return":
+                self.required_return(),
 
-            "base_price_5y":
-                self.future_price(
-                    5,
-                    "base"
-                ),
-
-            "bull_price_5y":
-                self.future_price(
-                    5,
-                    "bull"
-                ),
-
-            "expected_cagr":
-                self.expected_return_cagr(
-                    5,
-                    "base"
-                ),
-
-            "upside":
-                self.upside(
-                    5,
-                    "base"
-                )
+            "confidence":
+                self.confidence()
         }
