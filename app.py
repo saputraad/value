@@ -145,7 +145,6 @@ try:
     else:
 
         analyzer = ValuationAnalyzer(
-            ticker,
             data
         )
 
