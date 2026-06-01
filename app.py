@@ -93,25 +93,6 @@ forecast = ForecastEngine(
     data
 ).summary()
 
-valuation_results = analyzer.summary()
-if valuation_results:
-
-    expected_return = (
-        ExpectedReturnEngine(
-            ticker,
-            data,
-            valuation_results
-        )
-        .summary()
-    )
-
-    st.subheader(
-        "Expected Return Debug"
-    )
-
-    st.json(
-        expected_return
-    )
 st.write(
     "Forecast Debug",
     forecast
@@ -144,6 +125,7 @@ profile = data.get("profile", {}) if data else {}
 # ==========================================
 # 2. PANGGIL ENGINE VALUASI
 # ==========================================
+
 valuation_results = {}
 
 try:
@@ -158,9 +140,9 @@ try:
             ticker,
             data
         )
-    
+
     else:
-    
+
         analyzer = ValuationAnalyzer(
             ticker,
             data
@@ -169,39 +151,36 @@ try:
     valuation_results = (
         analyzer.summary()
     )
-st.subheader(
-    "Valuation Debug"
-)   
-        
-        st.json(
-            valuation_results
+
+    st.subheader(
+        "Valuation Debug"
+    )
+
+    st.json(
+        valuation_results
+    )
+
+    st.subheader(
+        "Profile Debug"
+    )
+
+    st.json({
+        "market_cap": data.get(
+            "market_cap"
+        ),
+        "shares": data.get(
+            "shares_outstanding"
+        ),
+        "price": data.get(
+            "price"
         )
-
-        st.subheader("Profile Debug")
-
-        st.json({
-            "market_cap": data.get("market_cap"),
-            "shares": data.get("shares_outstanding"),
-            "price": data.get("price")
-        })
-
-
-    else:
-
-        analyzer = ValuationAnalyzer(
-            data
-        )
-
-        valuation_results = (
-            analyzer.summary()
-        )
+    })
 
 except Exception as e:
 
     st.sidebar.error(
         f"Valuation Engine Error: {e}"
     )
-
 # ==========================================
 # HEADER & TABS
 # ==========================================
