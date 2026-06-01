@@ -68,17 +68,17 @@ DEBUG_MODE = False
 
 if DEBUG_MODE:
     
-st.subheader(
-    "Growth Debug"
-)
-
-st.json(
-    growth_debug
-)
-
-st.subheader(
-    "Bank Debug"
-)
+    st.subheader(
+        "Growth Debug"
+    )
+    
+    st.json(
+        growth_debug
+    )
+    
+    st.subheader(
+        "Bank Debug"
+    )
 
 st.json(
     {
