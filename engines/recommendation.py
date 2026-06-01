@@ -4,7 +4,9 @@ from engines.growth import analyze_growth
 from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
 from engines.technical import TechnicalAnalyzer
-
+from engines.cashflow_quality import (
+    CashflowQualityAnalyzer
+)
 
 class RecommendationEngine:
 
