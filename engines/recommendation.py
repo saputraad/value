@@ -185,17 +185,17 @@ class RecommendationEngine:
         
         if mos is not None:
         
-            # Overvalued >20%
+        # Overvalued >20%
         
-            if mos < -0.20:
+        if mos < -0.20:
         
-                final_score *= 0.85
+            final_score *= 0.85
         
-            # Overvalued >40%
+         # Overvalued >40%
         
-            if mos < -0.40:
+         if mos < -0.40:
         
-                final_score *= 0.75
+             final_score *= 0.75    
         
         return round(
             final_score,
