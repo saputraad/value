@@ -179,15 +179,6 @@ with tabs[0]:
 
     st.subheader("Investment Dashboard")
 
-    st.subheader(
-    "Business Quality Debug"
-    )
-
-    st.metric(
-        "Business Quality",
-        result["business_quality_score"]
-    )
-
     try:
 
         rec_engine = RecommendationEngine(
@@ -214,6 +205,10 @@ with tabs[0]:
 
         overall_score = rec.get(
             "overall_score"
+        )
+
+        business_quality = rec.get(
+            "business_quality_score"
         )
 
         # ==========================
@@ -244,7 +239,10 @@ with tabs[0]:
             "Recommendation",
             recommendation
         )
-
+        st.metric(
+            "Business Quality",
+            business_quality
+        )
         st.markdown("---")
         st.write("### Interpretasi Detail")
 
