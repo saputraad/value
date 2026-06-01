@@ -1,4 +1,5 @@
 import numpy as np
+from engines.forecast import ForecastEngine
 
 from core.data_provider import (
     get_company_info,
@@ -70,10 +71,7 @@ class BankValuationAnalyzer:
     # JUSTIFIED PBV
     # ====================================
 
-    def justified_pbv(
-        self,
-        required_return = 15
-    ):
+    def justified_pbv(self):
 
         """
         Simplified Gordon Model
@@ -84,33 +82,50 @@ class BankValuationAnalyzer:
         try:
 
             roe = self.roe()
-
+        
             if roe is None:
                 return None
-
-            growth = min(
-                roe * 0.40,
-                8
+        
+            forecast = ForecastEngine(
+                self.ticker,
+                get_company_data(
+                    self.ticker
+                )
+            ).summary()
+        
+            growth = (
+                forecast.get(
+                    "forecast_growth"
+                )
+                * 100
             )
-
-            r = required_return
-
+        
+            r = forecast.get(
+                "required_return"
+            )
+        
+            if growth is None:
+                return None
+        
+            if r is None:
+                return None
+        
             if r <= growth:
                 return None
-
+        
             justified = (
                 (roe - growth)
                 /
                 (r - growth)
             )
-
+        
             return round(
                 justified,
                 2
             )
-
+        
         except:
-
+        
             return None
 
     # ====================================
