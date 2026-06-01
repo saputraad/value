@@ -52,6 +52,9 @@ ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 data = get_company_data(
     ticker
 )
+st.write(
+    data["income_statement"].index.tolist()
+)
 
 st.subheader("Cashflow Debug")
 st.write(data["cashflow"])
