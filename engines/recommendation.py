@@ -315,6 +315,9 @@ class RecommendationEngine:
             "cashflow_score":
                 self.cashflow_score(),
             
+            "business_quality_score":
+                self.business_quality_score(),
+            
             "commentary":
                 self.recommendation_commentary()
         }
