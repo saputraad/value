@@ -116,6 +116,9 @@ except Exception as e:
         f"Valuation Engine Error: {e}"
     )
 
+        st.subheader("Cashflow Debug")
+st.write(data["cashflow"])
+
 # ==========================================
 # HEADER & TABS
 # ==========================================
