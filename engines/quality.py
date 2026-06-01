@@ -3,6 +3,9 @@ import numpy as np
 from engines.roic import (
     ROICAnalyzer
 )
+from engines.sector_classifier import (
+    SectorClassifier
+)
 
 
 # ==========================================
