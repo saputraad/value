@@ -94,21 +94,24 @@ forecast = ForecastEngine(
 ).summary()
 
 valuation_results = analyzer.summary()
-expected_return = (
-    ExpectedReturnEngine(
-        ticker,
-        data,
-        valuation_results
-    )
-    .summary()
-)
-st.subheader(
-    "Expected Return Debug"
-)
+if valuation_results:
 
-st.json(
-    expected_return
-)
+    expected_return = (
+        ExpectedReturnEngine(
+            ticker,
+            data,
+            valuation_results
+        )
+        .summary()
+    )
+
+    st.subheader(
+        "Expected Return Debug"
+    )
+
+    st.json(
+        expected_return
+    )
 st.write(
     "Forecast Debug",
     forecast
