@@ -80,12 +80,17 @@ class ExpectedReturnEngine:
 
                 return 0
 
-            return mos * 0.20
+            return mos * 0.10
 
         except:
 
             return 0
-
+    st.json(
+    data.get(
+        "profile",
+        {}
+    )
+)
     # ==========================
     # EXPECTED RETURN
     # ==========================
