@@ -57,7 +57,7 @@ class RecommendationEngine:
     
         except:
 
-        return None
+            return None
 
     def growth_score(self):
 
