@@ -112,6 +112,14 @@ try:
             valuation_results
         )
 
+        st.subheader("Profile Debug")
+
+        st.json({
+            "market_cap": data.get("market_cap"),
+            "shares": data.get("shares_outstanding"),
+            "price": data.get("price")
+        })
+
 
     else:
 
