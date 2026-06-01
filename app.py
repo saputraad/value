@@ -64,6 +64,10 @@ growth_debug = analyze_growth(
     data
 )
 
+DEBUG_MODE = False
+
+if DEBUG_MODE:
+    
 st.subheader(
     "Growth Debug"
 )
