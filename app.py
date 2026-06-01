@@ -158,10 +158,17 @@ try:
             ticker,
             data
         )
-
-        valuation_results = (
-            analyzer.summary()
+    
+    else:
+    
+        analyzer = ValuationAnalyzer(
+            ticker,
+            data
         )
+
+    valuation_results = (
+        analyzer.summary()
+    )
         st.subheader(
     "Valuation Debug"
         )
