@@ -147,6 +147,16 @@ st.json(
     quality
 )
 
+st.subheader(
+    "Company Info Debug"
+)
+
+st.json(
+    get_company_info(
+        ticker
+    )
+)
+
 
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
