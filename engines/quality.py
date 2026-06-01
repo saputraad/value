@@ -144,7 +144,30 @@ def calculate_debt_to_equity(data):
     except:
         return None
 
+# ==========================================
+# ROIC SCORE
+# ==========================================
 
+def calculate_roic_score(roic):
+
+    if roic is None:
+        return 0
+
+    roic_pct = roic * 100
+
+    if roic_pct >= 20:
+        return 30
+
+    elif roic_pct >= 15:
+        return 25
+
+    elif roic_pct >= 10:
+        return 20
+
+    elif roic_pct >= 5:
+        return 10
+
+    return 0
 # ==========================================
 # QUALITY SCORE
 # ==========================================
@@ -152,7 +175,8 @@ def calculate_debt_to_equity(data):
 def calculate_quality_score(
     roe,
     roa,
-    debt_to_equity
+    debt_to_equity,
+    roic
 ):
 
     score = 0
@@ -164,16 +188,16 @@ def calculate_quality_score(
         roe_pct = roe * 100
 
         if roe_pct >= 20:
-            score += 40
-
+            score += 30
+        
         elif roe_pct >= 15:
-            score += 35
-
-        elif roe_pct >= 10:
             score += 25
-
+        
+        elif roe_pct >= 10:
+            score += 20
+        
         elif roe_pct >= 5:
-            score += 15
+            score += 10
 
     # ROA
 
@@ -182,11 +206,11 @@ def calculate_quality_score(
         roa_pct = roa * 100
 
         if roa_pct >= 10:
-            score += 30
-
-        elif roa_pct >= 5:
             score += 20
-
+        
+        elif roa_pct >= 5:
+            score += 15
+        
         elif roa_pct >= 2:
             score += 10
 
@@ -195,13 +219,17 @@ def calculate_quality_score(
     if debt_to_equity is not None:
 
         if debt_to_equity <= 0.5:
-            score += 30
-
-        elif debt_to_equity <= 1:
             score += 20
-
+        
+        elif debt_to_equity <= 1:
+            score += 15
+        
         elif debt_to_equity <= 2:
             score += 10
+
+    score += calculate_roic_score(
+    roic
+    )    
 
     return min(score, 100)
 
@@ -218,19 +246,32 @@ def analyze_quality(data):
 
     debt_to_equity = calculate_debt_to_equity(data)
 
+    roic = (
+        ROICAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "roic"
+        )
+    )    
+
     score = calculate_quality_score(
         roe,
         roa,
-        debt_to_equity
+        debt_to_equity,
+        roic
     )
 
     return {
 
         "roe": roe,
-
+    
         "roa": roa,
-
+    
         "debt_to_equity": debt_to_equity,
-
+    
+        "roic": roic,
+    
         "quality_score": score
     }
