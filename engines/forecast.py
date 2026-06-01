@@ -1,7 +1,7 @@
 from engines.growth import analyze_growth
 from engines.risk import RiskAnalyzer
 from engines.data_audit import DataAudit
-from core.sector_classifier import (
+from engines.sector_classifier import (
     SectorClassifier
 )
 
