@@ -26,6 +26,22 @@ class RecommendationEngine:
     # ==========================================
 
     def valuation_score(self):
+    
+        try:
+
+            score = self.valuation.get(
+                "value_score"
+            )
+
+            if score is None:
+                return None
+
+            return float(score)
+
+        except:
+
+            return None
+
     def margin_of_safety(self):
 
     try:
@@ -42,20 +58,6 @@ class RecommendationEngine:
     except:
 
         return None
-        try:
-
-            score = self.valuation.get(
-                "value_score"
-            )
-
-            if score is None:
-                return None
-
-            return float(score)
-
-        except:
-
-            return None
 
     def growth_score(self):
 
