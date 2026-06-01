@@ -169,9 +169,9 @@ try:
     valuation_results = (
         analyzer.summary()
     )
-        st.subheader(
+     st.subheader(
     "Valuation Debug"
-        )
+        )   
 
         st.json(
             valuation_results
