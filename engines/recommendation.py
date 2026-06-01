@@ -141,6 +141,27 @@ class RecommendationEngine:
 
             return None
 
+    def cashflow_score(self):
+
+    try:
+
+        result = (
+            CashflowQualityAnalyzer(
+                self.data
+            ).summary()
+        )
+
+        return float(
+            result.get(
+                "cashflow_score",
+                0
+            )
+        )
+
+    except:
+
+        return None
+
     # ==========================================
     # OVERALL SCORE
     # ==========================================
@@ -151,7 +172,7 @@ class RecommendationEngine:
         gro = self.growth_score()
         qua = self.quality_score()
         ris = self.risk_score()
-        tec = self.technical_score()
+        cas = self.cashflow_score()
     
         score = 0
         weight = 0
@@ -172,9 +193,9 @@ class RecommendationEngine:
             score += ris * 0.15
             weight += 0.15
     
-        if tec is not None:
-            score += tec * 0.10
-            weight += 0.10
+        if cas is not None:
+            score += cas * 0.20
+            weight += 0.20
     
         if weight == 0:
             return None
