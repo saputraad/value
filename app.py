@@ -88,6 +88,10 @@ forecast = ForecastEngine(
     ticker,
     data
 ).summary()
+st.write(
+    "Forecast Debug",
+    forecast
+)
 
 from engines.roic import (
     ROICAnalyzer
