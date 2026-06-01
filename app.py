@@ -46,10 +46,16 @@ ticker_input = st.sidebar.text_input(
 ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 
 # 1. Ambil data utama untuk Dashboard melalui data_provider
-data = get_company_data(ticker)
-audit = DataAudit(data)
+data = get_company_data(
+    ticker
+)
+
+audit = DataAudit(
+    data
+)
 
 audit_result = audit.summary()
+
 forecast = ForecastEngine(
     ticker,
     data
