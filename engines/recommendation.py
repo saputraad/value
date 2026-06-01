@@ -274,6 +274,9 @@ class RecommendationEngine:
 
             "technical_score":
                 self.technical_score(),
+
+            "confidence":
+                self.confidence_score(),
             
             "margin_of_safety":
                 self.margin_of_safety(),
@@ -283,9 +286,6 @@ class RecommendationEngine:
 
             "recommendation":
                 self.recommendation(),
-            
-            "confidence":
-                self.confidence_score(),
             
             "commentary":
                 self.recommendation_commentary()
