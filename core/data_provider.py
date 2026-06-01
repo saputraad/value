@@ -348,6 +348,8 @@ def get_company_data(ticker: str):
 
         "profile":
             get_profile(ticker),
+        "info":
+            get_company_info(ticker),
 
         "price":
             get_current_price(ticker),
