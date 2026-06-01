@@ -128,6 +128,14 @@ try:
             analyzer.summary()
         )
 
+    st.subheader(
+    "Valuation Debug"
+)
+
+st.json(
+    valuation_results
+)
+
     else:
 
         analyzer = ValuationAnalyzer(
