@@ -72,7 +72,7 @@ class BankValuationAnalyzer:
 
     def justified_pbv(
         self,
-        required_return=12
+        required_return = 15
     ):
 
         """
@@ -89,8 +89,8 @@ class BankValuationAnalyzer:
                 return None
 
             growth = min(
-                roe * 0.45,
-                12
+                roe * 0.40,
+                8
             )
 
             r = required_return
