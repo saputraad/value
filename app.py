@@ -12,6 +12,7 @@ from engines.forecast import ForecastEngine
 from engines.cashflow_quality import (
     CashflowQualityAnalyzer
 )
+from engines.fraud_detection import FraudDetectionAnalyzer
 
 # Mengamankan import engine valuation Anda
 try:
@@ -74,9 +75,15 @@ cashflow = CashflowQualityAnalyzer(
     data
 ).summary()
 
+fraud = FraudDetectionAnalyzer(
+    ticker
+).summary()
+
 st.subheader("Cashflow Score Debug")
 st.json(cashflow)
 
+st.subheader("Fraud Detection Debug")
+st.json(fraud)
 forecast = ForecastEngine(
     ticker,
     data
