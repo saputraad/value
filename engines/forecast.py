@@ -115,8 +115,30 @@ class ForecastEngine:
         audit = DataAudit(
             self.data
         )
-
-        return audit.score()
+    
+        score = audit.score()
+    
+        historical = (
+            self.historical_growth()
+        )
+    
+        if historical is None:
+    
+            score *= 0.7
+    
+        if historical is not None:
+    
+            if historical > 0.25:
+    
+                score *= 0.8
+    
+        return round(
+            min(
+                score,
+                95
+            ),
+            2
+        )
 
     # ==========================
     # SUMMARY
