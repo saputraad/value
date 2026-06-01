@@ -85,12 +85,7 @@ class ExpectedReturnEngine:
         except:
 
             return 0
-    st.json(
-    data.get(
-        "profile",
-        {}
-    )
-)
+   
     # ==========================
     # EXPECTED RETURN
     # ==========================
