@@ -13,6 +13,9 @@ from engines.cashflow_quality import (
     CashflowQualityAnalyzer
 )
 from engines.fraud_detection import FraudDetectionAnalyzer
+from engines.expected_return import (
+    ExpectedReturnEngine
+)
 
 # Mengamankan import engine valuation Anda
 try:
@@ -88,6 +91,21 @@ forecast = ForecastEngine(
     ticker,
     data
 ).summary()
+expected_return = (
+    ExpectedReturnEngine(
+        ticker,
+        data,
+        valuation_results
+    )
+    .summary()
+)
+st.subheader(
+    "Expected Return Debug"
+)
+
+st.json(
+    expected_return
+)
 st.write(
     "Forecast Debug",
     forecast
