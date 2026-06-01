@@ -179,6 +179,15 @@ with tabs[0]:
 
     st.subheader("Investment Dashboard")
 
+    st.subheader(
+    "Business Quality Debug"
+    )
+
+    st.metric(
+        "Business Quality",
+        result["business_quality_score"]
+    )
+
     try:
 
         rec_engine = RecommendationEngine(
