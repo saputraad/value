@@ -49,6 +49,8 @@ ticker = ticker_input if ticker_input.endswith(".JK") else f"{ticker_input}.JK"
 data = get_company_data(
     ticker
 )
+st.subheader("Cashflow Debug")
+st.write(data["cashflow"])
 
 audit = DataAudit(
     data
@@ -115,9 +117,6 @@ except Exception as e:
     st.sidebar.error(
         f"Valuation Engine Error: {e}"
     )
-
-     st.subheader("Cashflow Debug")
-        st.write(data["cashflow"])
 
 # ==========================================
 # HEADER & TABS
