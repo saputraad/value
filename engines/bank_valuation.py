@@ -1,21 +1,26 @@
 import numpy as np
 from engines.forecast import ForecastEngine
 
-from core.data_provider import (
-    get_company_info,
-    get_current_price
-)
-
-
 class BankValuationAnalyzer:
 
-    def __init__(self, ticker):
+    def __init__(
+        self,
+        ticker,
+        data
+    ):
 
         self.ticker = ticker
 
-        self.info = get_company_info(ticker)
+        self.data = data
 
-        self.price = get_current_price(ticker)
+        self.info = data.get(
+            "info",
+            {}
+        )
+
+        self.price = data.get(
+            "price"
+        )
 
     # ====================================
     # BASIC DATA
