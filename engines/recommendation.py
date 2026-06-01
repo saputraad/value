@@ -260,6 +260,9 @@ class RecommendationEngine:
             "recommendation":
                 self.recommendation(),
             
+            "confidence":
+                self.confidence_score(),
+            
             "commentary":
                 self.recommendation_commentary()
         }
@@ -305,3 +308,36 @@ class RecommendationEngine:
                 "Risiko dan valuasi belum "
                 "mendukung keputusan investasi."
             )
+    def confidence_score(self):
+
+        confidence = 100
+    
+        val = self.valuation_score()
+    
+        if val is None:
+            confidence -= 25
+    
+        gro = self.growth_score()
+    
+        if gro is None:
+            confidence -= 20
+    
+        qua = self.quality_score()
+    
+        if qua is None:
+            confidence -= 20
+    
+        ris = self.risk_score()
+    
+        if ris is None:
+            confidence -= 15
+    
+        tec = self.technical_score()
+    
+        if tec is None:
+            confidence -= 10
+    
+        return max(
+            confidence,
+            0
+        )
