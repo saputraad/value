@@ -273,6 +273,8 @@ def analyze_growth(data):
     
     # Equity
     
+    # Equity
+
     if equ is not None:
     
         if equ >= 0.15:
@@ -284,16 +286,6 @@ def analyze_growth(data):
         elif equ >= 0.05:
             score += 15
     
-        return {
-    
-            "revenue": revenue,
-    
-            "earnings": earnings,
-    
-            "equity": equity,
-    
-            "growth_score": score
-        }
     results = {
     
         "revenue": revenue,
@@ -310,3 +302,6 @@ def analyze_growth(data):
     )
     
     return results
+    st.json(
+        analyze_growth(data)
+    )
