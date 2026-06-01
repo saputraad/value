@@ -16,6 +16,9 @@ from engines.fraud_detection import FraudDetectionAnalyzer
 from engines.expected_return import (
     ExpectedReturnEngine
 )
+from engines.predictability import (
+    PredictabilityAnalyzer
+)
 
 # Mengamankan import engine valuation Anda
 try:
@@ -125,6 +128,20 @@ st.subheader(
 
 st.json(
     quality
+)
+predictability = (
+    PredictabilityAnalyzer(
+        data
+    )
+    .summary()
+)
+
+st.subheader(
+    "Predictability Debug"
+)
+
+st.json(
+    predictability
 )
 
 current_price = data.get("price") if data else None
