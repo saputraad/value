@@ -6,7 +6,7 @@ from engines.predictability import (
     PredictabilityAnalyzer
 )
 
-from engines.cashflow import (
+from engines.cashflow_quality import (
     CashflowQualityAnalyzer
 )
 
