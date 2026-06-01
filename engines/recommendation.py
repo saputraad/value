@@ -178,8 +178,8 @@ class RecommendationEngine:
         weight = 0
     
         if val is not None:
-            score += val * 0.30
-            weight += 0.30
+            score += val * 0.25
+            weight += 0.25
     
         if qua is not None:
             score += qua * 0.25
@@ -285,6 +285,9 @@ class RecommendationEngine:
 
             "recommendation":
                 self.recommendation(),
+            
+            "cashflow_score":
+                self.cashflow_score(),
             
             "commentary":
                 self.recommendation_commentary()
