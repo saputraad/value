@@ -44,18 +44,18 @@ class RecommendationEngine:
 
     def margin_of_safety(self):
 
-    try:
-
-        mos = self.valuation.get(
-            "margin_of_safety"
-        )
-
-        if mos is None:
-            return None
-
-        return float(mos)
-
-    except:
+        try:
+    
+            mos = self.valuation.get(
+                "margin_of_safety"
+            )
+    
+            if mos is None:
+                return None
+    
+            return float(mos)
+    
+        except:
 
         return None
 
