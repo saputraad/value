@@ -111,11 +111,59 @@ class BuffettScoreAnalyzer:
 
     def summary(self):
 
-        return {
+    quality = (
+        analyze_quality(
+            self.data
+        )
+        .get(
+            "quality_score",
+            0
+        )
+    )
 
-            "buffett_score":
-                self.score(),
+    predictability = (
+        PredictabilityAnalyzer(
+            self.data
+        )
+        .summary()
+        .get(
+            "predictability_score",
+            0
+        )
+    )
 
-            "rating":
-                self.rating()
-        }
+    cashflow = (
+        CashflowQualityAnalyzer(
+            self.data
+        )
+        .summary()
+        .get(
+            "cashflow_score",
+            0
+        )
+    )
+
+    valuation = (
+        self.valuation
+        .get(
+            "valuation_score",
+            50
+        )
+    )
+
+    return {
+
+        "quality": quality,
+
+        "predictability": predictability,
+
+        "cashflow": cashflow,
+
+        "valuation": valuation,
+
+        "buffett_score":
+            self.score(),
+
+        "rating":
+            self.rating()
+    }
