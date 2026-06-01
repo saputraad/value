@@ -178,20 +178,15 @@ try:
     )
 
     st.subheader(
-        "Profile Debug"
+        "Profile Raw Debug"
     )
 
-    st.json({
-        "market_cap": data.get(
-            "market_cap"
-        ),
-        "shares": data.get(
-            "shares_outstanding"
-        ),
-        "price": data.get(
-            "price"
+    st.json(
+        data.get(
+            "profile",
+            {}
         )
-    })
+    )
 
 except Exception as e:
 
