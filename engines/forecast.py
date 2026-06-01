@@ -1,6 +1,9 @@
 from engines.growth import analyze_growth
 from engines.risk import RiskAnalyzer
 from engines.data_audit import DataAudit
+from core.sector_classifier import (
+    SectorClassifier
+)
 
 
 class ForecastEngine:
@@ -59,6 +62,65 @@ class ForecastEngine:
 
             return None
 
+        # ==========================
+    # SECTOR ADJUSTMENT
+    # ==========================
+
+    def sector_adjustment(self):
+
+        try:
+
+            sector = (
+                SectorClassifier(
+                    self.ticker
+                ).classify()
+            )
+
+            mapping = {
+
+                "BANK":
+                    (0.90, 0.15),
+
+                "CONSUMER":
+                    (0.90, 0.12),
+
+                "TELECOM":
+                    (0.85, 0.10),
+
+                "MINING":
+                    (0.50, 0.15),
+
+                "COAL":
+                    (0.40, 0.12),
+
+                "PROPERTY":
+                    (0.60, 0.12),
+
+                "TECHNOLOGY":
+                    (0.80, 0.25),
+
+                "HEALTHCARE":
+                    (0.90, 0.15),
+
+                "ENERGY":
+                    (0.60, 0.15),
+
+                "GENERAL":
+                    (0.70, 0.12)
+            }
+
+            return mapping.get(
+                sector,
+                (0.70, 0.12)
+            )
+
+        except:
+
+            return (
+                0.70,
+                0.12
+            )
+
     # ==========================
     # FORECAST GROWTH
     # ==========================
@@ -68,11 +130,22 @@ class ForecastEngine:
         historical = (
             self.historical_growth()
         )
-
+    
         if historical is None:
             return None
-
-        return historical * 0.8
+    
+        factor, ceiling = (
+            self.sector_adjustment()
+        )
+    
+        adjusted = (
+            historical * factor
+        )
+    
+        return min(
+            adjusted,
+            ceiling
+        )
 
     # ==========================
     # REQUIRED RETURN
@@ -156,6 +229,9 @@ class ForecastEngine:
 
             "required_return":
                 self.required_return(),
+
+            "sector_adjustment":
+                self.sector_adjustment(),
 
             "confidence":
                 self.confidence()
