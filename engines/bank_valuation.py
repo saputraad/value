@@ -269,7 +269,7 @@ class BankValuationAnalyzer:
     # ====================================
     
     def summary(self):
-    
+
         mos = self.margin_of_safety()
     
         return {
@@ -298,5 +298,15 @@ class BankValuationAnalyzer:
                 self.bank_score(),
     
             "model":
-                "BANK"
+                "BANK",
+    
+            # DEBUG
+            "debug_roe":
+                self.roe(),
+    
+            "debug_bvps":
+                self.book_value_per_share(),
+    
+            "debug_pbv":
+                self.justified_pbv()
         }
