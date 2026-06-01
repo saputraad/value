@@ -76,61 +76,66 @@ class BankValuationAnalyzer:
     # JUSTIFIED PBV
     # ====================================
 
-    def justified_pbv(self):
-
-        """
-        Simplified Gordon Model
-
-        PBV = (ROE - g)/(r-g)
-        """
-
+    def justified_pbv(
+        self,
+        required_return=15
+    ):
+    
         try:
-
+    
             roe = self.roe()
-        
+    
+            print(
+                "DEBUG ROE:",
+                roe
+            )
+    
             if roe is None:
                 return None
-        
-            forecast = ForecastEngine(
-                self.ticker,
-                get_company_data(
-                    self.ticker
-                )
-            ).summary()
-        
-            growth = (
-                forecast.get(
-                    "forecast_growth"
-                )
-                * 100
+    
+            growth = min(
+                roe * 0.40,
+                8
             )
-        
-            r = forecast.get(
-                "required_return"
+    
+            print(
+                "DEBUG Growth:",
+                growth
             )
-        
-            if growth is None:
-                return None
-        
-            if r is None:
-                return None
-        
+    
+            r = required_return
+    
+            print(
+                "DEBUG Required:",
+                r
+            )
+    
             if r <= growth:
                 return None
-        
+    
             justified = (
                 (roe - growth)
                 /
                 (r - growth)
             )
-        
+    
+            print(
+                "DEBUG PBV:",
+                justified
+            )
+    
             return round(
                 justified,
                 2
             )
-        
-        except:
-        
+    
+        except Exception as e:
+    
+            print(
+                "PBV ERROR:",
+                e
+            )
+    
             return None
 
     # ====================================
