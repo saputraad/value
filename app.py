@@ -19,7 +19,9 @@ from engines.expected_return import (
 from engines.predictability import (
     PredictabilityAnalyzer
 )
-
+from engines.buffett_score import (
+    BuffettScoreAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
@@ -76,6 +78,21 @@ audit = DataAudit(
 )
 
 audit_result = audit.summary()
+buffett = (
+    BuffettScoreAnalyzer(
+        data,
+        valuation_results
+    )
+    .summary()
+)
+
+st.subheader(
+    "Buffett Score Debug"
+)
+
+st.json(
+    buffett
+)
 
 cashflow = CashflowQualityAnalyzer(
     data
