@@ -78,21 +78,6 @@ audit = DataAudit(
 )
 
 audit_result = audit.summary()
-buffett = (
-    BuffettScoreAnalyzer(
-        data,
-        valuation_results
-    )
-    .summary()
-)
-
-st.subheader(
-    "Buffett Score Debug"
-)
-
-st.json(
-    buffett
-)
 
 cashflow = CashflowQualityAnalyzer(
     data
@@ -160,6 +145,22 @@ st.subheader(
 
 st.json(
     quality
+)
+
+buffett = (
+    BuffettScoreAnalyzer(
+        data,
+        valuation_results
+    )
+    .summary()
+)
+
+st.subheader(
+    "Buffett Score Debug"
+)
+
+st.json(
+    buffett
 )
 
 
