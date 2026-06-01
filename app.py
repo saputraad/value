@@ -1,6 +1,11 @@
 import streamlit as st
 from core.data_provider import get_company_data
 from engines.growth import analyze_growth
+
+growth_debug = analyze_growth(data)
+
+st.subheader("Growth Debug")
+st.json(growth_debug)
 from engines.quality import analyze_quality
 from engines.risk import RiskAnalyzer
 from engines.technical import TechnicalAnalyzer
