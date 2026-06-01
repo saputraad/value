@@ -585,10 +585,10 @@ with tabs[4]:
 
     try:
 
-        def analyze_quality(
+     def analyze_quality(
             ticker,
             data
-        ):
+        ):   
 
         roe = quality["roe"]
         roa = quality["roa"]
