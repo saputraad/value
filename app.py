@@ -153,30 +153,30 @@ try:
     analyzer.summary()
 )
 
-expected_return = (
-    ExpectedReturnEngine(
-        ticker,
-        data,
+    expected_return = (
+        ExpectedReturnEngine(
+            ticker,
+            data,
+            valuation_results
+        )
+        .summary()
+    )
+    
+    st.subheader(
+        "Expected Return Debug"
+    )
+    
+    st.json(
+        expected_return
+    )
+    
+    st.subheader(
+        "Valuation Debug"
+    )
+    
+    st.json(
         valuation_results
     )
-    .summary()
-)
-
-st.subheader(
-    "Expected Return Debug"
-)
-
-st.json(
-    expected_return
-)
-
-st.subheader(
-    "Valuation Debug"
-)
-
-st.json(
-    valuation_results
-)
 
     st.subheader(
         "Profile Debug"
