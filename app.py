@@ -64,57 +64,6 @@ growth_debug = analyze_growth(
     data
 )
 
-DEBUG_MODE = False
-
-if DEBUG_MODE:
-    
-    st.subheader(
-        "Growth Debug"
-    )
-    
-    st.json(
-        growth_debug
-    )
-    
-    st.subheader(
-        "Bank Debug"
-    )
-
-st.json(
-    {
-        "bookValue":
-            data.get(
-                "info",
-                {}
-            ).get(
-                "bookValue"
-            ),
-
-        "returnOnEquity":
-            data.get(
-                "info",
-                {}
-            ).get(
-                "returnOnEquity"
-            ),
-
-        "sharesOutstanding":
-            data.get(
-                "info",
-                {}
-            ).get(
-                "sharesOutstanding"
-            )
-    }
-)
-
-st.subheader(
-    "Forecast Debug"
-)
-
-st.json(
-    forecast
-)
 current_price = data.get("price") if data else None
 market_cap = data.get("market_cap") if data else None
 
@@ -221,23 +170,26 @@ with tabs[0]:
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
-            "Overall Score",
-            result["overall_score"]
+            "Current Price",
+            f"Rp {current_price:,.0f}"
+            if current_price else "-"
         )
         
         col2.metric(
-            "Recommendation",
-            result["recommendation"]
+            "Fair Value",
+            f"Rp {fair_value:,.0f}"
+            if fair_value else "-"
         )
         
         col3.metric(
-            "Confidence",
-            f"{result['confidence']}%"
+            "Margin of Safety",
+            f"{mos*100:.1f}%"
+            if mos is not None else "-"
         )
         
         col4.metric(
-            "Risk Score",
-            result["risk_score"]
+            "Recommendation",
+            recommendation
         )
 
         st.markdown("---")
@@ -733,7 +685,7 @@ with tabs[7]:
 
         result = engine.summary()
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
             "Overall Score",
