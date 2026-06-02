@@ -129,6 +129,8 @@ st.write(
     data["cashflow"]
 )
 
+data["cashflow"].index.tolist()
+
 from engines.roic import (
     ROICAnalyzer
 )
