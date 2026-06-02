@@ -22,11 +22,9 @@ class CashflowQualityAnalyzer:
 
     def __init__(
         self,
-        ticker,
         data
     ):
-
-        self.ticker = ticker
+    
         self.data = data
 
     # ==========================
