@@ -238,6 +238,13 @@ try:
         )
         .summary()
     )
+    st.subheader(
+    "Income Statement Rows"
+    )
+    
+    st.write(
+        data["income_statement"].index.tolist()
+    )
     
     st.subheader(
         "Expected Return Debug"
