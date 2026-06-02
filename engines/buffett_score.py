@@ -19,8 +19,10 @@ class BuffettScoreAnalyzer:
         data,
         valuation_results
     ):
-
+    
+        self.ticker = ticker
         self.data = data
+    
         self.valuation = (
             valuation_results
         )
