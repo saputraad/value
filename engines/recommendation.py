@@ -145,7 +145,6 @@ class RecommendationEngine:
     
             result = (
                 CashflowQualityAnalyzer(
-                    self.ticker,
                     self.data
                 ).summary()
             )
