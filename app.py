@@ -99,6 +99,10 @@ st.json(cashflow)
 st.subheader("Fraud Detection Debug")
 st.json(fraud)
 
+st.json(
+    data["profile"]
+)
+
 forecast = ForecastEngine(
     ticker,
     data
@@ -108,9 +112,6 @@ forecast = ForecastEngine(
 st.write(
     "Forecast Debug",
     forecast
-)
-st.json(
-    data["profile"]
 )
 
 predictability = (
