@@ -123,52 +123,11 @@ class CashflowQualityAnalyzer:
 
     def score(self):
 
-        score = 0
-
-        positive = self.positive_years()
-
-        growth = self.fcf_growth()
-
-        if positive >= 5:
-            score += 60
-
-        elif positive >= 4:
-            score += 50
-
-        elif positive >= 3:
-            score += 40
-
-        elif positive >= 2:
-            score += 20
-
-        if growth is not None:
-
-            growth_pct = growth * 100
-
-            if growth_pct >= 15:
-                score += 40
-
-            elif growth_pct >= 10:
-                score += 30
-
-            elif growth_pct >= 5:
-                score += 20
-
-            elif growth_pct >= 0:
-                score += 10
-
-        return min(score, 100)
-
-    # ==========================
-    # SUMMARY
-    # ==========================
-
-    def score(self):
-
         sector = SectorClassifier(
             self.ticker
         ).classify()
     
+        # Bank tidak dinilai dengan FCF
         if sector == "BANK":
     
             return 70
@@ -178,10 +137,53 @@ class CashflowQualityAnalyzer:
         positive = self.positive_years()
     
         growth = self.fcf_growth()
+    
+        if positive >= 5:
+            score += 60
+    
+        elif positive >= 4:
+            score += 50
+    
+        elif positive >= 3:
+            score += 40
+    
+        elif positive >= 2:
+            score += 20
+    
+        if growth is not None:
+    
+            growth_pct = growth * 100
+    
+            if growth_pct >= 15:
+                score += 40
+    
+            elif growth_pct >= 10:
+                score += 30
+    
+            elif growth_pct >= 5:
+                score += 20
+    
+            elif growth_pct >= 0:
+                score += 10
+    
+        return min(score, 100)
 
+    # ==========================
+    # SUMMARY
+    # ==========================
+
+    def summary(self):
+
+        growth = self.fcf_growth()
+    
+        return {
+    
+            "fcf_growth":
+                growth,
+    
             "positive_years":
                 self.positive_years(),
-
+    
             "cashflow_score":
                 self.score()
         }
