@@ -13,12 +13,10 @@ class RecommendationEngine:
     def __init__(
         self,
         ticker,
-        data,
-        valuation_results
+        data
     ):
 
         self.ticker = ticker
-
         self.data = data
 
         self.valuation = valuation_results
