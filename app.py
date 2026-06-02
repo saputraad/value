@@ -122,6 +122,14 @@ st.json(
     predictability
 )
 
+st.subheader(
+    "Quality Debug"
+)
+
+st.json(
+    quality
+)
+
 from engines.roic import (
     ROICAnalyzer
 )
