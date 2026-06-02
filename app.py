@@ -83,7 +83,6 @@ audit = DataAudit(
 audit_result = audit.summary()
 
 cashflow = CashflowQualityAnalyzer(
-    ticker,
     data
 ).summary()
 
