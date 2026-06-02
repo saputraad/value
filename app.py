@@ -107,6 +107,10 @@ st.write(
     data["balance_sheet"].index.tolist()
 )
 
+data["balance_sheet"].loc[
+    "Retained Earnings"
+]
+
 st.json(
     data["profile"]
 )
