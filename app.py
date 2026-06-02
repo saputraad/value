@@ -99,6 +99,14 @@ st.json(cashflow)
 st.subheader("Fraud Detection Debug")
 st.json(fraud)
 
+st.subheader(
+    "Balance Sheet Rows"
+)
+
+st.write(
+    data["balance_sheet"].index.tolist()
+)
+
 st.json(
     data["profile"]
 )
