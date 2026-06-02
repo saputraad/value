@@ -109,6 +109,9 @@ st.write(
     "Forecast Debug",
     forecast
 )
+st.json(
+    data["profile"]
+)
 
 predictability = (
     PredictabilityAnalyzer(
