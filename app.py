@@ -111,6 +111,20 @@ data["balance_sheet"].loc[
     "Retained Earnings"
 ]
 
+balance = data["balance_sheet"]
+
+st.subheader(
+    "Retained Earnings"
+)
+
+if "Retained Earnings" in balance.index:
+
+    st.write(
+        balance.loc[
+            "Retained Earnings"
+        ]
+    )
+
 st.json(
     data["profile"]
 )
