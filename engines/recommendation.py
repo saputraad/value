@@ -13,13 +13,16 @@ class RecommendationEngine:
     def __init__(
         self,
         ticker,
-        data
+        data,
+        valuation_results
     ):
 
         self.ticker = ticker
         self.data = data
 
-        self.valuation = valuation_results
+        self.valuation = (
+            valuation_results
+        )
 
     # ==========================================
     # GET SCORES
