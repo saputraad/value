@@ -15,6 +15,7 @@ class BuffettScoreAnalyzer:
 
     def __init__(
         self,
+        ticker,
         data,
         valuation_results
     ):
