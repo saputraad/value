@@ -14,10 +14,19 @@ def safe_get(df, names):
     return None
 
 
+from engines.sector_classifier import (
+    SectorClassifier
+)
+
 class CashflowQualityAnalyzer:
 
-    def __init__(self, data):
+    def __init__(
+        self,
+        ticker,
+        data
+    ):
 
+        self.ticker = ticker
         self.data = data
 
     # ==========================
@@ -169,3 +178,7 @@ class CashflowQualityAnalyzer:
             "cashflow_score":
                 self.score()
         }
+
+        sector = SectorClassifier(
+            self.ticker
+        ).classify()
