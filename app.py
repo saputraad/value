@@ -25,6 +25,9 @@ from engines.predictability import (
 from engines.buffett_score import (
     BuffettScoreAnalyzer
 )
+from engines.gross_margin import (
+    GrossMarginAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
