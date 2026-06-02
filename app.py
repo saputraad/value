@@ -149,7 +149,20 @@ st.subheader(
 st.json(
     roic
 )
+gross_margin = (
+    GrossMarginAnalyzer(
+        data
+    )
+    .summary()
+)
 
+st.subheader(
+    "Gross Margin Debug"
+)
+
+st.json(
+    gross_margin
+)
 quality = analyze_quality(
     data
 )
