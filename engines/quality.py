@@ -185,61 +185,86 @@ def calculate_quality_score(
     roic
 ):
 
-    score = 0
+    earned = 0
+    available = 0
 
+    # =====================
     # ROE
+    # =====================
 
     if roe is not None:
+
+        available += 30
 
         roe_pct = roe * 100
 
         if roe_pct >= 20:
-            score += 30
-        
-        elif roe_pct >= 15:
-            score += 25
-        
-        elif roe_pct >= 10:
-            score += 20
-        
-        elif roe_pct >= 5:
-            score += 10
+            earned += 30
 
+        elif roe_pct >= 15:
+            earned += 25
+
+        elif roe_pct >= 10:
+            earned += 20
+
+        elif roe_pct >= 5:
+            earned += 10
+
+    # =====================
     # ROA
+    # =====================
 
     if roa is not None:
+
+        available += 20
 
         roa_pct = roa * 100
 
         if roa_pct >= 10:
-            score += 20
-        
-        elif roa_pct >= 5:
-            score += 15
-        
-        elif roa_pct >= 2:
-            score += 10
+            earned += 20
 
-    # Debt
+        elif roa_pct >= 5:
+            earned += 15
+
+        elif roa_pct >= 2:
+            earned += 10
+
+    # =====================
+    # DEBT
+    # =====================
 
     if debt_to_equity is not None:
 
+        available += 20
+
         if debt_to_equity <= 0.5:
-            score += 20
-        
+            earned += 20
+
         elif debt_to_equity <= 1:
-            score += 15
-        
+            earned += 15
+
         elif debt_to_equity <= 2:
-            score += 10
+            earned += 10
 
-    score += calculate_roic_score(
-    roic
-    )    
+    # =====================
+    # ROIC
+    # =====================
 
-    return min(score, 100)
+    if roic is not None:
 
+        available += 30
 
+        earned += calculate_roic_score(
+            roic
+        )
+
+    if available == 0:
+        return 0
+
+    return round(
+        (earned / available) * 100,
+        2
+    )
 # ==========================================
 # MASTER ANALYZER
 # ==========================================
