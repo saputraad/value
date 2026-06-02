@@ -121,7 +121,13 @@ st.subheader(
 st.json(
     predictability
 )
+st.subheader(
+    "Raw Cashflow Statement"
+)
 
+st.write(
+    data["cashflow"]
+)
 
 from engines.roic import (
     ROICAnalyzer
