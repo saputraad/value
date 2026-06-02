@@ -218,6 +218,7 @@ try:
     )
     buffett = (
         BuffettScoreAnalyzer(
+            ticker,
             data,
             valuation_results
         )
