@@ -163,14 +163,21 @@ class CashflowQualityAnalyzer:
     # SUMMARY
     # ==========================
 
-    def summary(self):
+    def score(self):
 
+        sector = SectorClassifier(
+            self.ticker
+        ).classify()
+    
+        if sector == "BANK":
+    
+            return 70
+    
+        score = 0
+    
+        positive = self.positive_years()
+    
         growth = self.fcf_growth()
-
-        return {
-
-            "fcf_growth":
-                growth,
 
             "positive_years":
                 self.positive_years(),
@@ -179,6 +186,4 @@ class CashflowQualityAnalyzer:
                 self.score()
         }
 
-        sector = SectorClassifier(
-            self.ticker
-        ).classify()
+    
