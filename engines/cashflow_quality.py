@@ -121,15 +121,6 @@ class CashflowQualityAnalyzer:
 
     def score(self):
 
-        sector = SectorClassifier(
-            self.ticker
-        ).classify()
-    
-        # Bank tidak dinilai dengan FCF
-        if sector == "BANK":
-    
-            return 70
-    
         score = 0
     
         positive = self.positive_years()
