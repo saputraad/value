@@ -56,7 +56,6 @@ class BuffettScoreAnalyzer:
     
         cashflow = (
             CashflowQualityAnalyzer(
-                self.ticker,
                 self.data
             )
             .summary()
