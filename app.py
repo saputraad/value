@@ -31,6 +31,9 @@ from engines.gross_margin import (
 from engines.moat import (
     MoatAnalyzer
 )
+from engines.trajectory import (
+    TrajectoryAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
@@ -87,6 +90,21 @@ audit = DataAudit(
 )
 
 audit_result = audit.summary()
+
+trajectory = (
+    TrajectoryAnalyzer(
+        data
+    )
+    .summary()
+)
+
+st.subheader(
+    "Trajectory Debug"
+)
+
+st.json(
+    trajectory
+)
 
 cashflow = CashflowQualityAnalyzer(
     data
