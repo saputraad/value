@@ -105,7 +105,13 @@ st.subheader(
 st.json(
     trajectory
 )
+income = data["income_statement"]
 
+st.write(
+    income.loc[
+        "Net Income"
+    ]
+)
 cashflow = CashflowQualityAnalyzer(
     data
 ).summary()
