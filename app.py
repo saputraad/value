@@ -296,6 +296,39 @@ st.subheader(
 st.json(
     roic
 )
+buffett = BuffettScoreAnalyzer(
+
+    quality=
+        quality[
+            "quality_score"
+        ],
+
+    moat=
+        moat[
+            "moat_score"
+        ],
+
+    predictability=
+        predictability[
+            "predictability_score"
+        ],
+
+    trajectory=
+        trajectory[
+            "trajectory_score"
+        ],
+
+    cashflow=
+        cashflow[
+            "cashflow_score"
+        ]
+
+).summary()
+
+st.json(
+    buffett
+)
+
 gross_margin = (
     GrossMarginAnalyzer(
         data
