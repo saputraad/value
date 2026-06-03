@@ -125,19 +125,30 @@ cashflow = CashflowQualityAnalyzer(
     data
 ).summary()
 
-fcf = safe_get(
-    cashflow,
-    [
-        "Free Cash Flow"
-    ]
-)
+if cfo is None:
 
-capex = safe_get(
-    cashflow,
-    [
-        "Capital Expenditure"
-    ]
-)
+    fcf = safe_get(
+        cashflow,
+        [
+            "Free Cash Flow"
+        ]
+    )
+
+    capex = safe_get(
+        cashflow,
+        [
+            "Capital Expenditure"
+        ]
+    )
+
+    if fcf is not None and capex is not None:
+
+        cfo = fcf - capex
+
+    else:
+
+        return None
+        
 moat = (
     MoatAnalyzer(
         ticker,
