@@ -85,19 +85,6 @@ st.subheader(
 st.write(
     data["cashflow"].index.tolist()
 )
-cashflow = data["cashflow"]
-
-cfo = safe_get(
-    cashflow,
-    [
-        "Operating Cash Flow",
-        "Cash Flow From Continuing Operating Activities",
-        "Net Cash Provided By Operating Activities",
-        "Cash Flowsfromusedin Operating Activities Direct"
-    ]
-)
-
-st.write(cfo)
 
 st.write(
     data["income_statement"].index.tolist()
@@ -113,6 +100,20 @@ audit = DataAudit(
 )
 
 audit_result = audit.summary()
+
+cashflow = data["cashflow"]
+
+cfo = safe_get(
+    cashflow,
+    [
+        "Operating Cash Flow",
+        "Cash Flow From Continuing Operating Activities",
+        "Net Cash Provided By Operating Activities",
+        "Cash Flowsfromusedin Operating Activities Direct"
+    ]
+)
+
+st.write(cfo)
 
 trajectory = (
     TrajectoryAnalyzer(
