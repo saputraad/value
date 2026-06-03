@@ -152,7 +152,48 @@ trajectory = (
     TrajectoryAnalyzer(data)
     .summary()
 )
+st.subheader(
+    "Buffett Score Breakdown"
+)
 
+st.json({
+
+    "quality":
+        quality[
+            "quality_score"
+        ],
+
+    "moat":
+        moat[
+            "moat_score"
+        ],
+
+    "predictability":
+        predictability[
+            "predictability_score"
+        ],
+
+    "trajectory":
+        trajectory[
+            "trajectory_score"
+        ],
+
+    "cashflow":
+        cashflow_quality[
+            "cashflow_score"
+        ],
+
+    "buffett_score":
+        buffett[
+            "buffett_score"
+        ],
+
+    "buffett_rating":
+        buffett[
+            "buffett_rating"
+        ]
+
+})
 st.subheader(
     "Trajectory Debug"
 )
