@@ -95,6 +95,8 @@ st.json(
     data["cashflow"]
 )
 
+TerminalQualityAnalyzer(data).summary()
+
 audit = DataAudit(
     data
 )
