@@ -125,6 +125,19 @@ cashflow = CashflowQualityAnalyzer(
     data
 ).summary()
 
+fcf = safe_get(
+    cashflow,
+    [
+        "Free Cash Flow"
+    ]
+)
+
+capex = safe_get(
+    cashflow,
+    [
+        "Capital Expenditure"
+    ]
+)
 moat = (
     MoatAnalyzer(
         ticker,
