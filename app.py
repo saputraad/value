@@ -92,6 +92,22 @@ cashflow = CashflowQualityAnalyzer(
     data
 ).summary()
 
+moat = (
+    MoatAnalyzer(
+        ticker,
+        data
+    )
+    .summary()
+)
+
+st.subheader(
+    "Moat Debug"
+)
+
+st.json(
+    moat
+)
+
 fraud = FraudDetectionAnalyzer(
     ticker
 ).summary()
