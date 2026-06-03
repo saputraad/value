@@ -143,11 +143,34 @@ st.json(
 
 st.subheader("KRAS DEBUG")
 
-st.write("FCF")
-st.write(fcf)
+cashflow = data["cashflow"]
 
-st.write("CAPEX")
-st.write(capex)
+if "Free Cash Flow" in cashflow.index:
+
+    st.write("FCF")
+    st.write(
+        cashflow.loc[
+            "Free Cash Flow"
+        ]
+    )
+
+if "Capital Expenditure" in cashflow.index:
+
+    st.write("CAPEX")
+    st.write(
+        cashflow.loc[
+            "Capital Expenditure"
+        ]
+    )
+
+if "Cash Flowsfromusedin Operating Activities Direct" in cashflow.index:
+
+    st.write("CFO RAW")
+    st.write(
+        cashflow.loc[
+            "Cash Flowsfromusedin Operating Activities Direct"
+        ]
+    )
 
 income = data["income_statement"]
 
