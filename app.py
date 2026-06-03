@@ -116,7 +116,7 @@ audit = DataAudit(
 
 audit_result = audit.summary()
 
-cashflow = data["cashflow"]
+cashflow_statement = data["cashflow"]
 
 for row in cashflow.index:
 
@@ -137,7 +137,7 @@ predictability = (
     .summary()
 )
 
-cashflow = (
+cashflow_quality = (
     CashflowQualityAnalyzer(data)
     .summary()
 )
@@ -325,7 +325,7 @@ buffett = BuffettScoreAnalyzer(
         ],
 
     cashflow=
-        cashflow[
+        cashflow_quality[
             "cashflow_score"
         ]
 
