@@ -28,6 +28,9 @@ from engines.buffett_score import (
 from engines.gross_margin import (
     GrossMarginAnalyzer
 )
+from engines.moat import (
+    MoatAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
