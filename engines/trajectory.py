@@ -125,7 +125,7 @@ class TrajectoryAnalyzer:
             ]
         )
     
-        if cfo is None:
+        if cfo is None or cfo.dropna().empty:
     
             fcf = safe_get(
                 cashflow,
