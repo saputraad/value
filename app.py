@@ -118,16 +118,14 @@ audit_result = audit.summary()
 
 cashflow_statement = data["cashflow"]
 
-for row in cashflow.index:
+for row in cashflow_statement.index:
 
     if "Operating" in row or "Cash Flow" in row:
 
-        st.write(
-            row
-        )
+        st.write(row)
 
         st.write(
-            cashflow.loc[row]
+            cashflow_statement.loc[row]
         )
 
 quality = analyze_quality(data)
