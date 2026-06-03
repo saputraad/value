@@ -114,23 +114,41 @@ class TrajectoryAnalyzer:
         cashflow = self.data[
             "cashflow"
         ]
-
+    
         cfo = safe_get(
             cashflow,
             [
                 "Operating Cash Flow",
-        
                 "Cash Flow From Continuing Operating Activities",
-        
                 "Net Cash Provided By Operating Activities",
-        
                 "Cash Flowsfromusedin Operating Activities Direct"
             ]
         )
-
+    
         if cfo is None:
-            return None
-
+    
+            fcf = safe_get(
+                cashflow,
+                [
+                    "Free Cash Flow"
+                ]
+            )
+    
+            capex = safe_get(
+                cashflow,
+                [
+                    "Capital Expenditure"
+                ]
+            )
+    
+            if fcf is not None and capex is not None:
+    
+                cfo = fcf - capex
+    
+            else:
+    
+                return None
+    
         return self.calculate_cagr(
             cfo
         )
