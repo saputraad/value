@@ -193,16 +193,19 @@ class TrajectoryAnalyzer:
     
             if pct >= 15:
                 score += 100
-    
+            
             elif pct >= 10:
-                score += 80
-    
+                score += 90
+            
             elif pct >= 5:
-                score += 60
-    
+                score += 80
+            
             elif pct >= 0:
+                score += 60
+            
+            elif pct >= -5:
                 score += 40
-    
+            
             else:
                 score += 20
     
