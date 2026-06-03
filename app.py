@@ -132,19 +132,14 @@ st.subheader(
     "Trajectory Debug"
 )
 
-trajectory = (
-    TrajectoryAnalyzer(
+st.json(
+    trajectory
+)
+
+st.json(
+    TerminalQualityAnalyzer(
         data
-    )
-    .summary()
-)
-
-st.json(
-    trajectory
-)
-
-st.json(
-    trajectory
+    ).summary()
 )
 
 st.subheader("KRAS DEBUG")
