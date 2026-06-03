@@ -135,44 +135,56 @@ class TrajectoryAnalyzer:
 
     def score(self):
 
+        revenue = self.revenue_growth()
+        earnings = self.earnings_growth()
+        cfo = self.cfo_growth()
+    
+        # =====================
+        # RED FLAG
+        # =====================
+    
+        if revenue is not None:
+    
+            if revenue < -0.10:
+    
+                return 20
+    
         score = 0
         count = 0
-
+    
         metrics = [
-
-            self.revenue_growth(),
-            self.earnings_growth(),
-            self.cfo_growth()
-
+            revenue,
+            earnings,
+            cfo
         ]
-
+    
         for growth in metrics:
-
+    
             if growth is None:
                 continue
-
+    
             count += 1
-
+    
             pct = growth * 100
-
+    
             if pct >= 15:
                 score += 100
-
+    
             elif pct >= 10:
                 score += 80
-
+    
             elif pct >= 5:
                 score += 60
-
+    
             elif pct >= 0:
                 score += 40
-
+    
             else:
                 score += 20
-
+    
         if count == 0:
             return 0
-
+    
         return round(
             score / count,
             2
