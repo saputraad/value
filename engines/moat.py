@@ -106,6 +106,24 @@ class MoatAnalyzer:
             )
         )
 
+        print(
+            "gross_margin_score:",
+            gross_margin_score,
+            type(gross_margin_score)
+            )
+        
+        print(
+            "roic_score:",
+            roic_score,
+            type(roic_score)
+        )
+        
+        print(
+            "predictability:",
+            predictability,
+            type(predictability)
+        )
+
         # Buffett Gate
 
         st.write(type(gross_margin_score))
