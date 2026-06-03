@@ -9,7 +9,7 @@ class TerminalQualityAnalyzer:
     def latest_net_income(self):
 
         income = self.data[
-            "financials"
+            "income_statement"
         ]
 
         candidates = [
