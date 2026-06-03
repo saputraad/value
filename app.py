@@ -115,6 +115,8 @@ for row in cashflow.index:
             cashflow.loc[row]
         )
 
+st.write(data.keys())
+
 trajectory = (
     TrajectoryAnalyzer(
         data
