@@ -193,6 +193,22 @@ st.subheader(
 st.json(
     gross_margin
 )
+
+st.subheader(
+    "Share Issued"
+)
+
+balance = data[
+    "balance_sheet"
+]
+
+if "Share Issued" in balance.index:
+
+    st.write(
+        balance.loc[
+            "Share Issued"
+        ]
+    )
 quality = analyze_quality(
     data
 )
