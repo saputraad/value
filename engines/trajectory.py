@@ -118,7 +118,13 @@ class TrajectoryAnalyzer:
         cfo = safe_get(
             cashflow,
             [
-                "Operating Cash Flow"
+                "Operating Cash Flow",
+        
+                "Cash Flow From Continuing Operating Activities",
+        
+                "Net Cash Provided By Operating Activities",
+        
+                "Cash Flowsfromusedin Operating Activities Direct"
             ]
         )
 
