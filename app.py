@@ -145,7 +145,6 @@ fraud = FraudDetectionAnalyzer(
 ).summary()
 
 st.subheader("Cashflow Score Debug")
-st.json(cashflow)
 
 st.subheader("Fraud Detection Debug")
 st.json(fraud)
