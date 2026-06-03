@@ -262,26 +262,32 @@ def calculate_quality_score(
         return 0
     
     score = (
-        earned / available
-    ) * 100
-    
-    # =====================
-    # ROIC PENALTY
-    # =====================
-    
+    earned / available
+) * 100
+
+# =====================
+# ROIC QUALITY FILTER
+# =====================
+
     if roic is not None:
     
         # Menghancurkan modal
     
         if roic < 0:
     
-            score *= 0.5
+            score = min(
+                score,
+                40
+            )
     
         # Return terlalu rendah
     
         elif roic < 0.05:
     
-            score *= 0.8
+            score = min(
+                score,
+                60
+            )
     
     return round(
         min(score, 100),
