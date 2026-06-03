@@ -107,10 +107,12 @@ st.json(
 )
 income = data["income_statement"]
 
+st.subheader(
+    "Income Statement Rows"
+)
+
 st.write(
-    income.loc[
-        "Net Income"
-    ]
+    income.index.tolist()
 )
 cashflow = CashflowQualityAnalyzer(
     data
