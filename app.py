@@ -100,6 +100,8 @@ st.json(
 
 TerminalQualityAnalyzer(data).summary()
 
+ROICAnalyzer(data).summary()
+
 audit = DataAudit(
     data
 )
