@@ -135,8 +135,12 @@ class MoatAnalyzer:
         st.write(type(roic_score))
         st.write(roic_score)
 
+        roic_score = roic_score or 0
+        gross_margin_score = gross_margin_score or 0
+        predictability = predictability or 0
+        
         if roic_score == 0:
-
+        
             return min(
                 20,
                 predictability
