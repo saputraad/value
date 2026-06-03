@@ -71,38 +71,142 @@ class TerminalQualityAnalyzer:
 
     def score(self):
 
-        score = 100
-
-        net_income = (
-            self.latest_net_income()
+        score = 0
+        available = 0
+    
+        net_margin = (
+            self.net_margin()
         )
-
-        cfo = (
-            self.latest_cfo()
+    
+        if net_margin is not None:
+    
+            available += 50
+    
+            pct = net_margin * 100
+    
+            if pct >= 20:
+                score += 50
+    
+            elif pct >= 10:
+                score += 40
+    
+            elif pct >= 5:
+                score += 30
+    
+            elif pct >= 0:
+                score += 20
+    
+        cfo_margin = (
+            self.cfo_margin()
         )
-
-        if net_income is not None:
-
-            if net_income <= 0:
-
-                score *= 0.7
-
-        if cfo is not None:
-
-            if cfo <= 0:
-
-                score *= 0.8
-
+    
+        if cfo_margin is not None:
+    
+            available += 50
+    
+            pct = cfo_margin * 100
+    
+            if pct >= 20:
+                score += 50
+    
+            elif pct >= 10:
+                score += 40
+    
+            elif pct >= 5:
+                score += 30
+    
+            elif pct >= 0:
+                score += 20
+    
+        if available == 0:
+            return 0
+    
         return round(
-            score,
+            score /
+            available *
+            100,
             2
         )
 
     def summary(self):
 
         return {
-
+    
+            "net_margin":
+                self.net_margin(),
+    
+            "cfo_margin":
+                self.cfo_margin(),
+    
             "terminal_quality_score":
-            self.score()
-
+                self.score()
+    
         }
+
+    def latest_revenue(self):
+    
+        income = self.data[
+            "income_statement"
+        ]
+    
+        candidates = [
+    
+            "Total Revenue",
+            "Operating Revenue"
+    
+        ]
+    
+        for row in candidates:
+    
+            if row in income.index:
+    
+                values = (
+                    income.loc[row]
+                    .dropna()
+                )
+    
+                if len(values) > 0:
+    
+                    return float(
+                        values.iloc[0]
+                    )
+    
+        return None
+
+    def net_margin(self):
+
+        revenue = (
+            self.latest_revenue()
+        )
+    
+        income = (
+            self.latest_net_income()
+        )
+    
+        if (
+            revenue is None
+            or revenue <= 0
+            or income is None
+        ):
+            return None
+    
+        return income / revenue
+
+    def cfo_margin(self):
+
+        revenue = (
+            self.latest_revenue()
+        )
+    
+        cfo = (
+            self.latest_cfo()
+        )
+    
+        if (
+            revenue is None
+            or revenue <= 0
+            or cfo is None
+        ):
+            return None
+    
+        return cfo / revenue
