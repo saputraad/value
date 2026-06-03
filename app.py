@@ -107,10 +107,6 @@ st.write(
     data["balance_sheet"].index.tolist()
 )
 
-data["balance_sheet"].loc[
-    "Retained Earnings"
-]
-
 balance = data["balance_sheet"]
 
 st.subheader(
@@ -123,6 +119,12 @@ if "Retained Earnings" in balance.index:
         balance.loc[
             "Retained Earnings"
         ]
+    )
+
+else:
+
+    st.write(
+        "Retained Earnings not available"
     )
 
 st.json(
