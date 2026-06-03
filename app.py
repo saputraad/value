@@ -85,6 +85,10 @@ st.subheader("Balance Sheet Rows")
 st.write(
     data["balance_sheet"].index.tolist()
 )
+quality = analyze_quality(
+    data
+)
+
 st.subheader(
     "Cashflow Rows"
 )
@@ -359,9 +363,6 @@ if "Share Issued" in balance.index:
             "Share Issued"
         ]
     )
-quality = analyze_quality(
-    data
-)
 
 st.subheader(
     "Quality Debug"
