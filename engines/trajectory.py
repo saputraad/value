@@ -1,3 +1,6 @@
+from engines.terminal_quality import (
+    TerminalQualityAnalyzer
+)
 def safe_get(df, names):
 
     if df is None or df.empty:
@@ -252,20 +255,54 @@ class TrajectoryAnalyzer:
 
     def summary(self):
 
+        base_score = self.score()
+    
+        terminal = (
+            TerminalQualityAnalyzer(
+                self.data
+            )
+            .score()
+        )
+    
+        final_score = round(
+            base_score *
+            (
+                terminal / 100
+            ),
+            2
+        )
+    
+        if final_score >= 80:
+    
+            rating = "IMPROVING"
+    
+        elif final_score >= 55:
+    
+            rating = "STABLE"
+    
+        elif final_score >= 30:
+    
+            rating = "SLOWING"
+    
+        else:
+    
+            rating = "DETERIORATING"
+    
         return {
-
+    
             "revenue_growth":
-                self.revenue_growth(),
-
+            self.revenue_growth(),
+    
             "earnings_growth":
-                self.earnings_growth(),
-
+            self.earnings_growth(),
+    
             "cfo_growth":
-                self.cfo_growth(),
-
+            self.cfo_growth(),
+    
             "trajectory_score":
-                self.score(),
-
+            final_score,
+    
             "trajectory_rating":
-                self.rating()
+            rating
+    
         }
