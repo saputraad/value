@@ -130,11 +130,25 @@ for row in cashflow.index:
             cashflow.loc[row]
         )
 
+quality = analyze_quality(data)
+
+predictability = (
+    PredictabilityAnalyzer(data)
+    .summary()
+)
+
+cashflow = (
+    CashflowQualityAnalyzer(data)
+    .summary()
+)
+
+moat = (
+    MoatAnalyzer(data)
+    .summary()
+)
 
 trajectory = (
-    TrajectoryAnalyzer(
-        data
-    )
+    TrajectoryAnalyzer(data)
     .summary()
 )
 
@@ -191,14 +205,6 @@ st.subheader(
 
 st.write(
     income.index.tolist()
-)
-        
-moat = (
-    MoatAnalyzer(
-        ticker,
-        data
-    )
-    .summary()
 )
 
 st.subheader(
@@ -259,13 +265,6 @@ forecast = ForecastEngine(
 st.write(
     "Forecast Debug",
     forecast
-)
-
-predictability = (
-    PredictabilityAnalyzer(
-        data
-    )
-    .summary()
 )
 
 st.subheader(
