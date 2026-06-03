@@ -34,6 +34,9 @@ from engines.moat import (
 from engines.trajectory import (
     TrajectoryAnalyzer
 )
+from engines.terminal_quality import (
+    TerminalQualityAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
