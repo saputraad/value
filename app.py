@@ -37,6 +37,10 @@ from engines.trajectory import (
 from engines.terminal_quality import (
     TerminalQualityAnalyzer
 )
+
+from engines.roic import (
+    ROICAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
