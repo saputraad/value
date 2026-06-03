@@ -140,6 +140,15 @@ class TrajectoryAnalyzer:
                     "Capital Expenditure"
                 ]
             )
+            import streamlit as st
+
+            st.subheader("KRAS DEBUG")
+            
+            st.write("FCF")
+            st.write(fcf)
+            
+            st.write("CAPEX")
+            st.write(capex)
             st.write("FCF", fcf)
             st.write("CAPEX", capex)
         
