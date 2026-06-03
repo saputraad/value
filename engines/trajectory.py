@@ -227,13 +227,13 @@ class TrajectoryAnalyzer:
 
         if score >= 80:
             return "IMPROVING"
-
-        elif score >= 60:
+        
+        elif score >= 55:
             return "STABLE"
-
-        elif score >= 40:
+        
+        elif score >= 30:
             return "SLOWING"
-
+        
         return "DETERIORATING"
 
     # ==========================
