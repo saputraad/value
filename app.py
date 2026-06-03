@@ -90,7 +90,9 @@ st.write(
 )
 
 st.subheader("Cashflow Debug")
-st.write(data["cashflow"])
+st.json(
+    data["cashflow"]
+)
 
 audit = DataAudit(
     data
