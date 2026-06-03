@@ -103,17 +103,17 @@ audit_result = audit.summary()
 
 cashflow = data["cashflow"]
 
-cfo = safe_get(
-    cashflow,
-    [
-        "Operating Cash Flow",
-        "Cash Flow From Continuing Operating Activities",
-        "Net Cash Provided By Operating Activities",
-        "Cash Flowsfromusedin Operating Activities Direct"
-    ]
-)
+for row in cashflow.index:
 
-st.write(cfo)
+    if "Operating" in row or "Cash Flow" in row:
+
+        st.write(
+            row
+        )
+
+        st.write(
+            cashflow.loc[row]
+        )
 
 trajectory = (
     TrajectoryAnalyzer(
