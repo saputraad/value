@@ -140,6 +140,8 @@ class TrajectoryAnalyzer:
                     "Capital Expenditure"
                 ]
             )
+            st.write("FCF", fcf)
+            st.write("CAPEX", capex)
         
             if fcf is not None and capex is not None:
         
