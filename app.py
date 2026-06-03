@@ -126,9 +126,29 @@ st.subheader(
     "Trajectory Debug"
 )
 
+trajectory = (
+    TrajectoryAnalyzer(
+        data
+    )
+    .summary()
+)
+
 st.json(
     trajectory
 )
+
+st.json(
+    trajectory
+)
+
+st.subheader("KRAS DEBUG")
+
+st.write("FCF")
+st.write(fcf)
+
+st.write("CAPEX")
+st.write(capex)
+
 income = data["income_statement"]
 
 st.subheader(
