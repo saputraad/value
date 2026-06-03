@@ -143,7 +143,10 @@ cashflow = (
 )
 
 moat = (
-    MoatAnalyzer(data)
+    MoatAnalyzer(
+        ticker,
+        data
+    )
     .summary()
 )
 
