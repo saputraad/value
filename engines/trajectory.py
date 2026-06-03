@@ -21,39 +21,49 @@ class TrajectoryAnalyzer:
     # CAGR HELPER
     # ==========================
 
-    def calculate_cagr(self, series):
-
-        try:
-
-            values = list(
-                reversed(
-                    series.dropna()
-                    .astype(float)
-                    .values
-                )
-            )
-
-            if len(values) < 3:
-                return None
-
-            first = values[0]
-            last = values[-1]
-
-            if first <= 0:
-                return None
-
-            years = len(values) - 1
-
-            return (
-                (last / first)
-                **
-                (1 / years)
-                - 1
-            )
-
-        except:
-
+    def calculate_cagr(
+        self,
+        series
+    ):
+    
+        values = (
+            series
+            .dropna()
+            .astype(float)
+            .values
+        )
+    
+        if len(values) < 2:
             return None
+    
+        first = values[-1]
+        last = values[0]
+    
+        years = len(values)-1
+    
+        if years <= 0:
+            return None
+    
+        # turnaround case
+        if first <= 0 or last <= 0:
+    
+            return (
+                (
+                    last-first
+                )
+                /
+                abs(first)
+            )
+    
+        return (
+            (
+                last/first
+            )
+            **
+            (
+                1/years
+            )
+        )-1
 
     # ==========================
     # REVENUE CAGR
