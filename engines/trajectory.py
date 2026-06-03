@@ -257,18 +257,8 @@ class TrajectoryAnalyzer:
 
         base_score = self.score()
     
-        terminal = (
-            TerminalQualityAnalyzer(
-                self.data
-            )
-            .score()
-        )
-    
         final_score = round(
-            base_score *
-            (
-                terminal / 100
-            ),
+            self.score(),
             2
         )
     
