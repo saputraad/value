@@ -428,13 +428,13 @@ try:
     valuation_results = (
         analyzer.summary()
     )
-    buffett = (
-        BuffettScoreAnalyzer(
-            data,
-            valuation_results
-        )
-        .summary()
-    )
+    # buffett = (
+    #     BuffettScoreAnalyzer(
+    #         data,
+    #         valuation_results
+    #     )
+    #     .summary()
+    # )
     
     st.subheader(
         "Buffett Score Debug"
