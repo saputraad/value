@@ -1,171 +1,377 @@
-import numpy as np
+from engines.roic import (
+    ROICAnalyzer
+)
+
 
 class ValuationAnalyzer:
 
-    def __init__(self, data_dict):
-        self.data = data_dict if data_dict else {}
-        self.info = self.data.get("profile", {})
-        self.price = self.data.get("price", None)
-        self.balance = self.data.get("balance_sheet", None)
-        self.ticker = self.info.get("symbol", "BBCA.JK")
+    def __init__(
+        self,
+        data
+    ):
+
+        self.data = data
+
+        self.market_cap = data.get(
+            "market_cap"
+        )
 
     # ==========================================
-    # BASIC METRICS
+    # NET INCOME
     # ==========================================
 
-    def current_price(self):
-        return self.price
+    def net_income(self):
 
-    def eps(self):
         try:
-            # 1. Coba ambil dari info utama
-            eps_val = self.info.get("trailingEps") or self.info.get("forwardEps")
-            if eps_val is not None and eps_val != 550.0:  # Bukan angka darurat
-                return eps_val
-                
-            # 2. Hitung manual dari Income Statement / Shares Outstanding
-            financials = self.data.get("income_statement")
-            shares = self.data.get(     "shares_outstanding" )
-            
-            if financials is not None and not financials.empty and shares:
-                # Cari baris Net Income secara fleksibel
-                net_income_keys = ["Net Income", "Net Income Common Stockholders"]
-                for key in net_income_keys:
-                    if key in financials.index:
-                        net_income = financials.loc[key].iloc[0]
-                        return net_income / shares
-            return None # Default fallback saham BBCA jika API macet total
-        except:
-            return None
 
-    def book_value_per_share(self):
-        try:
-            # 1. Coba ambil dari info utama
-            bvps_val = self.info.get("bookValue")
-            if bvps_val is not None and bvps_val != 3200.0:
-                return bvps_val
-                
-            # 2. Hitung manual dari Balance Sheet / Shares Outstanding
-            balance_sheet = self.balance
-            shares = self.data.get(     "shares_outstanding" )
-            
-            if balance_sheet is not None and not balance_sheet.empty and shares:
-                equity_keys = ["Stockholders Equity", "Total Stockholders Equity", "Total Equity Gross Minority Interest"]
-                for key in equity_keys:
-                    if key in balance_sheet.index:
-                        total_equity = balance_sheet.loc[key].iloc[0]
-                        return total_equity / shares
-            return None # Default fallback saham BBCA jika API macet total
-        except:
-            return None
+            income = self.data.get(
+                "income_statement"
+            )
 
-    def pe_ratio(self):
-        try:
-            eps = self.eps()
-            if eps is None or eps <= 0 or self.price is None:
+            if income is None:
                 return None
-            return self.price / eps
+
+            for key in [
+
+                "Net Income",
+
+                "Net Income Common Stockholders"
+
+            ]:
+
+                if key in income.index:
+
+                    return float(
+
+                        income.loc[
+                            key
+                        ].iloc[0]
+
+                    )
+
         except:
+
+            pass
+
+        return None
+
+    # ==========================================
+    # OPERATING CASH FLOW
+    # ==========================================
+
+    def operating_cash_flow(self):
+
+        try:
+
+            cf = self.data.get(
+                "cashflow"
+            )
+
+            if cf is None:
+                return None
+
+            for key in [
+
+                "Operating Cash Flow",
+
+                "Cash Flow From Continuing Operating Activities"
+
+            ]:
+
+                if key in cf.index:
+
+                    return float(
+
+                        cf.loc[
+                            key
+                        ].iloc[0]
+
+                    )
+
+        except:
+
+            pass
+
+        return None
+
+    # ==========================================
+    # CAPEX
+    # ==========================================
+
+    def capex(self):
+
+        try:
+
+            cf = self.data.get(
+                "cashflow"
+            )
+
+            if cf is None:
+                return None
+
+            for key in [
+
+                "Capital Expenditure",
+
+                "Capital Expenditures"
+
+            ]:
+
+                if key in cf.index:
+
+                    return abs(
+
+                        float(
+
+                            cf.loc[
+                                key
+                            ].iloc[0]
+
+                        )
+
+                    )
+
+        except:
+
+            pass
+
+        return None
+
+    # ==========================================
+    # FREE CASH FLOW
+    # ==========================================
+
+    def free_cash_flow(self):
+
+        ocf = self.operating_cash_flow()
+
+        if ocf is None:
+
             return None
 
-    def pbv_ratio(self):
-        try:
-            bvps = self.book_value_per_share()
-            if bvps is None or bvps <= 0 or self.price is None:
-                return None
-            return self.price / bvps
-        except:
-            return None
+        capex = self.capex()
+
+        if capex is None:
+
+            capex = 0
+
+        return ocf - capex
+
+    # ==========================================
+    # EARNINGS YIELD
+    # ==========================================
 
     def earnings_yield(self):
+
+        ni = self.net_income()
+
+        if ni is None:
+
+            return None
+
+        if not self.market_cap:
+
+            return None
+
+        if self.market_cap <= 0:
+
+            return None
+
+        return ni / self.market_cap
+
+    # ==========================================
+    # FCF YIELD
+    # ==========================================
+
+    def fcf_yield(self):
+
+        fcf = self.free_cash_flow()
+
+        if fcf is None:
+
+            return None
+
+        if not self.market_cap:
+
+            return None
+
+        if self.market_cap <= 0:
+
+            return None
+
+        return fcf / self.market_cap
+
+    # ==========================================
+    # EARNINGS YIELD SCORE
+    # ==========================================
+
+    def earnings_yield_score(self):
+
+        ey = self.earnings_yield()
+
+        if ey is None:
+
+            return 0
+
+        if ey >= 0.15:
+
+            return 100
+
+        elif ey >= 0.12:
+
+            return 90
+
+        elif ey >= 0.10:
+
+            return 80
+
+        elif ey >= 0.08:
+
+            return 70
+
+        elif ey >= 0.06:
+
+            return 60
+
+        return 40
+
+    # ==========================================
+    # FCF YIELD SCORE
+    # ==========================================
+
+    def fcf_yield_score(self):
+
+        fy = self.fcf_yield()
+
+        if fy is None:
+
+            return 0
+
+        if fy >= 0.12:
+
+            return 100
+
+        elif fy >= 0.10:
+
+            return 90
+
+        elif fy >= 0.08:
+
+            return 80
+
+        elif fy >= 0.06:
+
+            return 70
+
+        elif fy >= 0.04:
+
+            return 60
+
+        return 40
+
+    # ==========================================
+    # VALUATION SCORE
+    # ==========================================
+
+    def valuation_score(self):
+
+        score = (
+
+            self.earnings_yield_score()
+            * 0.6
+
+            +
+
+            self.fcf_yield_score()
+            * 0.4
+
+        )
+
         try:
-            pe = self.pe_ratio()
-            if pe is None or pe <= 0:
-                return None
-            return 1 / pe
+
+            roic = (
+
+                ROICAnalyzer(
+                    self.data
+                )
+                .summary()
+                .get(
+                    "roic"
+                )
+
+            )
+
+            if roic is not None:
+
+                if roic > 0.20:
+
+                    score += 10
+
+                elif roic > 0.15:
+
+                    score += 5
+
+                elif roic < 0:
+
+                    score -= 20
+
+                elif roic < 0.05:
+
+                    score -= 10
+
         except:
-            return None
 
-    def graham_value(self):
-        try:
-            eps = self.eps()
-            bvps = self.book_value_per_share()
-            if eps is None or bvps is None or eps <= 0 or bvps <= 0:
-                return None
-            return np.sqrt(22.5 * eps * bvps)
-        except:
-            return None
+            pass
 
-    def margin_of_safety(self):
-        try:
-            intrinsic = self.graham_value()
-            if intrinsic is None or self.price is None:
-                return None
-            return (intrinsic - self.price) / intrinsic
-        except:
-            return None
+        return round(
 
-    def justified_pbv(self):
-        try:
-            roe = self.info.get("returnOnEquity") or 0.15
-            required_return = 0.12
-            return roe / required_return
-        except:
-            return None
+            max(
+                0,
+                min(
+                    score,
+                    100
+                )
+            ),
 
-    def fair_value_pbv(self):
-        try:
-            bvps = self.book_value_per_share()
-            justified_pbv = self.justified_pbv()
-            if bvps is None or justified_pbv is None:
-                return None
-            return bvps * justified_pbv
-        except:
-            return None
+            2
+        )
 
-    def value_score(self):
-        score = []
-        mos = self.margin_of_safety()
-        if mos is not None:
-            mos_pct = mos * 100
-            if mos_pct >= 50: score.append(100)
-            elif mos_pct >= 30: score.append(90)
-            elif mos_pct >= 20: score.append(80)
-            elif mos_pct >= 10: score.append(70)
-            elif mos_pct >= 0: score.append(60)
-            else: score.append(30)
-
-        pe = self.pe_ratio()
-        if pe is not None:
-            if pe <= 8: score.append(100)
-            elif pe <= 12: score.append(90)
-            elif pe <= 18: score.append(75)
-            elif pe <= 25: score.append(60)
-            else: score.append(40)
-
-        pbv = self.pbv_ratio()
-        if pbv is not None:
-            if pbv <= 1: score.append(100)
-            elif pbv <= 1.5: score.append(90)
-            elif pbv <= 2: score.append(75)
-            elif pbv <= 3: score.append(60)
-            else: score.append(40)
-
-        if len(score) == 0:
-            return None
-        return round(np.mean(score), 2)
+    # ==========================================
+    # SUMMARY
+    # ==========================================
 
     def summary(self):
+
         return {
-            "current_price": self.current_price(),
-            "eps": self.eps(),
-            "bvps": self.book_value_per_share(),
-            "pe": self.pe_ratio(),
-            "pbv": self.pbv_ratio(),
-            "earnings_yield": self.earnings_yield(),
-            "graham_value": self.graham_value(),
-            "margin_of_safety": self.margin_of_safety(),
-            "justified_pbv": self.justified_pbv(),
-            "fair_value_pbv": self.fair_value_pbv(),
-            "value_score": self.value_score()
+
+            "market_cap":
+                self.market_cap,
+
+            "net_income":
+                self.net_income(),
+
+            "operating_cash_flow":
+                self.operating_cash_flow(),
+
+            "capex":
+                self.capex(),
+
+            "free_cash_flow":
+                self.free_cash_flow(),
+
+            "earnings_yield":
+                self.earnings_yield(),
+
+            "fcf_yield":
+                self.fcf_yield(),
+
+            "earnings_yield_score":
+                self.earnings_yield_score(),
+
+            "fcf_yield_score":
+                self.fcf_yield_score(),
+
+            "valuation_score":
+                self.valuation_score()
+
         }
