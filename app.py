@@ -122,72 +122,8 @@ try:
             data
         )
 
-    valuation_results = (
-        analyzer.summary()
-    )
-    # buffett = (
-    #     BuffettScoreAnalyzer(
-    #         data,
-    #         valuation_results
-    #     )
-    #     .summary()
-    # )
-    
-    st.subheader(
-        "Buffett Score Debug"
-    )
-    
-    st.json(
-        buffett
-    )
-    expected_return = (
-        ExpectedReturnEngine(
-            ticker,
-            data,
-            valuation_results
-        )
-        .summary()
-    )
-    st.subheader(
-    "Income Statement Rows"
-    )
-    
-    st.write(
-        data["income_statement"].index.tolist()
-    )
-    
-    st.subheader(
-        "Expected Return Debug"
-    )
-    
-    st.json(
-        expected_return
-    )
-    
-    # st.subheader(
-    #     "Valuation Debug"
-    # )
-    
-    # st.json(
-    #     valuation_results
-    # )
-
-    st.subheader(
-        "Profile Raw Debug"
-    )
-
-    st.json(
-        data.get(
-            "profile",
-            {}
-        )
-    )
-
 except Exception as e:
 
-    st.sidebar.error(
-        f"Valuation Engine Error: {e}"
-    )
 # ==========================================
 # HEADER & TABS
 # ==========================================
