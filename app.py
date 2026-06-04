@@ -443,6 +443,7 @@ with tabs[1]:
             0
         )
     )
+    st.json(buffett)
 
     st.success(
 
