@@ -52,26 +52,26 @@ class BuffettScoreAnalyzer:
 
     def summary(self):
 
-    return {
-
-        "quality":
-            self.quality,
-
-        "moat":
-            self.moat,
-
-        "predictability":
-            self.predictability,
-
-        "trajectory":
-            self.trajectory,
-
-        "cashflow":
-            self.cashflow,
-
-        "buffett_score":
-            self.score(),
-
-        "buffett_rating":
-            self.rating()
-    }
+        return {
+    
+            "quality":
+                self.quality,
+    
+            "moat":
+                self.moat,
+    
+            "predictability":
+                self.predictability,
+    
+            "trajectory":
+                self.trajectory,
+    
+            "cashflow":
+                self.cashflow,
+    
+            "buffett_score":
+                self.score(),
+    
+            "buffett_rating":
+                self.rating()
+        }
