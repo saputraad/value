@@ -158,7 +158,7 @@ decision = (
                  "buffett_score"
               ],
     
-            valuation[
+        valuation[
                 "valuation_score"
              ]
     
