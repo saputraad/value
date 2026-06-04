@@ -134,7 +134,7 @@ st.write(
 
 # for ticker in BUFFETT_UNIVERSE:
 
-    data = get_company_data(
+data = get_company_data(
         ticker
     )
 
