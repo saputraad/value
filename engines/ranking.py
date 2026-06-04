@@ -8,7 +8,7 @@ from engines.valuation import (
     ValuationAnalyzer
 )
 
-from engines.decision import (
+from engines.buffett_decision import (
     BuffettDecisionAnalyzer
 )
 
