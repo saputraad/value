@@ -17,8 +17,8 @@ class BuffettDecisionAnalyzer:
 
         # Buffett Gate
 
-        if self.business_score < 50:
-
+        if self.business_score < 55:
+        
             return 0
 
         return round(
@@ -36,7 +36,7 @@ class BuffettDecisionAnalyzer:
 
     def rating(self):
 
-        if self.business_score < 50:
+        if self.business_score < 55:
 
             return "PASS"
 
@@ -50,7 +50,7 @@ class BuffettDecisionAnalyzer:
 
             return "BUY"
 
-        elif score >= 55:
+        elif score >= 60:
 
             return "WATCHLIST"
 
