@@ -180,24 +180,21 @@ class ValuationAnalyzer:
     def earnings_yield(self):
 
         ni = self.net_income()
-
+    
         market_cap = (
             self.normalized_market_cap()
         )
-
+    
         if ni is None:
-
             return None
-
-        if not self.market_cap:
-
+    
+        if market_cap is None:
             return None
-
-        if self.market_cap <= 0:
-
+    
+        if market_cap <= 0:
             return None
-
-        return ni / self.market_cap
+    
+        return ni / market_cap
 
     # ==========================================
     # FCF YIELD
@@ -206,24 +203,21 @@ class ValuationAnalyzer:
     def fcf_yield(self):
 
         fcf = self.free_cash_flow()
-
-         market_cap = (
+    
+        market_cap = (
             self.normalized_market_cap()
         )
-
+    
         if fcf is None:
-
             return None
-
-        if not self.market_cap:
-
+    
+        if market_cap is None:
             return None
-
-        if self.market_cap <= 0:
-
+    
+        if market_cap <= 0:
             return None
-
-        return fcf / self.market_cap
+    
+        return fcf / market_cap
 
     # ==========================================
     # EARNINGS YIELD SCORE
