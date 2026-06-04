@@ -3,9 +3,9 @@ import pandas as pd
 import streamlit as st
 
 
-# ==================================================
-# TICKER FORMATTER
-# ==================================================
+# ==========================================
+# TICKER
+# ==========================================
 
 def format_ticker(ticker: str) -> str:
 
@@ -17,309 +17,403 @@ def format_ticker(ticker: str) -> str:
     return ticker
 
 
-# ==================================================
+# ==========================================
 # LOAD STOCK
-# ==================================================
+# ==========================================
 
-@st.cache_resource
 def load_stock(ticker: str):
 
-    symbol = format_ticker(ticker)
+    return yf.Ticker(
+        format_ticker(ticker)
+    )
 
-    return yf.Ticker(symbol)
 
-
-# ==================================================
+# ==========================================
 # COMPANY INFO
-# ==================================================
+# ==========================================
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=21600)
 def get_company_info(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return (
+            load_stock(ticker)
+            .info
+        )
 
-        info = stock.info
-
-        if not isinstance(info, dict):
-            return {}
-
-        return info
-
-    except Exception:
+    except:
 
         return {}
 
 
-# ==================================================
+# ==========================================
 # FAST INFO
-# ==================================================
+# ==========================================
 
-@st.cache_data(ttl=1800)
+@st.cache_data(ttl=300)
 def get_fast_info(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return dict(
+            load_stock(ticker)
+            .fast_info
+        )
 
-        return dict(stock.fast_info)
-
-    except Exception:
+    except:
 
         return {}
 
 
-# ==================================================
-# PRICE HISTORY
-# ==================================================
-
-@st.cache_data(ttl=1800)
-def get_price_history(
-    ticker: str,
-    period: str = "10y"
-):
-
-    try:
-
-        stock = load_stock(ticker)
-
-        df = stock.history(
-            period=period,
-            auto_adjust=True
-        )
-
-        if df is None:
-            return pd.DataFrame()
-
-        return df
-
-    except Exception:
-
-        return pd.DataFrame()
-
-
-# ==================================================
+# ==========================================
 # CURRENT PRICE
-# ==================================================
+# ==========================================
 
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=60)
 def get_current_price(ticker: str):
 
-    try:
+    stock = load_stock(
+        ticker
+    )
 
-        fast = get_fast_info(ticker)
-
-        if fast:
-
-            last_price = (
-                fast.get("lastPrice")
-                or fast.get("regularMarketPrice")
-            )
-
-            if last_price:
-                return float(last_price)
-
-    except Exception:
-        pass
+    # --------------------------------------
+    # PRIORITY 1
+    # INTRADAY
+    # --------------------------------------
 
     try:
 
-        history = get_price_history(
-            ticker,
-            period="1mo"
+        intraday = stock.history(
+
+            period="1d",
+
+            interval="1m",
+
+            auto_adjust=False
+
         )
 
-        if not history.empty:
+        if not intraday.empty:
 
             return float(
-                history["Close"].dropna().iloc[-1]
+
+                intraday[
+                    "Close"
+                ]
+                .iloc[-1]
+
             )
 
-    except Exception:
+    except:
+
+        pass
+
+    # --------------------------------------
+    # PRIORITY 2
+    # FAST INFO
+    # --------------------------------------
+
+    try:
+
+        fast = get_fast_info(
+            ticker
+        )
+
+        price = (
+
+            fast.get(
+                "lastPrice"
+            )
+
+            or
+
+            fast.get(
+                "regularMarketPrice"
+            )
+
+        )
+
+        if price:
+
+            return float(
+                price
+            )
+
+    except:
+
+        pass
+
+    # --------------------------------------
+    # PRIORITY 3
+    # DAILY CLOSE
+    # --------------------------------------
+
+    try:
+
+        daily = stock.history(
+            period="5d"
+        )
+
+        if not daily.empty:
+
+            return float(
+
+                daily[
+                    "Close"
+                ]
+                .iloc[-1]
+
+            )
+
+    except:
+
         pass
 
     return None
 
 
-# ==================================================
-# MARKET CAP
-# ==================================================
-
-@st.cache_data(ttl=1800)
-def get_market_cap(ticker: str):
-
-    try:
-
-        fast = get_fast_info(ticker)
-
-        market_cap = fast.get("marketCap")
-
-        if market_cap:
-            return float(market_cap)
-
-    except Exception:
-        pass
-
-    try:
-
-        info = get_company_info(ticker)
-
-        market_cap = info.get("marketCap")
-
-        if market_cap:
-            return float(market_cap)
-
-    except Exception:
-        pass
-
-    return None
-
-
-# ==================================================
+# ==========================================
 # SHARES OUTSTANDING
-# ==================================================
+# ==========================================
 
-@st.cache_data(ttl=1800)
+@st.cache_data(ttl=21600)
 def get_shares_outstanding(ticker: str):
 
     try:
 
-        fast = get_fast_info(ticker)
+        info = get_company_info(
+            ticker
+        )
 
-        shares = fast.get("shares")
-
-        if shares:
-            return float(shares)
-
-    except Exception:
-        pass
-
-    try:
-
-        info = get_company_info(ticker)
-
-        shares = info.get("sharesOutstanding")
+        shares = info.get(
+            "sharesOutstanding"
+        )
 
         if shares:
-            return float(shares)
 
-    except Exception:
+            return float(
+                shares
+            )
+
+    except:
+
         pass
 
     return None
 
 
-# ==================================================
-# INCOME STATEMENT
-# ==================================================
+# ==========================================
+# MARKET CAP
+# ==========================================
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=300)
+def get_market_cap(ticker: str):
+
+    try:
+
+        shares = get_shares_outstanding(
+            ticker
+        )
+
+        price = get_current_price(
+            ticker
+        )
+
+        if (
+
+            shares
+            and
+            price
+
+        ):
+
+            return (
+
+                shares
+                *
+                price
+
+            )
+
+    except:
+
+        pass
+
+    return None
+
+
+# ==========================================
+# FINANCIALS
+# ==========================================
+
+@st.cache_data(ttl=21600)
 def get_income_statement(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return (
+            load_stock(ticker)
+            .financials
+        )
 
-        return stock.financials
-
-    except Exception:
+    except:
 
         return pd.DataFrame()
 
 
-# ==================================================
-# BALANCE SHEET
-# ==================================================
-
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=21600)
 def get_balance_sheet(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return (
+            load_stock(ticker)
+            .balance_sheet
+        )
 
-        return stock.balance_sheet
-
-    except Exception:
+    except:
 
         return pd.DataFrame()
 
 
-# ==================================================
-# CASHFLOW
-# ==================================================
-
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=21600)
 def get_cashflow(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return (
+            load_stock(ticker)
+            .cashflow
+        )
 
-        return stock.cashflow
-
-    except Exception:
+    except:
 
         return pd.DataFrame()
 
 
-# ==================================================
-# DIVIDENDS
-# ==================================================
+# ==========================================
+# PRICE HISTORY
+# ==========================================
 
 @st.cache_data(ttl=3600)
+def get_price_history(
+    ticker,
+    period="10y"
+):
+
+    try:
+
+        return (
+
+            load_stock(
+                ticker
+            )
+
+            .history(
+
+                period=period,
+
+                auto_adjust=True
+
+            )
+
+        )
+
+    except:
+
+        return pd.DataFrame()
+
+
+# ==========================================
+# DIVIDENDS
+# ==========================================
+
+@st.cache_data(ttl=21600)
 def get_dividends(ticker: str):
 
     try:
 
-        stock = load_stock(ticker)
+        return (
+            load_stock(ticker)
+            .dividends
+        )
 
-        return stock.dividends
+    except:
 
-    except Exception:
+        return pd.Series(
+            dtype=float
+        )
 
-        return pd.Series(dtype=float)
 
-
-# ==================================================
+# ==========================================
 # PROFILE
-# ==================================================
+# ==========================================
 
-@st.cache_data(ttl=1800)
+@st.cache_data(ttl=21600)
 def get_profile(ticker: str):
 
-    info = get_company_info(ticker)
+    info = get_company_info(
+        ticker
+    )
 
     return {
 
+        "symbol":
+            ticker,
+
         "name":
-            info.get("longName"),
+            info.get(
+                "longName"
+            ),
 
         "sector":
-            info.get("sector"),
+            info.get(
+                "sector"
+            ),
 
         "industry":
-            info.get("industry"),
+            info.get(
+                "industry"
+            ),
 
         "country":
-            info.get("country"),
+            info.get(
+                "country"
+            ),
 
         "website":
-            info.get("website"),
+            info.get(
+                "website"
+            )
     }
 
 
-# ==================================================
-# HEALTH CHECK
-# ==================================================
+# ==========================================
+# HEALTH
+# ==========================================
 
-@st.cache_data(ttl=1800)
-def get_data_health(ticker: str):
+def get_data_health(
+    ticker
+):
 
-    income = get_income_statement(ticker)
-    balance = get_balance_sheet(ticker)
-    cashflow = get_cashflow(ticker)
+    income = (
+        get_income_statement(
+            ticker
+        )
+    )
+
+    balance = (
+        get_balance_sheet(
+            ticker
+        )
+    )
+
+    cashflow = (
+        get_cashflow(
+            ticker
+        )
+    )
 
     return {
 
@@ -330,16 +424,18 @@ def get_data_health(ticker: str):
             not balance.empty,
 
         "cashflow":
-            not cashflow.empty,
+            not cashflow.empty
     }
 
 
-# ==================================================
-# MASTER DATA OBJECT
-# ==================================================
+# ==========================================
+# MASTER DATA
+# ==========================================
 
-@st.cache_data(ttl=1800)
-def get_company_data(ticker: str):
+@st.cache_data(ttl=300)
+def get_company_data(
+    ticker
+):
 
     return {
 
@@ -347,34 +443,57 @@ def get_company_data(ticker: str):
             ticker,
 
         "profile":
-            get_profile(ticker),
+            get_profile(
+                ticker
+            ),
+
         "info":
-            get_company_info(ticker),
+            get_company_info(
+                ticker
+            ),
 
         "price":
-            get_current_price(ticker),
+            get_current_price(
+                ticker
+            ),
 
         "market_cap":
-            get_market_cap(ticker),
+            get_market_cap(
+                ticker
+            ),
 
         "shares_outstanding":
-            get_shares_outstanding(ticker),
+            get_shares_outstanding(
+                ticker
+            ),
 
         "income_statement":
-            get_income_statement(ticker),
+            get_income_statement(
+                ticker
+            ),
 
         "balance_sheet":
-            get_balance_sheet(ticker),
+            get_balance_sheet(
+                ticker
+            ),
 
         "cashflow":
-            get_cashflow(ticker),
+            get_cashflow(
+                ticker
+            ),
 
         "history":
-            get_price_history(ticker),
+            get_price_history(
+                ticker
+            ),
 
         "dividends":
-            get_dividends(ticker),
+            get_dividends(
+                ticker
+            ),
 
         "health":
-            get_data_health(ticker),
+            get_data_health(
+                ticker
+            )
     }
