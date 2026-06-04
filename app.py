@@ -245,16 +245,70 @@ with tabs[1]:
 with tabs[2]:
 
     st.subheader(
-        "Valuation"
+        "Valuation Analysis"
     )
 
-    with st.expander(
-        "Show Debug Data"
-    ):
+    c1, c2, c3 = st.columns(3)
 
-        st.json(
-            valuation
+    with c1:
+
+        st.metric(
+
+            "Valuation Score",
+
+            valuation.get(
+                "valuation_score",
+                0
+            )
+
         )
+
+    with c2:
+
+        ey = valuation.get(
+            "earnings_yield"
+        )
+
+        st.metric(
+
+            "Earnings Yield",
+
+            f"{ey*100:.2f}%"
+            if ey is not None
+            else "-"
+
+        )
+
+    with c3:
+
+        fy = valuation.get(
+            "fcf_yield"
+        )
+
+        st.metric(
+
+            "FCF Yield",
+
+            f"{fy*100:.2f}%"
+            if fy is not None
+            else "-"
+
+        )
+
+    st.divider()
+
+    score = valuation.get(
+        "valuation_score",
+        0
+    )
+
+    st.progress(
+        score / 100
+    )
+
+    st.caption(
+        f"Valuation Strength : {score}/100"
+    )
 
 # =====================================
 # DECISION
