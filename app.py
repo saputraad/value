@@ -214,11 +214,7 @@ for ticker in BUFFETT_UNIVERSE:
     except:
 
         pass
-
-from engines.ranking import (
-    BuffettRankingEngine
-)
-
+        
 ranking = (
 
     BuffettRankingEngine(
