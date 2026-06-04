@@ -167,7 +167,7 @@ decision = (
       )
         
 
-  ranking.add_stock(
+ranking.add_stock(
 
     ticker,
 
