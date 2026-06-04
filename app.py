@@ -234,8 +234,80 @@ with tabs[1]:
         "Fundamental Analysis"
     )
 
-    st.json(
-        buffett
+    metrics = [
+
+        (
+            "Quality",
+            buffett.get(
+                "quality",
+                0
+            )
+        ),
+
+        (
+            "Moat",
+            buffett.get(
+                "moat",
+                0
+            )
+        ),
+
+        (
+            "Predictability",
+            buffett.get(
+                "predictability",
+                0
+            )
+        ),
+
+        (
+            "Trajectory",
+            buffett.get(
+                "trajectory",
+                0
+            )
+        ),
+
+        (
+            "Cashflow",
+            buffett.get(
+                "cashflow",
+                0
+            )
+        )
+
+    ]
+
+    for name, value in metrics:
+
+        st.write(
+            f"**{name}** : {value}"
+        )
+
+        st.progress(
+            value / 100
+        )
+
+    st.divider()
+
+    st.metric(
+
+        "Buffett Score",
+
+        buffett.get(
+            "buffett_score",
+            0
+        )
+
+    )
+
+    st.success(
+
+        buffett.get(
+            "buffett_rating",
+            "-"
+        )
+
     )
 
 # =====================================
