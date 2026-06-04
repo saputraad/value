@@ -242,20 +242,26 @@ if not history.empty:
 
     )
 
-valuation = (
-    ValuationAnalyzer(
-        data
+try:
+
+    valuation = (
+        ValuationAnalyzer(
+            data
+        )
+        .summary()
     )
-    .summary()
-)
 
-st.subheader(
-    "Valuation Debug"
-)
+    st.json(
+        valuation
+    )
 
-st.json(
-    valuation
-)
+except Exception as e:
+
+    st.error(
+        str(e)
+    )
+
+    raise
 
 st.subheader(
     "Profile Debug"
