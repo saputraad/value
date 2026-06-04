@@ -181,6 +181,10 @@ class ValuationAnalyzer:
 
         ni = self.net_income()
 
+        market_cap = (
+            self.normalized_market_cap()
+        )
+
         if ni is None:
 
             return None
@@ -202,6 +206,10 @@ class ValuationAnalyzer:
     def fcf_yield(self):
 
         fcf = self.free_cash_flow()
+
+         market_cap = (
+            self.normalized_market_cap()
+        )
 
         if fcf is None:
 
