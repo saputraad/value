@@ -248,9 +248,13 @@ with tabs[2]:
         "Valuation"
     )
 
-    st.json(
-        valuation
-    )
+    with st.expander(
+        "Show Debug Data"
+    ):
+
+        st.json(
+            valuation
+        )
 
 # =====================================
 # DECISION
