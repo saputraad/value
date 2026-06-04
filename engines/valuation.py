@@ -367,6 +367,8 @@ class ValuationAnalyzer:
     def summary(self):
 
         return {
+            "financial_currency":
+                self.financial_currency(),
 
             "market_cap":
                 self.market_cap,
@@ -377,20 +379,14 @@ class ValuationAnalyzer:
              "financial_currency":
                 self.financial_currency(),
         
-            "market_cap":
-                self.market_cap,
-
-    "normalized_market_cap":
-        self.normalized_market_cap(),
+            "normalized_market_cap":
+                self.normalized_market_cap(),
 
             # "operating_cash_flow":
             #     self.operating_cash_flow(),
 
             # "capex":
             #     self.capex(),
-            
-            "financial_currency":
-                self.financial_currency(),
             
             "free_cash_flow":
                 self.free_cash_flow(),
