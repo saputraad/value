@@ -371,10 +371,7 @@ decision = BuffettDecisionAnalyzer(
             "buffett_score"
         ],
 
-    valuation_score=
-        valuation[
-            "valuation_score"
-        ]
+    valuation_score=50
 
 ).summary()
 
