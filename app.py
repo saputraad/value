@@ -374,6 +374,11 @@ decision = BuffettDecisionAnalyzer(
     valuation_score=50
 
 ).summary()
+st.subheader("Buffett Decision Debug")
+
+st.json(
+    decision
+)
 
 gross_margin = (
     GrossMarginAnalyzer(
