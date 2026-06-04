@@ -414,12 +414,83 @@ with tabs[2]:
 with tabs[3]:
 
     st.subheader(
-        "Decision"
+        "Investment Decision"
     )
 
-    st.json(
-        decision
+    c1, c2 = st.columns(2)
+
+    with c1:
+
+        st.metric(
+
+            "Business Score",
+
+            decision.get(
+                "business_score",
+                0
+            )
+
+        )
+
+    with c2:
+
+        st.metric(
+
+            "Valuation Score",
+
+            decision.get(
+                "valuation_score",
+                0
+            )
+
+        )
+
+    st.divider()
+
+    score = decision.get(
+        "decision_score",
+        0
     )
+
+    st.metric(
+
+        "Decision Score",
+
+        score
+    )
+
+    st.progress(
+        score / 100
+    )
+
+    rating = decision.get(
+        "decision_rating",
+        "-"
+    )
+
+    if rating == "STRONG BUY":
+
+        st.success(
+            rating
+        )
+
+    elif rating == "BUY":
+
+        st.info(
+            rating
+        )
+
+    elif rating == "WATCHLIST":
+
+        st.warning(
+            rating
+        )
+
+    else:
+
+        st.error(
+            rating
+        )
 
 # =====================================
 # RANKING
