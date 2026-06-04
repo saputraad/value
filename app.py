@@ -41,6 +41,9 @@ from engines.terminal_quality import (
 from engines.roic import (
     ROICAnalyzer
 )
+from engines.buffett_decision import (
+    BuffettDecisionAnalyzer
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
@@ -88,7 +91,27 @@ st.write(
 quality = analyze_quality(
     data
 )
+decision = BuffettDecisionAnalyzer(
 
+    business_score=
+        buffett[
+            "buffett_score"
+        ],
+
+    valuation_score=
+        valuation[
+            "valuation_score"
+        ]
+
+).summary()
+
+st.subheader(
+    "Buffett Decision"
+)
+
+st.json(
+    decision
+)
 st.subheader(
     "Cashflow Rows"
 )
