@@ -479,20 +479,21 @@ with tabs[3]:
 
 with tabs[4]:
 
-    st.subheader("Quality Analysis")
+    st.subheader(
+        "Quality Analysis"
+    )
 
     try:
 
-     def analyze_quality(
-            ticker,
+        quality = analyze_quality(
             data
-        ):   
+        )
 
         roe = quality["roe"]
         roa = quality["roa"]
         debt = quality["debt_to_equity"]
         score = quality["quality_score"]
-
+        
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
@@ -801,3 +802,9 @@ with tabs[7]:
         st.error(
             f"Recommendation Engine Error: {e}"
         )
+
+if DEBUG_MODE:
+
+    render_debug_panel(
+        data
+    )
