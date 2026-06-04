@@ -154,18 +154,18 @@ valuation = (
 
  decision = (
     BuffettDecisionAnalyzer(
-
         buffett[
-             "buffett_score"
-          ],
-
-        valuation[
-            "valuation_score"
-         ]
-
+                 "buffett_score"
+              ],
+    
+            valuation[
+                "valuation_score"
+             ]
+    
+          )
+          .summary()
       )
-      .summary()
-  )
+        
 
   ranking.add_stock(
 
