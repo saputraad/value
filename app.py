@@ -622,13 +622,13 @@ try:
         expected_return
     )
     
-    st.subheader(
-        "Valuation Debug"
-    )
+    # st.subheader(
+    #     "Valuation Debug"
+    # )
     
-    st.json(
-        valuation_results
-    )
+    # st.json(
+    #     valuation_results
+    # )
 
     st.subheader(
         "Profile Raw Debug"
