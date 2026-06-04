@@ -142,15 +142,16 @@ except:
 try:
 
     moat = (
-        MoatAnalyzer(
-            data
-        )
-        .summary()
-        .get(
-            "moat_score",
-            0
-        )
+    MoatAnalyzer(
+        ticker,
+        data
     )
+    .summary()
+    .get(
+        "moat_score",
+        0
+    )
+)
 
 except:
 
