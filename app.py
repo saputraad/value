@@ -143,6 +143,24 @@ cashflow_quality = (
     .summary()
 )
 
+st.subheader("Data Debug")
+
+st.json({
+
+    "price":
+        data["price"],
+
+    "market_cap":
+        data["market_cap"],
+
+    "shares_outstanding":
+        data["shares_outstanding"],
+
+    "symbol":
+        data["profile"]["symbol"]
+
+})
+
 moat = (
     MoatAnalyzer(
         ticker,
