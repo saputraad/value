@@ -215,6 +215,60 @@ except Exception as e:
     }
 
 # =====================================
+# VALUATION
+# =====================================
+
+try:
+
+    valuation = (
+
+        ValuationAnalyzer(
+            data
+        )
+        .summary()
+
+    )
+
+except Exception as e:
+
+    valuation = {
+        "error": str(e)
+    }
+
+# =====================================
+# DECISION
+# =====================================
+
+try:
+
+    decision = (
+
+        BuffettDecisionAnalyzer(
+
+            business_score=
+                buffett.get(
+                    "buffett_score",
+                    0
+                ),
+
+            valuation_score=
+                valuation.get(
+                    "valuation_score",
+                    0
+                )
+
+        )
+        .summary()
+
+    )
+
+except Exception as e:
+
+    decision = {
+        "error": str(e)
+    }
+
+# =====================================
 # TABS
 # =====================================
 
@@ -308,13 +362,13 @@ with tabs[0]:
     )
     st.divider()
 
-st.write(
-    f"### {buffett.get('buffett_rating', '-')}"
-)
-
-st.write(
-    f"### {decision.get('decision_rating', '-')}"
-)
+    st.write(
+        f"### {buffett.get('buffett_rating', '-')}"
+    )
+    
+    st.write(
+        f"### {decision.get('decision_rating', '-')}"
+    )
 
 # =====================================
 # FUNDAMENTAL
