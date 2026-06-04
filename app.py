@@ -566,19 +566,27 @@ st.json({
 st.json(
     buffett
 )
-decision = BuffettDecisionAnalyzer(
+decision = (
+    BuffettDecisionAnalyzer(
+        buffett["buffett_score"],
+        valuation["valuation_score"]
+    )
+    .summary()
+)
 
-    business_score=
-        buffett[
-            "buffett_score"
-        ],
+ranking.add_stock(
 
-    valuation_score=
-        valuation[
-            "valuation_score"
-        ]
+    ticker,
 
-).summary()
+    decision[
+        "decision_score"
+    ],
+
+    decision[
+        "decision_rating"
+    ]
+
+)
 st.subheader("Buffett Decision Debug")
 
 st.json(
