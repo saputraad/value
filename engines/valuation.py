@@ -148,19 +148,30 @@ class ValuationAnalyzer:
 
     def free_cash_flow(self):
 
-        ocf = self.operating_cash_flow()
-
-        if ocf is None:
-
-            return None
-
-        capex = self.capex()
-
-        if capex is None:
-
-            capex = 0
-
-        return ocf - capex
+        try:
+    
+            cf = self.data.get(
+                "cashflow"
+            )
+    
+            if cf is None:
+                return None
+    
+            if "Free Cash Flow" in cf.index:
+    
+                return float(
+    
+                    cf.loc[
+                        "Free Cash Flow"
+                    ].iloc[0]
+    
+                )
+    
+        except:
+    
+            pass
+    
+        return None
 
     # ==========================================
     # EARNINGS YIELD
