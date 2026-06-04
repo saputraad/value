@@ -51,6 +51,13 @@ from core.data_provider import (
 from engines.ranking import (
     BuffettRankingEngine
 )
+from components.debug_panel import (
+    render_debug_panel
+)
+
+from components.ranking_table import (
+    render_ranking_table
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
