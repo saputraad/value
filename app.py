@@ -96,6 +96,14 @@ quality = analyze_quality(
     data
 )
 
+st.subheader(
+    "Income Statement Debug"
+)
+
+st.write(
+    data["income_statement"]
+)
+
 from datetime import datetime
 
 st.write(
