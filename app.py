@@ -437,14 +437,11 @@ with tabs[1]:
     st.divider()
 
     st.metric(
-
         "Buffett Score",
-
         buffett.get(
             "buffett_score",
             0
         )
-
     )
 
     st.success(
