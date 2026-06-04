@@ -174,6 +174,69 @@ st.write(
 #        decision
 
 #    )
+BUFFETT_UNIVERSE = [
+
+    "BBCA",
+    "BBRI",
+    "BMRI",
+
+    "ICBP",
+    "MYOR",
+    "UNVR",
+
+    "AMRT",
+    "ACES",
+    "MAPI",
+
+    "TLKM",
+    "ISAT",
+
+    "ANTM",
+    "ITMG",
+    "ADRO",
+
+    "INTP",
+    "SMGR"
+
+]
+all_data = {}
+
+for ticker in BUFFETT_UNIVERSE:
+
+    try:
+
+        all_data[
+            ticker
+        ] = get_company_data(
+            ticker
+        )
+
+    except:
+
+        pass
+
+from engines.ranking import (
+    BuffettRankingEngine
+)
+
+ranking = (
+
+    BuffettRankingEngine(
+        all_data
+    )
+    .run()
+
+)
+
+st.subheader(
+    "Top Buffett Stocks"
+)
+
+st.dataframe(
+    ranking,
+    use_container_width=True
+)
+
 st.subheader(
     "Currency Debug"
 )
