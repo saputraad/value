@@ -223,6 +223,15 @@ with tabs[0]:
         )
 
     )
+    st.divider()
+
+st.write(
+    f"### {buffett.get('buffett_rating', '-')}"
+)
+
+st.write(
+    f"### {decision.get('decision_rating', '-')}"
+)
 
 # =====================================
 # FUNDAMENTAL
