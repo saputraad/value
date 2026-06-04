@@ -48,6 +48,9 @@ from engines.buffett_decision import (
 from core.data_provider import (
     get_company_info
 )
+from engines.ranking import (
+    BuffettRankingEngine
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
