@@ -366,11 +366,11 @@ class ValuationAnalyzer:
             "net_income":
                 self.net_income(),
 
-            "operating_cash_flow":
-                self.operating_cash_flow(),
+            # "operating_cash_flow":
+            #     self.operating_cash_flow(),
 
-            "capex":
-                self.capex(),
+            # "capex":
+            #     self.capex(),
 
             "free_cash_flow":
                 self.free_cash_flow(),
