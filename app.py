@@ -309,6 +309,31 @@ with tabs[2]:
     st.caption(
         f"Valuation Strength : {score}/100"
     )
+        st.divider()
+
+    if score >= 85:
+
+        st.success(
+            "Valuation appears very attractive."
+        )
+
+    elif score >= 70:
+
+        st.info(
+            "Valuation is reasonable."
+        )
+
+    elif score >= 55:
+
+        st.warning(
+            "Valuation is fair but not particularly attractive."
+        )
+
+    else:
+
+        st.error(
+            "Valuation appears expensive or weak."
+        )
 
 # =====================================
 # DECISION
