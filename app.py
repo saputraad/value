@@ -697,3 +697,8 @@ with tabs[7]:
         st.info(
             "Enable Developer Mode"
         )
+
+
+    st.json(
+    buffett
+)
