@@ -295,20 +295,20 @@ with tabs[2]:
 
         )
 
-    st.divider()
-
-    score = valuation.get(
-        "valuation_score",
-        0
-    )
-
-    st.progress(
-        score / 100
-    )
-
-    st.caption(
-        f"Valuation Strength : {score}/100"
-    )
+        st.divider()
+    
+        score = valuation.get(
+            "valuation_score",
+            0
+        )
+    
+        st.progress(
+            score / 100
+        )
+    
+        st.caption(
+            f"Valuation Strength : {score}/100"
+        )
         st.divider()
 
     if score >= 85:
