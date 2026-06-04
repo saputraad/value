@@ -388,7 +388,10 @@ class ValuationAnalyzer:
 
             # "capex":
             #     self.capex(),
-
+            
+            "financial_currency":
+                self.financial_currency(),
+            
             "free_cash_flow":
                 self.free_cash_flow(),
 
