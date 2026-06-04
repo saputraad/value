@@ -138,12 +138,12 @@ for ticker in BUFFETT_UNIVERSE:
          ticker
     )
 
-buffett = (
-     BuffettScoreAnalyzer(
-         data
-    )
-    .summary()
- )
+    buffett = (
+         BuffettScoreAnalyzer(
+             data
+        )
+        .summary()
+     )
 
 valuation = (
     ValuationAnalyzer(
