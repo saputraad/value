@@ -145,6 +145,61 @@ cashflow_quality = (
 
 st.subheader("Data Debug")
 
+st.json({
+
+    "ticker":
+        data["ticker"],
+
+    "price":
+        data["price"],
+
+    "market_cap":
+        data["market_cap"],
+
+    "shares_outstanding":
+        data["shares_outstanding"]
+
+})
+
+fast = get_fast_info(ticker)
+
+st.subheader(
+    "Fast Info Debug"
+)
+
+st.json({
+
+    "lastPrice":
+        fast.get("lastPrice"),
+
+    "regularMarketPrice":
+        fast.get("regularMarketPrice"),
+
+    "marketCap":
+        fast.get("marketCap")
+
+})
+
+history = get_price_history(
+    ticker,
+    period="5d"
+)
+
+st.subheader(
+    "Latest Close"
+)
+
+if not history.empty:
+
+    st.write(
+
+        history[
+            ["Close"]
+        ]
+        .tail()
+
+    )
+
 st.subheader(
     "Profile Debug"
 )
