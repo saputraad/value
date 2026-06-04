@@ -163,8 +163,8 @@ decision = (
              ]
     
           )
-          .summary()
-      )
+        .summary()
+  )
         
 
 ranking.add_stock(
