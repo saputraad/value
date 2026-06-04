@@ -1,40 +1,103 @@
 import streamlit as st
 
 
-def render_debug_panel(data):
+def render_debug_panel(
 
-    st.header(
-        "Debug Panel"
-    )
+    data,
 
-    st.subheader(
-        "Profile"
-    )
+    quality=None,
 
-    st.json(
-        data["profile"]
-    )
+    moat=None,
 
-    st.subheader(
-        "Income Statement Rows"
-    )
+    predictability=None,
 
-    st.write(
-        data["income_statement"].index.tolist()
-    )
+    trajectory=None,
 
-    st.subheader(
-        "Balance Sheet Rows"
-    )
+    cashflow=None,
 
-    st.write(
-        data["balance_sheet"].index.tolist()
-    )
+    buffett=None,
+
+    valuation=None,
+
+    decision=None
+
+):
 
     st.subheader(
-        "Cashflow Rows"
+        "Debug Center"
     )
 
-    st.write(
-        data["cashflow"].index.tolist()
-    )
+    # =====================
+    # RAW DATA
+    # =====================
+
+    with st.expander(
+        "Raw Data"
+    ):
+
+        st.write(
+            data.keys()
+        )
+
+    # =====================
+    # BUSINESS COMPONENTS
+    # =====================
+
+    with st.expander(
+        "Business Components"
+    ):
+
+        st.json({
+
+            "quality":
+                quality,
+
+            "moat":
+                moat,
+
+            "predictability":
+                predictability,
+
+            "trajectory":
+                trajectory,
+
+            "cashflow":
+                cashflow
+
+        })
+
+    # =====================
+    # BUFFETT
+    # =====================
+
+    with st.expander(
+        "Buffett Score"
+    ):
+
+        st.json(
+            buffett
+        )
+
+    # =====================
+    # VALUATION
+    # =====================
+
+    with st.expander(
+        "Valuation"
+    ):
+
+        st.json(
+            valuation
+        )
+
+    # =====================
+    # DECISION
+    # =====================
+
+    with st.expander(
+        "Decision"
+    ):
+
+        st.json(
+            decision
+        )
