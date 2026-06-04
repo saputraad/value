@@ -94,6 +94,31 @@ except Exception as e:
 
     quality = 0
 
+except Exception as e:
+
+    st.error(
+        f"MOAT ERROR: {e}"
+    )
+
+    moat = 0
+
+except Exception as e:
+
+    st.error(
+        f"PREDICTABILITY ERROR: {e}"
+    )
+
+    moat = 0
+
+except Exception as e:
+
+    st.error(
+        f"CASHFLOW ERROR: {e}"
+    )
+
+    moat = 0
+    
+
 # =====================================
 # BUSINESS SCORE COMPONENTS
 # =====================================
