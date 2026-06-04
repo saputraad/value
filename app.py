@@ -104,6 +104,24 @@ st.write(
     data["income_statement"]
 )
 
+st.subheader(
+    "Currency Debug"
+)
+
+st.json({
+
+    "financial_currency":
+        data["info"].get(
+            "financialCurrency"
+        ),
+
+    "currency":
+        data["info"].get(
+            "currency"
+        )
+
+})
+
 from datetime import datetime
 
 st.write(
