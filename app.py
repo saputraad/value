@@ -592,19 +592,19 @@ decision = (
     .summary()
 )
 
-ranking.add_stock(
+# ranking.add_stock(
 
-    ticker,
+#     ticker,
 
-    decision[
-        "decision_score"
-    ],
+#     decision[
+#         "decision_score"
+#     ],
 
-    decision[
-        "decision_rating"
-    ]
+#     decision[
+#         "decision_rating"
+#     ]
 
-)
+# )
 st.subheader("Buffett Decision Debug")
 
 st.json(
