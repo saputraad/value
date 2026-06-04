@@ -91,27 +91,7 @@ st.write(
 quality = analyze_quality(
     data
 )
-decision = BuffettDecisionAnalyzer(
 
-    business_score=
-        buffett[
-            "buffett_score"
-        ],
-
-    valuation_score=
-        valuation[
-            "valuation_score"
-        ]
-
-).summary()
-
-st.subheader(
-    "Buffett Decision"
-)
-
-st.json(
-    decision
-)
 st.subheader(
     "Cashflow Rows"
 )
@@ -384,6 +364,19 @@ st.json({
 st.json(
     buffett
 )
+decision = BuffettDecisionAnalyzer(
+
+    business_score=
+        buffett[
+            "buffett_score"
+        ],
+
+    valuation_score=
+        valuation[
+            "valuation_score"
+        ]
+
+).summary()
 
 gross_margin = (
     GrossMarginAnalyzer(
