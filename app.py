@@ -138,8 +138,34 @@ for ticker in BUFFETT_UNIVERSE:
         ticker
     )
 
-    ...
-    decision = ...
+    buffett = (
+        BuffettScoreAnalyzer(
+            data
+        )
+        .summary()
+    )
+
+    valuation = (
+        ValuationAnalyzer(
+            data
+        )
+        .summary()
+    )
+
+    decision = (
+        BuffettDecisionAnalyzer(
+
+            buffett[
+                "buffett_score"
+            ],
+
+            valuation[
+                "valuation_score"
+            ]
+
+        )
+        .summary()
+    )
 
     ranking.add_stock(
 
@@ -147,14 +173,6 @@ for ticker in BUFFETT_UNIVERSE:
 
         decision
 
-    )
-
-    st.subheader(
-    "Top Buffett Stocks"
-    )
-    
-    st.dataframe(
-        ranking.ranking()
     )
 st.subheader(
     "Currency Debug"
