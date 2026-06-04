@@ -126,15 +126,6 @@ class MoatAnalyzer:
 
         # Buffett Gate
 
-        st.write(type(gross_margin_score))
-        st.write(gross_margin_score)
-        
-        st.write(type(predictability_score))
-        st.write(predictability_score)
-        
-        st.write(type(roic_score))
-        st.write(roic_score)
-
         roic_score = roic_score or 0
         gross_margin_score = gross_margin_score or 0
         predictability = predictability or 0
