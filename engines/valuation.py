@@ -394,19 +394,39 @@ class ValuationAnalyzer:
 
     def financial_currency(self):
 
-    try:
-
-        return (
-            self.data
-            .get(
-                "info",
-                {}
+        try:
+    
+            return (
+                self.data
+                .get(
+                    "info",
+                    {}
+                )
+                .get(
+                    "financialCurrency"
+                )
             )
-            .get(
-                "financialCurrency"
+    
+        except:
+    
+            return None
+
+    def normalized_market_cap(self):
+
+        market_cap = self.market_cap
+    
+        if market_cap is None:
+    
+            return None
+    
+        currency = self.financial_currency()
+    
+        if currency == "USD":
+    
+            market_cap = (
+                market_cap
+                /
+                16000
             )
-        )
-
-    except:
-
-        return None
+    
+        return market_cap
