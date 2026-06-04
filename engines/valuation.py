@@ -93,6 +93,11 @@ class ValuationAnalyzer:
             pass
 
         return None
+        st.write(
+            data["cashflow"].index.tolist()
+        )
+
+    
 
     # ==========================================
     # CAPEX
