@@ -106,33 +106,33 @@ st.subheader(
 st.write(
     data["income_statement"]
 )
-BUFFETT_UNIVERSE = [
+# BUFFETT_UNIVERSE = [
 
-    "BBCA",
-    "BBRI",
-    "BMRI",
+#     "BBCA",
+#     "BBRI",
+#     "BMRI",
 
-    "ICBP",
-    "UNVR",
-    "MYOR",
+#     "ICBP",
+#     "UNVR",
+#     "MYOR",
 
-    "AMRT",
-    "ACES",
-    "MAPI",
+#     "AMRT",
+#     "ACES",
+#     "MAPI",
 
-    "TLKM",
-    "ISAT",
+#     "TLKM",
+#     "ISAT",
 
-    "ANTM",
-    "ITMG",
+#     "ANTM",
+#     "ITMG",
 
-    "INTP"
+#     "INTP"
 
-]
+# ]
 
-ranking = BuffettRankingEngine()
+# ranking = BuffettRankingEngine()
 
-for ticker in BUFFETT_UNIVERSE:
+# for ticker in BUFFETT_UNIVERSE:
 
     data = get_company_data(
         ticker
