@@ -374,6 +374,15 @@ class ValuationAnalyzer:
             "net_income":
                 self.net_income(),
 
+             "financial_currency":
+                self.financial_currency(),
+        
+            "market_cap":
+                self.market_cap,
+
+    "normalized_market_cap":
+        self.normalized_market_cap(),
+
             # "operating_cash_flow":
             #     self.operating_cash_flow(),
 
