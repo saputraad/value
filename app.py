@@ -38,6 +38,26 @@ from components.debug_panel import (
     render_debug_panel
 )
 
+from engines.moat import (
+    MoatAnalyzer
+)
+
+from engines.predictability import (
+    PredictabilityAnalyzer
+)
+
+from engines.trajectory import (
+    TrajectoryAnalyzer
+)
+
+from engines.cashflow_quality import (
+    CashflowQualityAnalyzer
+)
+
+from engines.quality import (
+    analyze_quality
+)
+
 # =====================================
 # SIDEBAR
 # =====================================
@@ -75,61 +95,124 @@ except Exception as e:
     st.stop()
 
 # =====================================
-# ENGINE
+# BUSINESS SCORE COMPONENTS
+# =====================================
+
+try:
+
+    quality = (
+        analyze_quality(
+            data
+        )
+        .get(
+            "quality_score",
+            0
+        )
+    )
+
+except:
+
+    quality = 0
+
+try:
+
+    moat = (
+        MoatAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "moat_score",
+            0
+        )
+    )
+
+except:
+
+    moat = 0
+
+try:
+
+    predictability = (
+        PredictabilityAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "predictability_score",
+            0
+        )
+    )
+
+except:
+
+    predictability = 0
+
+try:
+
+    trajectory = (
+        TrajectoryAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "trajectory_score",
+            0
+        )
+    )
+
+except:
+
+    trajectory = 0
+
+try:
+
+    cashflow = (
+        CashflowQualityAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "cashflow_score",
+            0
+        )
+    )
+
+except:
+
+    cashflow = 0
+
+
+# =====================================
+# BUFFETT SCORE
 # =====================================
 
 try:
 
     buffett = (
+
         BuffettScoreAnalyzer(
-            data
-        )
-        .summary()
-    )
 
-except:
+            quality,
 
-    buffett = {}
+            moat,
 
-try:
+            predictability,
 
-    valuation = (
-        ValuationAnalyzer(
-            data
-        )
-        .summary()
-    )
+            trajectory,
 
-except:
-
-    valuation = {}
-
-try:
-
-    decision = (
-
-        BuffettDecisionAnalyzer(
-
-            business_score=
-                buffett.get(
-                    "buffett_score",
-                    0
-                ),
-
-            valuation_score=
-                valuation.get(
-                    "valuation_score",
-                    0
-                )
+            cashflow
 
         )
         .summary()
 
     )
 
-except:
+except Exception as e:
 
-    decision = {}
+    buffett = {
+        "error": str(e)
+    }
 
 # =====================================
 # TABS
