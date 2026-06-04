@@ -135,45 +135,45 @@ st.write(
 # for ticker in BUFFETT_UNIVERSE:
 
 data = get_company_data(
-        ticker
+     ticker
+)
+
+buffett = (
+     BuffettScoreAnalyzer(
+         data
     )
+    .summary()
+ )
 
-    buffett = (
-        BuffettScoreAnalyzer(
-            data
-        )
-        .summary()
-    )
+valuation = (
+    ValuationAnalyzer(
+        data
+     )
+      .summary()
+ )
 
-    valuation = (
-        ValuationAnalyzer(
-            data
-        )
-        .summary()
-    )
+ decision = (
+    BuffettDecisionAnalyzer(
 
-    decision = (
-        BuffettDecisionAnalyzer(
+        buffett[
+             "buffett_score"
+          ],
 
-            buffett[
-                "buffett_score"
-            ],
+        valuation[
+            "valuation_score"
+         ]
 
-            valuation[
-                "valuation_score"
-            ]
+      )
+      .summary()
+  )
 
-        )
-        .summary()
-    )
+  ranking.add_stock(
 
-    ranking.add_stock(
+    ticker,
 
-        ticker,
+       decision
 
-        decision
-
-    )
+   )
 st.subheader(
     "Currency Debug"
 )
