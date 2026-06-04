@@ -260,19 +260,19 @@ explainer = (
     BuffettExplainer(
 
         quality=
-            quality["quality_score"],
+            buffett["quality"],
 
         moat=
-            moat["moat_score"],
+            buffett["moat"],
 
         predictability=
-            predictability["predictability_score"],
+            buffett["predictability"],
 
         trajectory=
-            trajectory["trajectory_score"],
+            buffett["trajectory"],
 
         cashflow=
-            cashflow["cashflow_score"],
+            buffett["cashflow"],
 
         valuation=
             valuation["valuation_score"]
