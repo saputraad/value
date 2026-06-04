@@ -135,7 +135,7 @@ st.write(
 )
 
 st.subheader(
-    "Cashflow Rows"
+    "Cashflow Index Debug"
 )
 
 st.write(
