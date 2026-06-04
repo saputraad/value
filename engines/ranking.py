@@ -7,24 +7,21 @@ class BuffettRankingEngine:
     def add_stock(
         self,
         ticker,
-        decision
+        decision_score,
+        decision_rating
     ):
 
         self.results.append({
 
             "ticker":
                 ticker,
-
+        
             "decision_score":
-                decision[
-                    "decision_score"
-                ],
-
+                decision_score,
+        
             "decision_rating":
-                decision[
-                    "decision_rating"
-                ]
-
+                decision_rating
+        
         })
 
     def ranking(self):
