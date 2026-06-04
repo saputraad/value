@@ -134,9 +134,9 @@ ranking = BuffettRankingEngine()
 
 for ticker in BUFFETT_UNIVERSE:
 
-data = get_company_data(
-     ticker
-)
+    data = get_company_data(
+         ticker
+    )
 
 buffett = (
      BuffettScoreAnalyzer(
