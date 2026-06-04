@@ -122,7 +122,17 @@ try:
             data
         )
 
-    except Exception as e:
+    valuation_results = (
+        analyzer.summary()
+    )
+
+except Exception as e:
+
+    st.error(
+        f"Valuation Error: {e}"
+    )
+
+    valuation_results = {}
 
 # ==========================================
 # HEADER & TABS
