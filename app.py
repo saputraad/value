@@ -103,6 +103,11 @@ market_cap = data.get("market_cap") if data else None
 
 profile = data.get("profile", {}) if data else {}
 
+DEBUG_MODE = st.sidebar.checkbox(
+    "Developer Mode",
+    value=False
+)
+
 
 # ==========================================
 # 2. PANGGIL ENGINE VALUASI
