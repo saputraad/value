@@ -106,74 +106,74 @@ st.subheader(
 st.write(
     data["income_statement"]
 )
-BUFFETT_UNIVERSE = [
+# BUFFETT_UNIVERSE = [
 
-    "BBCA",
-    "BBRI",
-    "BMRI",
+#     "BBCA",
+#     "BBRI",
+#     "BMRI",
 
-    "ICBP",
-    "UNVR",
-    "MYOR",
+#     "ICBP",
+#     "UNVR",
+#     "MYOR",
 
-    "AMRT",
-    "ACES",
-    "MAPI",
+#     "AMRT",
+#     "ACES",
+#     "MAPI",
 
-    "TLKM",
-    "ISAT",
+#     "TLKM",
+#     "ISAT",
 
-    "ANTM",
-    "ITMG",
+#     "ANTM",
+#     "ITMG",
 
-    "INTP"
+#     "INTP"
 
-]
+# ]
 
-ranking = BuffettRankingEngine()
+# ranking = BuffettRankingEngine()
 
-for ticker in BUFFETT_UNIVERSE:
+# for ticker in BUFFETT_UNIVERSE:
 
-    data = get_company_data(
-         ticker
-    )
+#     data = get_company_data(
+#          ticker
+#     )
 
-    buffett = (
-         BuffettScoreAnalyzer(
-             data
-        )
-        .summary()
-     )
+#     buffett = (
+#          BuffettScoreAnalyzer(
+#              data
+#         )
+#         .summary()
+#      )
 
-valuation = (
-    ValuationAnalyzer(
-        data
-     )
-      .summary()
- )
+# valuation = (
+#     ValuationAnalyzer(
+#         data
+#      )
+#       .summary()
+#  )
 
-decision = (
-    BuffettDecisionAnalyzer(
-        buffett[
-                 "buffett_score"
-              ],
+# decision = (
+#     BuffettDecisionAnalyzer(
+#         buffett[
+#                  "buffett_score"
+#               ],
     
-        valuation[
-                "valuation_score"
-             ]
+#         valuation[
+#                 "valuation_score"
+#              ]
     
-          )
-        .summary()
-  )
+#           )
+#         .summary()
+#   )
         
 
-ranking.add_stock(
+# ranking.add_stock(
 
-    ticker,
+#     ticker,
 
-       decision
+#        decision
 
-   )
+#    )
 st.subheader(
     "Currency Debug"
 )
