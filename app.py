@@ -145,21 +145,13 @@ cashflow_quality = (
 
 st.subheader("Data Debug")
 
-st.json({
+st.subheader(
+    "Profile Debug"
+)
 
-    "price":
-        data["price"],
-
-    "market_cap":
-        data["market_cap"],
-
-    "shares_outstanding":
-        data["shares_outstanding"],
-
-    "symbol":
-        data["profile"]["symbol"]
-
-})
+st.json(
+    data["profile"]
+)
 
 moat = (
     MoatAnalyzer(
