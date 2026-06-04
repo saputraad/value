@@ -184,18 +184,6 @@ st.json({
 
 })
 
-from engines.explainer import (
-    BuffettExplainer
-)
-
-st.subheader(
-    "Buffett Analysis"
-)
-
-st.json(
-    explainer
-)
-
 from datetime import datetime
 
 st.write(
@@ -665,32 +653,35 @@ st.json(
     )
 )
 
-explainer = (
+# from engines.explainer import (
+#     BuffettExplainer
+# )
+# explainer = (
 
-    BuffettExplainer(
+#     BuffettExplainer(
 
-        quality=
-            buffett["quality"],
+#         quality=
+#             buffett["quality"],
 
-        moat=
-            buffett["moat"],
+#         moat=
+#             buffett["moat"],
 
-        predictability=
-            buffett["predictability"],
+#         predictability=
+#             buffett["predictability"],
 
-        trajectory=
-            buffett["trajectory"],
+#         trajectory=
+#             buffett["trajectory"],
 
-        cashflow=
-            buffett["cashflow"],
+#         cashflow=
+#             buffett["cashflow"],
 
-        valuation=
-            valuation["valuation_score"]
+#         valuation=
+#             valuation["valuation_score"]
 
-    )
-    .summary()
+#     )
+#     .summary()
 
-)
+# )
 
 
 current_price = data.get("price") if data else None
