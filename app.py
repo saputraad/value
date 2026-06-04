@@ -96,6 +96,18 @@ quality = analyze_quality(
     data
 )
 
+from datetime import datetime
+
+st.write(
+    "Last Refresh:",
+    datetime.now()
+)
+
+st.write(
+    "Current Price:",
+    data["price"]
+)
+
 st.subheader(
     "Cashflow Rows"
 )
