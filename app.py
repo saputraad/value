@@ -1,7 +1,8 @@
 import streamlit as st
 from core.data_provider import (
     get_company_data,
-    get_company_info
+    get_fast_info,
+    get_price_history
 )
 from engines.growth import analyze_growth
 from engines.quality import analyze_quality
