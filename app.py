@@ -216,6 +216,21 @@ if not history.empty:
 
     )
 
+valuation = (
+    ValuationAnalyzer(
+        data
+    )
+    .summary()
+)
+
+st.subheader(
+    "Valuation Debug"
+)
+
+st.json(
+    valuation
+)
+
 st.subheader(
     "Profile Debug"
 )
