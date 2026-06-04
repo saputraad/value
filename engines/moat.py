@@ -156,7 +156,6 @@ class MoatAnalyzer:
         
         )
 
-        )
 
         return round(
             moat,
