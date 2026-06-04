@@ -391,3 +391,22 @@ class ValuationAnalyzer:
                 self.valuation_score()
 
         }
+
+    def financial_currency(self):
+
+    try:
+
+        return (
+            self.data
+            .get(
+                "info",
+                {}
+            )
+            .get(
+                "financialCurrency"
+            )
+        )
+
+    except:
+
+        return None
