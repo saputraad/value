@@ -251,6 +251,45 @@ st.json({
 
 })
 
+from engines.explainer import (
+    BuffettExplainer
+)
+
+explainer = (
+
+    BuffettExplainer(
+
+        quality=
+            quality["quality_score"],
+
+        moat=
+            moat["moat_score"],
+
+        predictability=
+            predictability["predictability_score"],
+
+        trajectory=
+            trajectory["trajectory_score"],
+
+        cashflow=
+            cashflow["cashflow_score"],
+
+        valuation=
+            valuation["valuation_score"]
+
+    )
+    .summary()
+
+)
+
+st.subheader(
+    "Buffett Analysis"
+)
+
+st.json(
+    explainer
+)
+
 from datetime import datetime
 
 st.write(
