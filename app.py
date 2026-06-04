@@ -103,7 +103,56 @@ st.subheader(
 st.write(
     data["income_statement"]
 )
+BUFFETT_UNIVERSE = [
 
+    "BBCA",
+    "BBRI",
+    "BMRI",
+
+    "ICBP",
+    "UNVR",
+    "MYOR",
+
+    "AMRT",
+    "ACES",
+    "MAPI",
+
+    "TLKM",
+    "ISAT",
+
+    "ANTM",
+    "ITMG",
+
+    "INTP"
+
+]
+
+ranking = BuffettRankingEngine()
+
+for ticker in BUFFETT_UNIVERSE:
+
+    data = get_company_data(
+        ticker
+    )
+
+    ...
+    decision = ...
+
+    ranking.add_stock(
+
+        ticker,
+
+        decision
+
+    )
+
+    st.subheader(
+    "Top Buffett Stocks"
+    )
+    
+    st.dataframe(
+        ranking.ranking()
+    )
 st.subheader(
     "Currency Debug"
 )
