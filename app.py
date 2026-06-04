@@ -106,74 +106,7 @@ st.subheader(
 st.write(
     data["income_statement"]
 )
-# BUFFETT_UNIVERSE = [
 
-#     "BBCA",
-#     "BBRI",
-#     "BMRI",
-
-#     "ICBP",
-#     "UNVR",
-#     "MYOR",
-
-#     "AMRT",
-#     "ACES",
-#     "MAPI",
-
-#     "TLKM",
-#     "ISAT",
-
-#     "ANTM",
-#     "ITMG",
-
-#     "INTP"
-
-# ]
-
-# ranking = BuffettRankingEngine()
-
-# for ticker in BUFFETT_UNIVERSE:
-
-#     data = get_company_data(
-#          ticker
-#     )
-
-#     buffett = (
-#          BuffettScoreAnalyzer(
-#              data
-#         )
-#         .summary()
-#      )
-
-# valuation = (
-#     ValuationAnalyzer(
-#         data
-#      )
-#       .summary()
-#  )
-
-# decision = (
-#     BuffettDecisionAnalyzer(
-#         buffett[
-#                  "buffett_score"
-#               ],
-    
-#         valuation[
-#                 "valuation_score"
-#              ]
-    
-#           )
-#         .summary()
-#   )
-        
-
-# ranking.add_stock(
-
-#     ticker,
-
-#        decision
-
-#    )
 BUFFETT_UNIVERSE = [
 
     "BBCA",
@@ -253,33 +186,6 @@ st.json({
 
 from engines.explainer import (
     BuffettExplainer
-)
-
-explainer = (
-
-    BuffettExplainer(
-
-        quality=
-            buffett["quality"],
-
-        moat=
-            buffett["moat"],
-
-        predictability=
-            buffett["predictability"],
-
-        trajectory=
-            buffett["trajectory"],
-
-        cashflow=
-            buffett["cashflow"],
-
-        valuation=
-            valuation["valuation_score"]
-
-    )
-    .summary()
-
 )
 
 st.subheader(
@@ -757,6 +663,33 @@ st.json(
         "profile",
         {}
     )
+)
+
+explainer = (
+
+    BuffettExplainer(
+
+        quality=
+            buffett["quality"],
+
+        moat=
+            buffett["moat"],
+
+        predictability=
+            buffett["predictability"],
+
+        trajectory=
+            buffett["trajectory"],
+
+        cashflow=
+            buffett["cashflow"],
+
+        valuation=
+            valuation["valuation_score"]
+
+    )
+    .summary()
+
 )
 
 
