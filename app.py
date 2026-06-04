@@ -45,6 +45,9 @@ from engines.roic import (
 from engines.buffett_decision import (
     BuffettDecisionAnalyzer
 )
+from core.data_provider import (
+    get_company_info
+)
 # Mengamankan import engine valuation Anda
 try:
     from engines.valuation import ValuationAnalyzer
