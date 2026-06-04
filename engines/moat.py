@@ -148,11 +148,13 @@ class MoatAnalyzer:
 
         moat = (
 
-            roic_score * 0.4
+            roic_score * 0.6
             +
-            gross_margin_score * 0.4
+            predictability * 0.3
             +
-            predictability * 0.2
+            gross_margin_score * 0.1
+        
+        )
 
         )
 
