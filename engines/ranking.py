@@ -5,11 +5,9 @@ class BuffettRankingEngine:
         self.results = []
 
     def add_stock(
-
         self,
         ticker,
         decision
-
     ):
 
         self.results.append({
