@@ -224,6 +224,28 @@ st.json(
     data["profile"]
 )
 
+st.subheader(
+    "Market Data Debug"
+)
+
+st.json({
+
+    "price":
+        data["price"],
+
+    "market_cap":
+        data["market_cap"],
+
+    "shares_outstanding":
+        data["shares_outstanding"],
+
+    "last_update":
+        datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+})
+
 moat = (
     MoatAnalyzer(
         ticker,
