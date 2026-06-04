@@ -89,10 +89,10 @@ try:
 except Exception as e:
 
     st.error(
-        f"Failed loading data: {e}"
+        f"QUALITY ERROR: {e}"
     )
 
-    st.stop()
+    quality = 0
 
 # =====================================
 # BUSINESS SCORE COMPONENTS
