@@ -2,19 +2,72 @@ from engines.roic import (
     ROICAnalyzer
 )
 
+USD_IDR_RATE = 16000
+
 
 class ValuationAnalyzer:
 
-    def __init__(
-        self,
-        data
-    ):
+    def __init__(self, data):
 
         self.data = data
 
-        self.market_cap = data.get(
-            "market_cap"
+        self.market_cap = (
+            data.get(
+                "market_cap"
+            )
         )
+
+    # ==========================================
+    # FINANCIAL CURRENCY
+    # ==========================================
+
+    def financial_currency(self):
+
+        try:
+
+            return (
+
+                self.data
+                .get(
+                    "info",
+                    {}
+                )
+                .get(
+                    "financialCurrency"
+                )
+
+            )
+
+        except:
+
+            return None
+
+    # ==========================================
+    # NORMALIZE CURRENCY
+    # ==========================================
+
+    def normalize_currency(
+        self,
+        value
+    ):
+
+        if value is None:
+
+            return None
+
+        currency = (
+            self.financial_currency()
+        )
+
+        if currency == "USD":
+
+            return (
+                value
+                *
+                USD_IDR_RATE
+            )
+
+        return value
 
     # ==========================================
     # NET INCOME
@@ -41,7 +94,7 @@ class ValuationAnalyzer:
 
                 if key in income.index:
 
-                    return float(
+                    value = float(
 
                         income.loc[
                             key
@@ -49,91 +102,8 @@ class ValuationAnalyzer:
 
                     )
 
-        except:
-
-            pass
-
-        return None
-
-    # ==========================================
-    # OPERATING CASH FLOW
-    # ==========================================
-
-    def operating_cash_flow(self):
-
-        try:
-
-            cf = self.data.get(
-                "cashflow"
-            )
-
-            if cf is None:
-                return None
-
-            for key in [
-
-                "Operating Cash Flow",
-
-                "Cash Flow From Continuing Operating Activities"
-
-            ]:
-
-                if key in cf.index:
-
-                    return float(
-
-                        cf.loc[
-                            key
-                        ].iloc[0]
-
-                    )
-
-        except:
-
-            pass
-
-        return None
-        st.write(
-            data["cashflow"].index.tolist()
-        )
-
-    
-
-    # ==========================================
-    # CAPEX
-    # ==========================================
-
-    def capex(self):
-
-        try:
-
-            cf = self.data.get(
-                "cashflow"
-            )
-
-            if cf is None:
-                return None
-
-            for key in [
-
-                "Capital Expenditure",
-
-                "Capital Expenditures"
-
-            ]:
-
-                if key in cf.index:
-
-                    return abs(
-
-                        float(
-
-                            cf.loc[
-                                key
-                            ].iloc[0]
-
-                        )
-
+                    return self.normalize_currency(
+                        value
                     )
 
         except:
@@ -149,28 +119,35 @@ class ValuationAnalyzer:
     def free_cash_flow(self):
 
         try:
-    
+
             cf = self.data.get(
                 "cashflow"
             )
-    
+
             if cf is None:
                 return None
-    
-            if "Free Cash Flow" in cf.index:
-    
-                return float(
-    
+
+            if (
+                "Free Cash Flow"
+                in cf.index
+            ):
+
+                value = float(
+
                     cf.loc[
                         "Free Cash Flow"
                     ].iloc[0]
-    
+
                 )
-    
+
+                return self.normalize_currency(
+                    value
+                )
+
         except:
-    
+
             pass
-    
+
         return None
 
     # ==========================================
@@ -180,21 +157,21 @@ class ValuationAnalyzer:
     def earnings_yield(self):
 
         ni = self.net_income()
-    
-        market_cap = (
-            self.normalized_market_cap()
-        )
-    
+
         if ni is None:
             return None
-    
-        if market_cap is None:
+
+        if self.market_cap is None:
             return None
-    
-        if market_cap <= 0:
+
+        if self.market_cap <= 0:
             return None
-    
-        return ni / market_cap
+
+        return (
+            ni
+            /
+            self.market_cap
+        )
 
     # ==========================================
     # FCF YIELD
@@ -203,21 +180,21 @@ class ValuationAnalyzer:
     def fcf_yield(self):
 
         fcf = self.free_cash_flow()
-    
-        market_cap = (
-            self.normalized_market_cap()
-        )
-    
+
         if fcf is None:
             return None
-    
-        if market_cap is None:
+
+        if self.market_cap is None:
             return None
-    
-        if market_cap <= 0:
+
+        if self.market_cap <= 0:
             return None
-    
-        return fcf / market_cap
+
+        return (
+            fcf
+            /
+            self.market_cap
+        )
 
     # ==========================================
     # EARNINGS YIELD SCORE
@@ -232,23 +209,18 @@ class ValuationAnalyzer:
             return 0
 
         if ey >= 0.15:
-
             return 100
 
         elif ey >= 0.12:
-
             return 90
 
         elif ey >= 0.10:
-
             return 80
 
         elif ey >= 0.08:
-
             return 70
 
         elif ey >= 0.06:
-
             return 60
 
         return 40
@@ -266,23 +238,18 @@ class ValuationAnalyzer:
             return 0
 
         if fy >= 0.12:
-
             return 100
 
         elif fy >= 0.10:
-
             return 90
 
         elif fy >= 0.08:
-
             return 80
 
         elif fy >= 0.06:
-
             return 70
 
         elif fy >= 0.04:
-
             return 60
 
         return 40
@@ -361,6 +328,7 @@ class ValuationAnalyzer:
     def summary(self):
 
         return {
+
             "financial_currency":
                 self.financial_currency(),
 
@@ -370,18 +338,6 @@ class ValuationAnalyzer:
             "net_income":
                 self.net_income(),
 
-             "financial_currency":
-                self.financial_currency(),
-        
-            "normalized_market_cap":
-                self.normalized_market_cap(),
-
-            # "operating_cash_flow":
-            #     self.operating_cash_flow(),
-
-            # "capex":
-            #     self.capex(),
-            
             "free_cash_flow":
                 self.free_cash_flow(),
 
@@ -401,42 +357,3 @@ class ValuationAnalyzer:
                 self.valuation_score()
 
         }
-
-    def financial_currency(self):
-
-        try:
-    
-            return (
-                self.data
-                .get(
-                    "info",
-                    {}
-                )
-                .get(
-                    "financialCurrency"
-                )
-            )
-    
-        except:
-    
-            return None
-
-    def normalized_market_cap(self):
-
-        market_cap = self.market_cap
-    
-        if market_cap is None:
-    
-            return None
-    
-        currency = self.financial_currency()
-    
-        if currency == "USD":
-    
-            market_cap = (
-                market_cap
-                /
-                16000
-            )
-    
-        return market_cap
