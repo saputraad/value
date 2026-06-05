@@ -38,6 +38,10 @@ from components.debug_panel import (
     render_debug_panel
 )
 
+st.sidebar.write(
+    f"DEBUG IMPORT OK: {render_debug_panel}"
+)
+
 from engines.moat import (
     MoatAnalyzer
 )
@@ -74,10 +78,6 @@ ticker = st.sidebar.text_input(
 DEBUG_MODE = st.sidebar.checkbox(
     "Developer Mode",
     value=False
-)
-
-st.sidebar.write(
-    f"DEBUG IMPORT OK: {render_debug_panel}"
 )
 
 # =====================================
