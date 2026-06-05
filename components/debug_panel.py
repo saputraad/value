@@ -115,13 +115,52 @@ def render_debug_panel(
     ):
     
         st.write(
+            "market_cap"
+        )
+    
+        st.write(
+            data.get(
+                "market_cap"
+            )
+        )
+    
+        st.write(
+            "info.marketCap"
+        )
+    
+        st.write(
+            data.get(
+                "info",
+                {}
+            ).get(
+                "marketCap"
+            )
+        )
+    
+        st.write(
+            "financialCurrency"
+        )
+    
+        st.write(
+            data.get(
+                "info",
+                {}
+            ).get(
+                "financialCurrency"
+            )
+        )
+
+    with st.expander(
+        "Data Provider Audit"
+    ):
+    
+        st.write(
             data.keys()
         )
     
-        st.write(
-            data.get("market_cap")
-        )
-    
-        st.write(
-            data.get("info")
+        st.json(
+            data.get(
+                "info",
+                {}
+            )
         )
