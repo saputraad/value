@@ -192,23 +192,6 @@ def render_debug_panel(
         })
 
     
-    st.json({
-    
-        "market_cap":
-            fast.get(
-                "market_cap"
-            ),
-    
-        "shares":
-            fast.get(
-                "shares"
-            ),
-    
-        "last_price":
-            fast.get(
-                "lastPrice"
-            )
-    
-    })
+   
 
 
