@@ -10,6 +10,24 @@ class ValuationAnalyzer:
     def __init__(self, data):
 
         self.data = data
+        print(
+            "DATA KEYS:",
+            data.keys()
+        )
+        
+        print(
+            "MARKET CAP ROOT:",
+            data.get(
+                "market_cap"
+            )
+        )
+        
+        print(
+            "INFO EXISTS:",
+            data.get(
+                "info"
+            ) is not None
+        )
 
         self.market_cap = (
             data.get(
