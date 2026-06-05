@@ -1,9 +1,5 @@
 import streamlit as st
 
-st.error(
-    "THIS IS THE REAL APP.PY"
-)
-
 # =====================================
 # CONFIG
 # =====================================
