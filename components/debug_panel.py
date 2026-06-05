@@ -191,17 +191,30 @@ def render_debug_panel(
     
         })
 
-        st.write(
-            data.get(
-                "market_cap"
-            )
-        )
+           st.json({
+    
+            "market_cap":
+                valuation.get(
+                    "market_cap"
+                ),
         
-        st.write(
-            data.get(
-                "shares_outstanding"
+            "net_income":
+                valuation.get(
+                    "net_income"
+                ),
+        
+            "earnings_yield":
+                valuation.get(
+                    "earnings_yield"
+                ),
+        
+            "fcf_yield":
+                valuation.get(
+                    "fcf_yield"
+                )
+        
+        })
             )
-        )
 
     
    
