@@ -101,3 +101,13 @@ def render_debug_panel(
         st.json(
             decision
         )
+
+    # =====================
+    # CASHFLOW & INCOME STATEMENT
+    # =====================
+
+    with st.expander(
+        "Decision"
+    ):
+        data["cashflow"].index.tolist()
+        data["income_statement"].index.tolist()
