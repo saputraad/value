@@ -757,8 +757,9 @@ with tabs[7]:
     st.json(
     buffett
 )
-    with st.expander(
-        "Benchmark Test"
+
+with st.expander(
+    "Benchmark Test"
     ):
 
     st.write(
@@ -782,7 +783,8 @@ with tabs[7]:
         }
 
     )
-    with st.expander(
+        
+with st.expander(
         "Engine Inputs"
     ):
 
