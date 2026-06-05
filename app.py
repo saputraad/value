@@ -753,6 +753,14 @@ with tabs[7]:
     buffett
 )
 
+    st.write(
+        data["info"].get("marketCap")
+    )
+
+st.write(
+    data["info"].get("financialCurrency")
+)
+
     with st.expander(
         "Benchmark Test"
         ):
