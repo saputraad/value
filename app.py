@@ -718,7 +718,8 @@ with tabs[7]:
     )
 
     render_debug_panel(
-        data
+        data=data,
+        ticker=ticker
     )
 
     import inspect
