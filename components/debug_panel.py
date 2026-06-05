@@ -191,9 +191,6 @@ def render_debug_panel(
     
         })
 
-    fast = get_fast_info(
-        ticker
-    )
     
     st.json({
     
