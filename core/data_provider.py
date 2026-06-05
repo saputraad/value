@@ -266,48 +266,48 @@ def get_shares_outstanding(ticker: str):
 # ==========================================
 
 @st.cache_data(ttl=21600)
-def get_income_statement(ticker: str):
-
-    try:
-
-        return (
-            load_stock(ticker)
-            .financials
-        )
-
-    except:
-
-        return pd.DataFrame()
-
-
-@st.cache_data(ttl=21600)
-def get_balance_sheet(ticker: str):
-
-    try:
-
-        return (
-            load_stock(ticker)
-            .balance_sheet
-        )
-
-    except:
-
-        return pd.DataFrame()
+    def get_income_statement(ticker: str):
+    
+        try:
+    
+            return (
+                load_stock(ticker)
+                .financials
+            )
+    
+        except:
+    
+            return pd.DataFrame()
 
 
 @st.cache_data(ttl=21600)
-def get_cashflow(ticker: str):
+    def get_balance_sheet(ticker: str):
+    
+        try:
+    
+            return (
+                load_stock(ticker)
+                .balance_sheet
+            )
+    
+        except:
+    
+            return pd.DataFrame()
 
-    try:
 
-        return (
-            load_stock(ticker)
-            .cashflow
-        )
-
-    except:
-
-        return pd.DataFrame()
+@st.cache_data(ttl=21600)
+    def get_cashflow(ticker: str):
+    
+        try:
+    
+            return (
+                load_stock(ticker)
+                .cashflow
+            )
+    
+        except:
+    
+            return pd.DataFrame()
 
 
 # ==========================================
