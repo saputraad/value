@@ -1,5 +1,9 @@
 import streamlit as st
 
+from core.data_provider import (
+    get_fast_info
+)
+
 
 def render_debug_panel(
 
