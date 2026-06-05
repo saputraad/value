@@ -106,8 +106,21 @@ def render_debug_panel(
     # CASHFLOW & INCOME STATEMENT
     # =====================
 
-    with st.expander(
-        "cashflow and income statement"
+    def render_quality_debug(
+        data
     ):
-        data["cashflow"].index.tolist()
-        data["income_statement"].index.tolist()
+    
+        with st.expander(
+            "Quality Debug"
+        ):
+    
+            st.json({
+    
+                "income_statement":
+                    data[
+                        "income_statement"
+                    ]
+                    .index
+                    .tolist()
+    
+            })
