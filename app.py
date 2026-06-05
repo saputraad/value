@@ -757,9 +757,9 @@ with tabs[7]:
         data["info"].get("marketCap")
     )
 
-st.write(
-    data["info"].get("financialCurrency")
-)
+    st.write(
+        data["info"].get("financialCurrency")
+    )
 
     with st.expander(
         "Benchmark Test"
