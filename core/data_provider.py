@@ -2,11 +2,6 @@ import yfinance as yf
 import pandas as pd
 import streamlit as st
 
-from core.data_provider import (
-    get_fast_info
-)
-
-
 # ==========================================
 # TICKER
 # ==========================================
