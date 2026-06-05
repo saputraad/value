@@ -748,19 +748,6 @@ with tabs[7]:
             "Enable Developer Mode"
         )
 
-
-        st.json(
-        buffett
-    )
-    
-        st.write(
-            data["info"].get("marketCap")
-        )
-    
-        st.write(
-            data["info"].get("financialCurrency")
-        )
-
     with st.expander(
         "Benchmark Test"
         ):
