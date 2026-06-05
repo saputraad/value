@@ -714,7 +714,11 @@ with tabs[6]:
 with tabs[7]:
 
     if DEBUG_MODE:
-
+        st.success(
+        "DEBUG MODE ON"
+    )
+        
+        
         render_debug_panel(
 
         data=data,
