@@ -208,39 +208,57 @@ def get_shares_outstanding(ticker: str):
 # ==========================================
 
 @st.cache_data(ttl=300)
-def get_market_cap(ticker: str):
-
-    try:
-
-        shares = get_shares_outstanding(
-            ticker
-        )
-
-        price = get_current_price(
-            ticker
-        )
-
-        if (
-
-            shares
-            and
-            price
-
-        ):
-
-            return (
-
-                shares
-                *
-                price
-
+    def get_market_cap(ticker):
+    
+        try:
+    
+            fast = get_fast_info(
+                ticker
             )
-
-    except:
-
-        pass
-
-    return None
+    
+            market_cap = (
+    
+                fast.get(
+                    "marketCap"
+                )
+    
+                or
+    
+                fast.get(
+                    "market_cap"
+                )
+    
+            )
+    
+            if market_cap:
+    
+                return float(
+                    market_cap
+                )
+    
+        except:
+    
+            pass
+    
+        try:
+    
+            shares = get_shares_outstanding(
+                ticker
+            )
+    
+            price = get_current_price(
+                ticker
+            )
+    
+            if shares and price:
+    
+                return shares * price
+    
+        except:
+    
+            pass
+    
+        return None
 
 
 # ==========================================
