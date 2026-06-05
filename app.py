@@ -719,109 +719,109 @@ with tabs[7]:
     )
         
         
-        render_debug_panel(
+    #     render_debug_panel(
 
-        data=data,
+    #     data=data,
     
-        quality=quality,
+    #     quality=quality,
     
-        moat=moat,
+    #     moat=moat,
     
-        predictability=predictability,
+    #     predictability=predictability,
     
-        trajectory=trajectory,
+    #     trajectory=trajectory,
     
-        cashflow=cashflow,
+    #     cashflow=cashflow,
     
-        buffett=buffett,
+    #     buffett=buffett,
     
-        valuation=valuation,
+    #     valuation=valuation,
     
-        decision=decision
+    #     decision=decision
     
-    )
+    # )
 
-    else:
+    # else:
 
-        st.info(
-            "Enable Developer Mode"
-        )
+    #     st.info(
+    #         "Enable Developer Mode"
+    #     )
 
-    with st.expander(
-        "Benchmark Test"
-        ):
+    # with st.expander(
+    #     "Benchmark Test"
+    #     ):
     
-        st.write(
+    #     st.write(
     
-            {
-                "BBCA":
-                    "Business > 85",
+    #         {
+    #             "BBCA":
+    #                 "Business > 85",
     
-                "BMRI":
-                    "Business > 70",
+    #             "BMRI":
+    #                 "Business > 70",
     
-                "ITMG":
-                    "Valuation > 80",
+    #             "ITMG":
+    #                 "Valuation > 80",
     
-                "KRAS":
-                    "Decision = PASS",
+    #             "KRAS":
+    #                 "Decision = PASS",
     
-                "GOTO":
-                    "Decision = PASS"
+    #             "GOTO":
+    #                 "Decision = PASS"
     
-            }
+    #         }
     
-        )
+    #     )
             
-    with st.expander(
-            "Engine Inputs"
-        ):
+    # with st.expander(
+    #         "Engine Inputs"
+    #     ):
     
-        st.json({
+    #     st.json({
     
-            "quality":
-                quality,
+    #         "quality":
+    #             quality,
     
-            "moat":
-                moat,
+    #         "moat":
+    #             moat,
     
-            "predictability":
-                predictability,
+    #         "predictability":
+    #             predictability,
     
-            "trajectory":
-                trajectory,
+    #         "trajectory":
+    #             trajectory,
     
-            "cashflow":
-                cashflow
+    #         "cashflow":
+    #             cashflow
     
-        })
+    #     })
     
-        try:
+    #     try:
     
-            manual_score = round(
+    #         manual_score = round(
     
-                quality * 0.30 +
+    #             quality * 0.30 +
     
-                moat * 0.25 +
+    #             moat * 0.25 +
     
-                predictability * 0.15 +
+    #             predictability * 0.15 +
     
-                trajectory * 0.15 +
+    #             trajectory * 0.15 +
     
-                cashflow * 0.15,
+    #             cashflow * 0.15,
     
-                2
+    #             2
     
-            )
+    #         )
     
-            st.success(
+    #         st.success(
     
-                f"Manual Buffett Score = {manual_score}"
+    #             f"Manual Buffett Score = {manual_score}"
     
-            )
+    #         )
     
-        except Exception as e:
+    #     except Exception as e:
     
-            st.error(
-            str(e)
-        )
+    #         st.error(
+    #         str(e)
+    #     )
