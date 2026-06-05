@@ -399,12 +399,6 @@ with tabs[0]:
     st.write(
         f"### {decision.get('decision_rating', '-')}"
     )
-    with st.expander(
-    "Predictability Debug"
-):
-    st.write("HELLO")
-
-    st.json(buffett)
 
 # =====================================
 # FUNDAMENTAL
