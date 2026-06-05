@@ -7,32 +7,32 @@ USD_IDR_RATE = 16000
 
 class ValuationAnalyzer:
 
-    def __init__(self, data):
+    def __init__(
+        self,
+        data
+    ):
 
         self.data = data
-        print(
-            "DATA KEYS:",
-            data.keys()
-        )
-        
-        print(
-            "MARKET CAP ROOT:",
-            data.get(
-                "market_cap"
-            )
-        )
-        
-        print(
-            "INFO EXISTS:",
-            data.get(
-                "info"
-            ) is not None
-        )
 
         self.market_cap = (
+
             data.get(
                 "market_cap"
             )
+
+            or
+
+            data.get(
+                "info",
+                {}
+            ).get(
+                "marketCap"
+            )
+
+        )
+        print(
+            "MARKET CAP:",
+            self.market_cap
         )
 
     # ==========================================
