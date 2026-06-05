@@ -1,5 +1,6 @@
 import streamlit as st
-   
+
+
 def render_debug_panel(
 
     data,
@@ -22,17 +23,9 @@ def render_debug_panel(
 
 ):
 
-     st.write(
-        "DEBUG PANEL WORKING"
-    )
-
     st.subheader(
         "Debug Center"
     )
-
-    # =====================
-    # RAW DATA
-    # =====================
 
     with st.expander(
         "Raw Data"
@@ -41,10 +34,6 @@ def render_debug_panel(
         st.write(
             data.keys()
         )
-
-    # =====================
-    # BUSINESS COMPONENTS
-    # =====================
 
     with st.expander(
         "Business Components"
@@ -69,10 +58,6 @@ def render_debug_panel(
 
         })
 
-    # =====================
-    # BUFFETT
-    # =====================
-
     with st.expander(
         "Buffett Score"
     ):
@@ -80,10 +65,6 @@ def render_debug_panel(
         st.json(
             buffett
         )
-
-    # =====================
-    # VALUATION
-    # =====================
 
     with st.expander(
         "Valuation"
@@ -93,10 +74,6 @@ def render_debug_panel(
             valuation
         )
 
-    # =====================
-    # DECISION
-    # =====================
-
     with st.expander(
         "Decision"
     ):
@@ -105,26 +82,30 @@ def render_debug_panel(
             decision
         )
 
-    # =====================
-    # CASHFLOW & INCOME STATEMENT
-    # =====================
-
     with st.expander(
-       "Predictability Debug"
-   ):
-   
-       st.write("HELLO")
-   
-       st.write(
-           type(data)
-       )
-      st.sidebar.write(
-       render_debug_panel.__module__
-      )
-      st.sidebar.write(
-       render_debug_panel.__code__.co_filename
-      )
-   
-       st.write(
-           data.keys()
-       )
+        "Financial Statement Rows"
+    ):
+
+        if data.get(
+            "income_statement"
+        ) is not None:
+
+            st.write(
+                data[
+                    "income_statement"
+                ]
+                .index
+                .tolist()
+            )
+
+        if data.get(
+            "cashflow"
+        ) is not None:
+
+            st.write(
+                data[
+                    "cashflow"
+                ]
+                .index
+                .tolist()
+            )
