@@ -106,21 +106,12 @@ def render_debug_panel(
     # CASHFLOW & INCOME STATEMENT
     # =====================
 
-    def render_quality_debug(
+    st.json(
+    PredictabilityAnalyzer(data).summary()
+)
+    st.json(
+    MoatAnalyzer(
+        ticker,
         data
-    ):
-    
-        with st.expander(
-            "Quality Debug"
-        ):
-    
-            st.json({
-    
-                "income_statement":
-                    data[
-                        "income_statement"
-                    ]
-                    .index
-                    .tolist()
-    
-            })
+    ).summary()
+)
