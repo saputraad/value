@@ -158,9 +158,31 @@ def render_debug_panel(
             data.keys()
         )
     
-        st.json(
-            data.get(
-                "info",
-                {}
-            )
+        info = data.get(
+            "info",
+            {}
         )
+    
+        st.json({
+    
+            "marketCap":
+                info.get(
+                    "marketCap"
+                ),
+    
+            "financialCurrency":
+                info.get(
+                    "financialCurrency"
+                ),
+    
+            "currency":
+                info.get(
+                    "currency"
+                ),
+    
+            "longName":
+                info.get(
+                    "longName"
+                )
+    
+        })
