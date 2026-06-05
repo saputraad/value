@@ -106,12 +106,7 @@ def render_debug_panel(
     # CASHFLOW & INCOME STATEMENT
     # =====================
 
-    st.json(
-    PredictabilityAnalyzer(data).summary()
-)
-    st.json(
-    MoatAnalyzer(
-        ticker,
-        data
-    ).summary()
-)
+    with st.expander(
+    "Predictability Debug"
+):
+    st.write("HELLO")
