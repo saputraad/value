@@ -186,3 +186,26 @@ def render_debug_panel(
                 )
     
         })
+
+    fast = get_fast_info(
+        ticker
+    )
+    
+    st.json({
+    
+        "market_cap":
+            fast.get(
+                "market_cap"
+            ),
+    
+        "shares":
+            fast.get(
+                "shares"
+            ),
+    
+        "last_price":
+            fast.get(
+                "lastPrice"
+            )
+    
+    })
