@@ -109,3 +109,19 @@ def render_debug_panel(
                 .index
                 .tolist()
             )
+
+    with st.expander(
+        "Valuation Debug"
+    ):
+    
+        st.write(
+            data.keys()
+        )
+    
+        st.write(
+            data.get("market_cap")
+        )
+    
+        st.write(
+            data.get("info")
+        )
