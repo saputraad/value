@@ -67,7 +67,7 @@ from engines.quality import (
 # =====================================
 
 st.sidebar.title(
-    "Value Investing Workstation"
+    "Value Investing "
 )
 
 ticker = st.sidebar.text_input(
