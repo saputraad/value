@@ -492,90 +492,90 @@ with tabs[2]:
 
     c1, c2, c3 = st.columns(3)
 
-with c1:
-
-    st.metric(
-
-        "Valuation Score",
-
-        valuation.get(
+    with c1:
+    
+        st.metric(
+    
+            "Valuation Score",
+    
+            valuation.get(
+                "valuation_score",
+                0
+            )
+    
+        )
+    
+    with c2:
+    
+        ey = valuation.get(
+            "earnings_yield"
+        )
+    
+        st.metric(
+    
+            "Earnings Yield",
+    
+            f"{ey*100:.2f}%"
+            if ey is not None
+            else "-"
+    
+        )
+    
+    with c3:
+    
+        fy = valuation.get(
+            "fcf_yield"
+        )
+    
+        st.metric(
+    
+            "FCF Yield",
+    
+            f"{fy*100:.2f}%"
+            if fy is not None
+            else "-"
+    
+        )
+    
+        st.divider()
+    
+        score = valuation.get(
             "valuation_score",
             0
         )
-
-    )
-
-with c2:
-
-    ey = valuation.get(
-        "earnings_yield"
-    )
-
-    st.metric(
-
-        "Earnings Yield",
-
-        f"{ey*100:.2f}%"
-        if ey is not None
-        else "-"
-
-    )
-
-with c3:
-
-    fy = valuation.get(
-        "fcf_yield"
-    )
-
-    st.metric(
-
-        "FCF Yield",
-
-        f"{fy*100:.2f}%"
-        if fy is not None
-        else "-"
-
-    )
-
-    st.divider()
-
-    score = valuation.get(
-        "valuation_score",
-        0
-    )
-
-    st.progress(
-        score / 100
-    )
-
-    st.caption(
-        f"Valuation Strength : {score}/100"
-    )
-    st.divider()
-
-if score >= 85:
-
-    st.success(
-        "Valuation appears very attractive."
-    )
-
-elif score >= 70:
-
-    st.info(
-        "Valuation is reasonable."
-    )
-
-elif score >= 55:
-
-    st.warning(
-        "Valuation is fair but not particularly attractive."
-    )
-
-else:
-
-    st.error(
-        "Valuation appears expensive or weak."
-    )
+    
+        st.progress(
+            score / 100
+        )
+    
+        st.caption(
+            f"Valuation Strength : {score}/100"
+        )
+        st.divider()
+    
+    if score >= 85:
+    
+        st.success(
+            "Valuation appears very attractive."
+        )
+    
+    elif score >= 70:
+    
+        st.info(
+            "Valuation is reasonable."
+        )
+    
+    elif score >= 55:
+    
+        st.warning(
+            "Valuation is fair but not particularly attractive."
+        )
+    
+    else:
+    
+        st.error(
+            "Valuation appears expensive or weak."
+        )
 
 # =====================================
 # DECISION
