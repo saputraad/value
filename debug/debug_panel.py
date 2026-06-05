@@ -113,6 +113,6 @@ def render_debug_panel(
     with st.expander(
         "Predictability Debug"
     ):
-        st.write("HELLO")
+         st.write("HELLO")
 
          st.json(buffett)   
