@@ -758,8 +758,8 @@ with tabs[7]:
     buffett
 )
     with st.expander(
-    "Benchmark Test"
-):
+        "Benchmark Test"
+    ):
 
     st.write(
 
