@@ -107,7 +107,7 @@ def render_debug_panel(
     # =====================
 
     with st.expander(
-        "Decision"
+        "cashflow and income statement"
     ):
         data["cashflow"].index.tolist()
         data["income_statement"].index.tolist()
