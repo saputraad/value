@@ -485,6 +485,9 @@ with tabs[1]:
 # =====================================
 
 with tabs[2]:
+    st.json(
+        valuation
+    )
 
     st.subheader(
         "Valuation Analysis"
