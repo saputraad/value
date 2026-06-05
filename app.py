@@ -750,81 +750,81 @@ with tabs[7]:
     buffett
 )
 
-with st.expander(
-    "Benchmark Test"
-    ):
-
-    st.write(
-
-        {
-            "BBCA":
-                "Business > 85",
-
-            "BMRI":
-                "Business > 70",
-
-            "ITMG":
-                "Valuation > 80",
-
-            "KRAS":
-                "Decision = PASS",
-
-            "GOTO":
-                "Decision = PASS"
-
-        }
-
-    )
-        
-with st.expander(
-        "Engine Inputs"
-    ):
-
-    st.json({
-
-        "quality":
-            quality,
-
-        "moat":
-            moat,
-
-        "predictability":
-            predictability,
-
-        "trajectory":
-            trajectory,
-
-        "cashflow":
-            cashflow
-
-    })
-
-    try:
-
-        manual_score = round(
-
-            quality * 0.30 +
-
-            moat * 0.25 +
-
-            predictability * 0.15 +
-
-            trajectory * 0.15 +
-
-            cashflow * 0.15,
-
-            2
-
+    with st.expander(
+        "Benchmark Test"
+        ):
+    
+        st.write(
+    
+            {
+                "BBCA":
+                    "Business > 85",
+    
+                "BMRI":
+                    "Business > 70",
+    
+                "ITMG":
+                    "Valuation > 80",
+    
+                "KRAS":
+                    "Decision = PASS",
+    
+                "GOTO":
+                    "Decision = PASS"
+    
+            }
+    
         )
-
-        st.success(
-
-            f"Manual Buffett Score = {manual_score}"
-
-        )
-
-    except Exception as e:
-
-        st.error(
+            
+    with st.expander(
+            "Engine Inputs"
+        ):
+    
+        st.json({
+    
+            "quality":
+                quality,
+    
+            "moat":
+                moat,
+    
+            "predictability":
+                predictability,
+    
+            "trajectory":
+                trajectory,
+    
+            "cashflow":
+                cashflow
+    
+        })
+    
+        try:
+    
+            manual_score = round(
+    
+                quality * 0.30 +
+    
+                moat * 0.25 +
+    
+                predictability * 0.15 +
+    
+                trajectory * 0.15 +
+    
+                cashflow * 0.15,
+    
+                2
+    
+            )
+    
+            st.success(
+    
+                f"Manual Buffett Score = {manual_score}"
+    
+            )
+    
+        except Exception as e:
+    
+            st.error(
             str(e)
         )
