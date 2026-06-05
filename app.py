@@ -1,4 +1,11 @@
 import streamlit as st
+import inspect
+
+st.write(
+    inspect.signature(
+        render_debug_panel
+    )
+)
 
 # =====================================
 # CONFIG
