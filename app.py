@@ -76,6 +76,10 @@ DEBUG_MODE = st.sidebar.checkbox(
     value=False
 )
 
+st.sidebar.write(
+    f"DEBUG IMPORT OK: {render_debug_panel}"
+)
+
 # =====================================
 # LOAD DATA
 # =====================================
