@@ -191,6 +191,18 @@ def render_debug_panel(
     
         })
 
+        st.write(
+            data.get(
+                "market_cap"
+            )
+        )
+        
+        st.write(
+            data.get(
+                "shares_outstanding"
+            )
+        )
+
     
    
 
