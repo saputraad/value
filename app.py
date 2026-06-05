@@ -783,8 +783,8 @@ with tabs[7]:
 
     )
     with st.expander(
-    "Engine Inputs"
-):
+        "Engine Inputs"
+    ):
 
     st.json({
 
