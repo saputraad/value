@@ -213,3 +213,9 @@ def render_debug_panel(
             )
     
     })
+
+    st.write(
+        get_fast_info(
+            ticker
+        )
+    )
