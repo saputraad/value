@@ -118,6 +118,12 @@ def render_debug_panel(
        st.write(
            type(data)
        )
+      st.sidebar.write(
+       render_debug_panel.__module__
+      )
+      st.sidebar.write(
+       render_debug_panel.__code__.co_filename
+      )
    
        st.write(
            data.keys()
