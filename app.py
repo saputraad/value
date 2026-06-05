@@ -713,6 +713,11 @@ with tabs[6]:
 # =====================================
 
 with tabs[7]:
+    st.write("TAB DEBUG LOADED")
+
+    st.write(
+        f"DEBUG_MODE = {DEBUG_MODE}"
+    )
 
     if DEBUG_MODE:
 
