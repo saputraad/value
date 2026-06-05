@@ -1,6 +1,10 @@
 import streamlit as st
 
+def render_debug_panel(...):
 
+    st.write(
+        "DEBUG PANEL WORKING"
+    )
 def render_debug_panel(
 
     data,
