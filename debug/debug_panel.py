@@ -1,10 +1,6 @@
 import streamlit as st
 
-def render_debug_panel(...):
-
-    st.write(
-        "DEBUG PANEL WORKING"
-    )
+   
 def render_debug_panel(
 
     data,
@@ -26,6 +22,10 @@ def render_debug_panel(
     decision=None
 
 ):
+
+     st.write(
+        "DEBUG PANEL WORKING"
+    )
 
     st.subheader(
         "Debug Center"
