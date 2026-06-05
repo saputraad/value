@@ -1,9 +1,4 @@
 import streamlit as st
-
-st.error(
-    "THIS IS THE REAL APP.PY"
-)
-
    
 def render_debug_panel(
 
@@ -120,3 +115,11 @@ def render_debug_panel(
          st.write("HELLO")
 
          st.json(buffett)   
+
+        st.write(
+            data["info"].get("marketCap")
+        )
+        
+        st.write(
+            data["info"].get("financialCurrency")
+        )
