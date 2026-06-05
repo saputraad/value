@@ -719,7 +719,9 @@ with tabs[7]:
     )
 
     render_debug_panel(
-        data=data
+        data=data,
+        quality=quality,
+        moat=moat
     )
         
         
