@@ -724,9 +724,11 @@ with tabs[7]:
 
     import inspect
 
-    st.write(
-        inspect.signature(
-            render_debug_panel
+    st.sidebar.code(
+        str(
+            inspect.signature(
+                render_debug_panel
+            )
         )
     )
         
