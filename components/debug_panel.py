@@ -1,70 +1,130 @@
 import streamlit as st
+   
+def render_debug_panel(
 
+    data,
 
-def render_debug_panel(data):
+    quality=None,
+
+    moat=None,
+
+    predictability=None,
+
+    trajectory=None,
+
+    cashflow=None,
+
+    buffett=None,
+
+    valuation=None,
+
+    decision=None
+
+):
+
+     st.write(
+        "DEBUG PANEL WORKING"
+    )
 
     st.subheader(
-        "Debug Panel"
+        "Debug Center"
     )
 
-    st.write(
-        "Profile"
-    )
+    # =====================
+    # RAW DATA
+    # =====================
 
-    st.json(
-        data.get(
-            "profile",
-            {}
-        )
-    )
-
-    st.write(
-        "Market Data"
-    )
-
-    st.json({
-
-        "price":
-            data.get(
-                "price"
-            ),
-
-        "market_cap":
-            data.get(
-                "market_cap"
-            ),
-
-        "shares_outstanding":
-            data.get(
-                "shares_outstanding"
-            )
-
-    })
-
-    if data.get(
-        "income_statement"
-    ) is not None:
+    with st.expander(
+        "Raw Data"
+    ):
 
         st.write(
-            "Income Statement Rows"
+            data.keys()
         )
 
-        st.write(
-            data[
-                "income_statement"
-            ].index.tolist()
+    # =====================
+    # BUSINESS COMPONENTS
+    # =====================
+
+    with st.expander(
+        "Business Components"
+    ):
+
+        st.json({
+
+            "quality":
+                quality,
+
+            "moat":
+                moat,
+
+            "predictability":
+                predictability,
+
+            "trajectory":
+                trajectory,
+
+            "cashflow":
+                cashflow
+
+        })
+
+    # =====================
+    # BUFFETT
+    # =====================
+
+    with st.expander(
+        "Buffett Score"
+    ):
+
+        st.json(
+            buffett
         )
 
-    if data.get(
-        "cashflow"
-    ) is not None:
+    # =====================
+    # VALUATION
+    # =====================
 
-        st.write(
-            "Cashflow Rows"
+    with st.expander(
+        "Valuation"
+    ):
+
+        st.json(
+            valuation
         )
 
-        st.write(
-            data[
-                "cashflow"
-            ].index.tolist()
+    # =====================
+    # DECISION
+    # =====================
+
+    with st.expander(
+        "Decision"
+    ):
+
+        st.json(
+            decision
         )
+
+    # =====================
+    # CASHFLOW & INCOME STATEMENT
+    # =====================
+
+    with st.expander(
+       "Predictability Debug"
+   ):
+   
+       st.write("HELLO")
+   
+       st.write(
+           type(data)
+       )
+      st.sidebar.write(
+       render_debug_panel.__module__
+      )
+      st.sidebar.write(
+       render_debug_panel.__code__.co_filename
+      )
+   
+       st.write(
+           data.keys()
+       )
