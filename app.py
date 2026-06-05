@@ -1,11 +1,5 @@
 import streamlit as st
-import inspect
 
-st.write(
-    inspect.signature(
-        render_debug_panel
-    )
-)
 
 # =====================================
 # CONFIG
@@ -728,6 +722,14 @@ with tabs[7]:
     render_debug_panel(
         data=data,
         quality=quality
+    )
+
+    import inspect
+
+    st.write(
+        inspect.signature(
+            render_debug_panel
+        )
     )
         
         
