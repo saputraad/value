@@ -322,13 +322,6 @@ tabs = st.tabs([
 
 ])
 
-with st.expander(
-    "Predictability Debug"
-):
-    st.write("HELLO")
-
-    st.json(buffett)
-
 # =====================================
 # DASHBOARD
 # =====================================
