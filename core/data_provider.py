@@ -208,57 +208,57 @@ def get_shares_outstanding(ticker: str):
 # ==========================================
 
 @st.cache_data(ttl=300)
-    def get_market_cap(ticker):
-    
-        try:
-    
-            fast = get_fast_info(
-                ticker
+def get_market_cap(ticker):
+
+    try:
+
+        fast = get_fast_info(
+            ticker
+        )
+
+        market_cap = (
+
+            fast.get(
+                "marketCap"
             )
-    
-            market_cap = (
-    
-                fast.get(
-                    "marketCap"
-                )
-    
-                or
-    
-                fast.get(
-                    "market_cap"
-                )
-    
+
+            or
+
+            fast.get(
+                "market_cap"
             )
-    
-            if market_cap:
-    
-                return float(
-                    market_cap
-                )
-    
-        except:
-    
-            pass
-    
-        try:
-    
-            shares = get_shares_outstanding(
-                ticker
+
+        )
+
+        if market_cap:
+
+            return float(
+                market_cap
             )
-    
-            price = get_current_price(
-                ticker
-            )
-    
-            if shares and price:
-    
-                return shares * price
-    
-        except:
-    
-            pass
-    
-        return None
+
+    except:
+
+        pass
+
+    try:
+
+        shares = get_shares_outstanding(
+            ticker
+        )
+
+        price = get_current_price(
+            ticker
+        )
+
+        if shares and price:
+
+            return shares * price
+
+    except:
+
+        pass
+
+    return None
 
 
 # ==========================================
@@ -266,48 +266,48 @@ def get_shares_outstanding(ticker: str):
 # ==========================================
 
 @st.cache_data(ttl=21600)
-    def get_income_statement(ticker: str):
-    
-        try:
-    
-            return (
-                load_stock(ticker)
-                .financials
-            )
-    
-        except:
-    
-            return pd.DataFrame()
+def get_income_statement(ticker: str):
+
+    try:
+
+        return (
+            load_stock(ticker)
+            .financials
+        )
+
+    except:
+
+        return pd.DataFrame()
 
 
 @st.cache_data(ttl=21600)
-    def get_balance_sheet(ticker: str):
-    
-        try:
-    
-            return (
-                load_stock(ticker)
-                .balance_sheet
-            )
-    
-        except:
-    
-            return pd.DataFrame()
+def get_balance_sheet(ticker: str):
+
+    try:
+
+        return (
+            load_stock(ticker)
+            .balance_sheet
+        )
+
+    except:
+
+        return pd.DataFrame()
 
 
 @st.cache_data(ttl=21600)
-    def get_cashflow(ticker: str):
-    
-        try:
-    
-            return (
-                load_stock(ticker)
-                .cashflow
-            )
-    
-        except:
-    
-            return pd.DataFrame()
+def get_cashflow(ticker: str):
+
+    try:
+
+        return (
+            load_stock(ticker)
+            .cashflow
+        )
+
+    except:
+
+        return pd.DataFrame()
 
 
 # ==========================================
