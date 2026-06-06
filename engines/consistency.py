@@ -186,36 +186,34 @@ class ConsistencyAnalyzer:
         return 0
 
     def summary(self):
-        "revenue_debug":
-            getattr(
-                self,
-                "revenue_debug",
-                {}
-            ),
-        
-        "earnings_debug":
-            getattr(
-                self,
-                "earnings_debug",
-                {}
-            ),
 
         revenue = self.revenue_consistency()
     
         earnings = self.earnings_consistency()
     
         score = round(
-    
             (
                 revenue +
                 earnings
             ) / 2,
-    
             2
-    
         )
     
         return {
+    
+            "revenue_debug":
+                getattr(
+                    self,
+                    "revenue_debug",
+                    {}
+                ),
+    
+            "earnings_debug":
+                getattr(
+                    self,
+                    "earnings_debug",
+                    {}
+                ),
     
             "revenue_consistency":
                 revenue,
