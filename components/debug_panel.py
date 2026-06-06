@@ -205,6 +205,10 @@ def render_debug_panel(
     
         })
 
+        st.write(
+            type(data_health)
+        )
+
     
    
 
