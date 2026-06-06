@@ -101,6 +101,12 @@ try:
 except Exception as e:
 
     st.error(
+        f"DATA HEALTH ERROR: {e}"
+    )
+
+    data_health = None
+
+    st.error(
         f"QUALITY ERROR: {e}"
     )
 
