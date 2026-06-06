@@ -29,25 +29,9 @@ def render_debug_panel(
 
 ):
 
-    st.subheader(
-        "Debug Center"
-    )
-
-    with st.expander(
-        "Raw Data"
-    ):
-
-        st.write(
-            data.keys()
-        )
-
     with st.expander(
         "Data Health"
     ):
-    
-        st.write(
-            type(data_health)
-        )
     
         st.write(
             data_health
