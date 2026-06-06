@@ -40,8 +40,8 @@ def render_debug_panel(
         )
 
     with st.expander(
-    "Data Health"
-):
+        "Data Health"
+    ):
 
     st.json(
         data_health
