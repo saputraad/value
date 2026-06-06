@@ -205,9 +205,13 @@ def render_debug_panel(
     
         })
 
-        st.write(
-            type(data_health)
-        )
+        with st.expander(
+            "Data Health"
+        ):
+        
+            st.write(
+                data_health
+            )
     
    
 
