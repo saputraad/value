@@ -29,13 +29,14 @@ def render_debug_panel(
 
 ):
 
-    st.write(
-        "DATA HEALTH INSIDE PANEL:"
-    )
+    st.write(type(buffett))
+    st.write(buffett)
     
-    st.write(
-        data_health
-    )
+    st.write(type(valuation))
+    st.write(valuation)
+    
+    st.write(type(decision))
+    st.write(decision)
 
     with st.expander(
         "Business Components"
