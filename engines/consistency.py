@@ -198,6 +198,18 @@ class ConsistencyAnalyzer:
         revenue = self.revenue_consistency()
 
         earnings = self.earnings_consistency()
+
+        business_predictability = round(
+
+            (
+                revenue_predictability
+                +
+                earnings_predictability
+            ) / 2,
+        
+            2
+        
+        )
     
         score = round(
             (
@@ -234,6 +246,9 @@ class ConsistencyAnalyzer:
         
             "earnings_predictability":
                 earnings_predictability,
+            
+            "business_predictability":
+                business_predictability,
         
             "fcf_consistency":
                 0,
