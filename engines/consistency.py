@@ -127,9 +127,13 @@ class ConsistencyAnalyzer:
     
                 return 0
     
-            return self._series_score(
+            result = self._series_score(
                 row.tolist()
             )
+            
+            self.revenue_debug = result
+            
+            return result["score"]
     
         except:
     
@@ -157,15 +161,13 @@ class ConsistencyAnalyzer:
     
                 if candidate in income.index:
     
-                    return self._series_score(
-    
-                        income.loc[
-                            candidate
-                        ].tolist()
-    
+                    result = self._series_score(
+                        row.tolist()
                     )
-    
-            return 0
+                    
+                    self.revenue_debug = result
+                    
+                    return result["score"]
     
         except:
     
