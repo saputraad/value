@@ -91,9 +91,11 @@ class ConsistencyAnalyzer:
                 row.tolist()
             )
     
-        except:
-    
-            return 0
+        except Exception as e:
+
+            return {
+                "error": str(e)
+            }
 
     def earnings_consistency(self):
 
