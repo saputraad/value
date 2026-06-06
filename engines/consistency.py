@@ -181,10 +181,6 @@ class ConsistencyAnalyzer:
     
             return 0
 
-    def fcf_consistency(self):
-
-        return 0
-
     def summary(self):
 
         revenue_predictability = (
@@ -206,20 +202,6 @@ class ConsistencyAnalyzer:
         revenue = self.revenue_consistency()
 
         earnings = self.earnings_consistency()
-
-        business_predictability = round(
-
-            (
-                revenue_predictability * 0.3
-                +
-                earnings_predictability * 0.4
-                +
-                fcf_predictability * 0.3
-            ),
-        
-            2
-        
-        )
     
         score = round(
             (
@@ -366,24 +348,6 @@ class ConsistencyAnalyzer:
         except:
     
             return 0
-
-    def _predictability_score(self, values):
-
-        clean_values = []
-    
-        for v in values:
-    
-            try:
-    
-                if v is not None and not np.isnan(v):
-    
-                    clean_values.append(
-                        float(v)
-                    )
-    
-            except:
-    
-                pass
     
         values = clean_values
     
