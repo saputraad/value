@@ -208,33 +208,39 @@ class ConsistencyAnalyzer:
         )
     
         return {
-    
+
             "revenue_debug":
                 getattr(
                     self,
                     "revenue_debug",
                     {}
                 ),
-    
+        
             "earnings_debug":
                 getattr(
                     self,
                     "earnings_debug",
                     {}
                 ),
-    
+        
+            "revenue_consistency":
+                revenue,
+        
+            "earnings_consistency":
+                earnings,
+        
             "revenue_predictability":
                 revenue_predictability,
-            
+        
             "earnings_predictability":
                 earnings_predictability,
-    
+        
             "fcf_consistency":
                 0,
-    
+        
             "consistency_score":
                 score
-    
+        
         }
 
     def _predictability_score(self, values):
