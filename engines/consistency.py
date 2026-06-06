@@ -178,6 +178,19 @@ class ConsistencyAnalyzer:
         return 0
 
     def summary(self):
+        "revenue_debug":
+            getattr(
+                self,
+                "revenue_debug",
+                {}
+            ),
+        
+        "earnings_debug":
+            getattr(
+                self,
+                "earnings_debug",
+                {}
+            ),
 
         revenue = self.revenue_consistency()
     
