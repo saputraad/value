@@ -198,8 +198,15 @@ class ConsistencyAnalyzer:
         fcf_predictability = (
             self.fcf_predictability()
         )
-        
 
+        revenue_stability = (
+            self.revenue_stability()
+        )
+
+        earnings_stability = (
+            self.earnings_stability()
+        )
+    
         revenue = self.revenue_consistency()
 
         earnings = self.earnings_consistency()
