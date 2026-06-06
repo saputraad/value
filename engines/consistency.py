@@ -475,6 +475,8 @@ class ConsistencyAnalyzer:
 
             return 0
 
+    def revenue_stability(self):
+
     def _max_drawdown_score(self, values):
 
         clean_values = []
