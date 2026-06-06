@@ -186,6 +186,6 @@ class ConsistencyAnalyzer:
                 fcf,
     
             "consistency_score":                                    
-            score
+                score
 
     }
