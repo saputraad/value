@@ -80,7 +80,13 @@ class ConsistencyAnalyzer:
     
             if row is None:
                 return 0
-    
+            st.write(
+                "REVENUE RAW"
+            )
+            
+            st.write(
+                row.tolist()
+            )
             return self._series_score(
                 row.tolist()
             )
