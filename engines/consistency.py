@@ -160,7 +160,11 @@ class ConsistencyAnalyzer:
             ]:
     
                 if candidate in income.index:
-    
+
+                    row = income.loc[
+                        candidate
+                    ]
+                
                     result = self._series_score(
                         row.tolist()
                     )
