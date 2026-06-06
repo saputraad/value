@@ -481,7 +481,15 @@ with tabs[1]:
             0
         )
     )
-    st.json(buffett)
+    st.write(type(buffett))
+
+    st.write(buffett)
+
+    st.write(type(valuation))
+    st.write(valuation)
+    
+    st.write(type(decision))
+    st.write(decision)
 
     st.success(
 
