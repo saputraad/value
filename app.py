@@ -739,6 +739,10 @@ with tabs[7]:
             "DEBUG MODE ON"
         )
 
+        st.write(
+            "ABOUT TO RUN DEBUG PANEL"
+        )
+        
         render_debug_panel(
 
             data=data,
