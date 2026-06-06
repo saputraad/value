@@ -466,6 +466,8 @@ class ConsistencyAnalyzer:
     
         except:
 
+            return 0
+
     def _max_drawdown_score(self, values):
 
         clean_values = []
