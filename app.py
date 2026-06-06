@@ -89,6 +89,15 @@ try:
         ticker
     )
 
+    data_health = (
+
+    DataHealthAnalyzer(
+        data
+    )
+    .summary()
+
+)
+
 except Exception as e:
 
     st.error(
@@ -121,14 +130,6 @@ except Exception as e:
 
     moat = 0
 
-    data_health = (
-
-    DataHealthAnalyzer(
-        data
-    )
-    .summary()
-
-)
     
 
 # =====================================
