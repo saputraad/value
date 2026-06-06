@@ -40,6 +40,14 @@ def render_debug_panel(
         )
 
     with st.expander(
+    "Data Health"
+):
+
+    st.json(
+        data_health
+    )
+
+    with st.expander(
         "Business Components"
     ):
 
