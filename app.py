@@ -97,13 +97,6 @@ try:
     .summary()
 
     )
-    st.write(
-        "DATA HEALTH RAW"
-    )
-    
-    st.write(
-        data_health
-    )
     
 
 except Exception as e:
