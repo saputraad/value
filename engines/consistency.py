@@ -69,7 +69,45 @@ class ConsistencyAnalyzer:
 
     def revenue_consistency(self):
 
-        return 0
+        try:
+    
+            income = self.data.get(
+                "income_statement"
+            )
+    
+            if income is None or income.empty:
+    
+                return 0
+    
+            row = None
+    
+            for candidate in [
+    
+                "Total Revenue",
+                "Revenue",
+                "Operating Revenue"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    row = income.loc[
+                        candidate
+                    ]
+    
+                    break
+    
+            if row is None:
+    
+                return 0
+    
+            return self._series_score(
+                row.tolist()
+            )
+    
+        except:
+    
+            return 0
 
     def earnings_consistency(self):
 
@@ -81,14 +119,20 @@ class ConsistencyAnalyzer:
 
     def summary(self):
 
+        revenue = self.revenue_consistency()
+    
         return {
-
-            "revenue_consistency": 0,
-
-            "earnings_consistency": 0,
-
-            "fcf_consistency": 0,
-
-            "consistency_score": 0
-
+    
+            "revenue_consistency":
+                revenue,
+    
+            "earnings_consistency":
+                0,
+    
+            "fcf_consistency":
+                0,
+    
+            "consistency_score":
+                revenue
+    
         }
