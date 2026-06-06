@@ -4,7 +4,7 @@ import streamlit as st
 # =====================================
 
 st.set_page_config(
-    page_title="Value Investing Workstation1",
+    page_title="Value Investing Workstation",
     page_icon="📈",
     layout="wide"
 )
