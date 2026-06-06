@@ -8,7 +8,7 @@ class ConsistencyAnalyzer:
         self.data = data
 
     def _series_score(self, values):
-  
+
         clean_values = []
 
         for v in values:
@@ -27,8 +27,8 @@ class ConsistencyAnalyzer:
         
         values = clean_values
   
-                if len(values) < 3:
-                    return 0            
+      if len(values) < 3:
+          return 0       
   
                 values = values[::-1]
               
