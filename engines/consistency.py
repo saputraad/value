@@ -89,7 +89,7 @@ class ConsistencyAnalyzer:
     
             return 0
 
-      def earnings_consistency(self):
+    def earnings_consistency(self):
 
         try:
     
@@ -120,7 +120,7 @@ class ConsistencyAnalyzer:
     
             return 0
 
-      def fcf_consistency(self):
+    def fcf_consistency(self):
 
         try:
     
