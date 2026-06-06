@@ -4,59 +4,66 @@ class DataHealthAnalyzer:
 
         self.data = data
 
-    def score(self):
+    def summary(self):
 
-        checks = [
+        checks = {
 
-            self.data.get(
-                "income_statement"
-            ) is not None,
+            "price":
+                self.data.get("price") is not None,
 
-            self.data.get(
-                "balance_sheet"
-            ) is not None,
+            "market_cap":
+                self.data.get("market_cap") is not None,
 
-            self.data.get(
-                "cashflow"
-            ) is not None,
+            "income_statement":
+                self.data.get("income_statement") is not None
+                and
+                not self.data.get("income_statement").empty,
 
-            self.data.get(
-                "market_cap"
-            ) is not None,
+            "balance_sheet":
+                self.data.get("balance_sheet") is not None
+                and
+                not self.data.get("balance_sheet").empty,
 
-            self.data.get(
-                "price"
-            ) is not None
+            "cashflow":
+                self.data.get("cashflow") is not None
+                and
+                not self.data.get("cashflow").empty
 
-        ]
+        }
 
-        valid = sum(checks)
+        score = round(
 
-        return round(
-            valid / len(checks) * 100,
+            sum(checks.values())
+            /
+            len(checks)
+            *
+            100,
+
             2
+
         )
 
-    def rating(self):
+        if score >= 100:
 
-        score = self.score()
+            rating = "HEALTHY"
 
-        if score >= 90:
-            return "HEALTHY"
+        elif score >= 80:
 
-        elif score >= 70:
-            return "PARTIAL"
+            rating = "PARTIAL"
 
-        return "BROKEN"
+        else:
 
-    def summary(self):
+            rating = "BROKEN"
 
         return {
 
+            "checks":
+                checks,
+
             "data_health_score":
-                self.score(),
+                score,
 
             "data_health_rating":
-                self.rating()
+                rating
 
         }
