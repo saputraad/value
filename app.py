@@ -751,6 +751,13 @@ with tabs[7]:
         )
         
         render_debug_panel(
+            st.write(
+                "DATA HEALTH INSIDE PANEL:"
+            )
+            
+            st.write(
+                data_health
+            )
 
             data=data,
 
