@@ -9,12 +9,23 @@ class ConsistencyAnalyzer:
 
     def _series_score(self, values):
   
-      values = [
-          float(v)
-          for v in values
-          if v is not None
-          and not np.isnan(v)
-      ]
+      clean_values = []
+
+        for v in values:
+        
+            try:
+        
+                if v is not None and not np.isnan(v):
+        
+                    clean_values.append(
+                        float(v)
+                    )
+        
+            except:
+        
+                pass
+        
+        values = clean_values
   
       if len(values) < 3:
           return 0
