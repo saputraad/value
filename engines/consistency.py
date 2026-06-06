@@ -348,36 +348,36 @@ class ConsistencyAnalyzer:
 
     def earnings_predictability(self):
 
-    try:
-
-        income = self.data.get(
-            "income_statement"
-        )
-
-        if income is None or income.empty:
-
+        try:
+    
+            income = self.data.get(
+                "income_statement"
+            )
+    
+            if income is None or income.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Net Income",
+                "NetIncome",
+                "Net Income Common Stockholders"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._predictability_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
             return 0
-
-        for candidate in [
-
-            "Net Income",
-            "NetIncome",
-            "Net Income Common Stockholders"
-
-        ]:
-
-            if candidate in income.index:
-
-                return self._predictability_score(
-
-                    income.loc[
-                        candidate
-                    ].tolist()
-
-                )
-
-        return 0
-
-    except:
-
-        return 0
+    
+        except:
+    
+            return 0
