@@ -61,7 +61,6 @@ class ConsistencyAnalyzer:
             ]
     
             row = None
-    
             for candidate in [
     
                 "Total Revenue",
