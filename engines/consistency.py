@@ -466,50 +466,50 @@ class ConsistencyAnalyzer:
     
         except:
 
-            def _max_drawdown_score(self, values):
+    def _max_drawdown_score(self, values):
 
-                clean_values = []
-            
-                for v in values:
-            
-                    try:
-            
-                        if v is not None and not np.isnan(v):
-            
-                            clean_values.append(
-                                float(v)
-                            )
-            
-                    except:
-            
-                        pass
-            
-                values = clean_values
-            
-                if len(values) < 2:
-            
-                    return 0
-            
-                peak = max(values)
-            
-                trough = min(values)
-            
-                if peak <= 0:
-            
-                    return 0
-            
-                drawdown = (
-                    peak - trough
-                ) / peak
-            
-                score = max(
-                    0,
-                    100 - drawdown * 100
-                )
-            
-                return round(
-                    score,
-                    2
-                )
-                
-                        return 0
+        clean_values = []
+    
+        for v in values:
+    
+            try:
+    
+                if v is not None and not np.isnan(v):
+    
+                    clean_values.append(
+                        float(v)
+                    )
+    
+            except:
+    
+                pass
+    
+        values = clean_values
+    
+        if len(values) < 2:
+    
+            return 0
+    
+        peak = max(values)
+    
+        trough = min(values)
+    
+        if peak <= 0:
+    
+            return 0
+    
+        drawdown = (
+            peak - trough
+        ) / peak
+    
+        score = max(
+            0,
+            100 - drawdown * 100
+        )
+    
+        return round(
+            score,
+            2
+        )
+        
+                return 0
