@@ -741,16 +741,6 @@ with tabs[7]:
     render_debug_panel(
         data=data
     )
-
-    import inspect
-
-    st.sidebar.code(
-        str(
-            inspect.signature(
-                render_debug_panel
-            )
-        )
-    )
         
         
     #     render_debug_panel(
