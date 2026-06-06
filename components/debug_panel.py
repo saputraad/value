@@ -189,35 +189,6 @@ def render_debug_panel(
     
         })
 
-        with st.expander(
-            "Buffett Benchmark"
-        ):
-        
-            st.write(
-                benchmark_tickers = [
-        
-                    "BBCA",
-                    "BMRI",
-                    "BBRI",
-                
-                    "ICBP",
-                    "INDF",
-                    "TLKM",
-                    "UNVR",
-                    "SIDO",
-                    "AMRT",
-                
-                    "ITMG",
-                    "ADRO",
-                    "ANTM",
-                    "MEDC",
-                
-                    "KRAS",
-                    "GOTO",
-                    "BUKA"
-                
-                ]
-            )
 
 
    
