@@ -208,6 +208,13 @@ def render_debug_panel(
         st.write(
             type(data_health)
         )
+        st.write(
+            "DATA HEALTH TEST"
+        )
+        
+        st.write(
+            DataHealthAnalyzer
+        )
 
     
    
