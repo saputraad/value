@@ -29,14 +29,13 @@ def render_debug_panel(
 
 ):
 
-    st.write(type(buffett))
-    st.write(buffett)
+    with st.expander(
+        "Data Health"
+    ):
     
-    st.write(type(valuation))
-    st.write(valuation)
-    
-    st.write(type(decision))
-    st.write(decision)
+        st.write(
+            data_health
+        )
 
     with st.expander(
         "Business Components"
