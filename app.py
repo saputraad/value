@@ -751,13 +751,6 @@ with tabs[7]:
         )
         
         render_debug_panel(
-            st.write(
-                "DATA HEALTH INSIDE PANEL:"
-            )
-            
-            st.write(
-                data_health
-            )
 
             data=data,
 
@@ -783,6 +776,14 @@ with tabs[7]:
 
         st.info(
             "Enable Developer Mode"
+        )
+
+        st.write(
+            "DATA HEALTH INSIDE PANEL:"
+        )
+        
+        st.write(
+            data_health
         )
 
    
