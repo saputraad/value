@@ -124,7 +124,8 @@ class ConsistencyAnalyzer:
             for candidate in [
     
                 "Net Income",
-                "NetIncome"
+                "NetIncome",
+                "Net Income Common Stockholders"
     
             ]:
     
