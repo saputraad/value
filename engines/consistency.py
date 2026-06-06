@@ -210,10 +210,12 @@ class ConsistencyAnalyzer:
         business_predictability = round(
 
             (
-                revenue_predictability
+                revenue_predictability * 0.3
                 +
-                earnings_predictability
-            ) / 2,
+                earnings_predictability * 0.4
+                +
+                fcf_predictability * 0.3
+            ),
         
             2
         
