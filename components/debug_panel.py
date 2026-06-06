@@ -199,6 +199,10 @@ def render_debug_panel(
                 consistency
             )
 
+            st.json(
+                consistency
+            )
+
 
 
    
