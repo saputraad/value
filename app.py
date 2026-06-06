@@ -110,7 +110,13 @@ try:
         .summary()
     
     )
+    st.write(
+        "CONSISTENCY APP"
+    )
     
+    st.write(
+        consistency
+    )
 
 except Exception as e:
 
