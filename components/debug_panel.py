@@ -207,6 +207,8 @@ def render_debug_panel(
             consistency
         )
 
+        data["cashflow"].index.tolist()
+
 
 
    
