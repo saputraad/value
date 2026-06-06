@@ -734,8 +734,39 @@ with tabs[6]:
 with tabs[7]:
 
     if DEBUG_MODE:
+
         st.success(
-        "DEBUG MODE ON"
-    )
+            "DEBUG MODE ON"
+        )
+
+        render_debug_panel(
+
+            data=data,
+
+            quality=quality,
+
+            moat=moat,
+
+            predictability=predictability,
+
+            trajectory=trajectory,
+
+            cashflow=cashflow,
+
+            buffett=buffett,
+
+            valuation=valuation,
+
+            decision=decision,
+
+            data_health=data_health
+
+        )
+
+    else:
+
+        st.info(
+            "Enable Developer Mode"
+        )
 
    
