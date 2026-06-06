@@ -53,7 +53,7 @@ class ConsistencyAnalyzer:
       )
 
     def revenue_consistency(self):
-
+    
         try:
     
             income = self.data[
@@ -61,6 +61,7 @@ class ConsistencyAnalyzer:
             ]
     
             row = None
+            
             for candidate in [
     
                 "Total Revenue",
