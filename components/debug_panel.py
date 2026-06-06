@@ -189,6 +189,14 @@ def render_debug_panel(
     
         })
 
+        with st.expander(
+            "Consistency Engine"
+        ):
+        
+            st.write(
+                consistency
+            )
+
 
 
    
