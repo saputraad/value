@@ -57,6 +57,10 @@ from engines.quality import (
     analyze_quality
 )
 
+from engines.data_health import (
+    DataHealthAnalyzer
+)
+
 # =====================================
 # SIDEBAR
 # =====================================
@@ -116,6 +120,15 @@ except Exception as e:
     )
 
     moat = 0
+
+    data_health = (
+
+    DataHealthAnalyzer(
+        data
+    )
+    .summary()
+
+)
     
 
 # =====================================
