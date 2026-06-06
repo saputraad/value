@@ -120,37 +120,6 @@ class ConsistencyAnalyzer:
     
             return 0
 
-      def earnings_consistency(self):
-
-        try:
-    
-            income = self.data[
-                "income_statement"
-            ]
-    
-            for candidate in [
-    
-                "Net Income",
-                "NetIncome"
-    
-            ]:
-    
-                if candidate in income.index:
-    
-                    return self._series_score(
-    
-                        income.loc[
-                            candidate
-                        ].tolist()
-    
-                    )
-    
-            return 0
-    
-        except:
-    
-            return 0
-
       def fcf_consistency(self):
 
         try:
