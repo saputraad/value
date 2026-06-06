@@ -33,9 +33,9 @@ from engines.ranking import (
     BuffettRankingEngine
 )
 
-from components.debug_panel import (
-    render_debug_panel
-)
+# from components.debug_panel import (
+#     render_debug_panel
+# )
 
 from engines.moat import (
     MoatAnalyzer
