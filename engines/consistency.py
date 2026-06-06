@@ -30,9 +30,9 @@ class ConsistencyAnalyzer:
                 if len(values) < 3:
                    return 0            
   
-      values = values[::-1]
-  
-      growth = []
+                values = values[::-1]
+              
+                growth = []
   
       for i in range(1, len(values)):
   
