@@ -54,169 +54,169 @@ class ConsistencyAnalyzer:
 
     def revenue_consistency(self):
 
-    try:
-
-        income = self.data[
-            "income_statement"
-        ]
-
-        row = None
-
-        for candidate in [
-
-            "Total Revenue",
-            "Revenue",
-            "Operating Revenue"
-
-        ]:
-
-            if candidate in income.index:
-
-                row = income.loc[
-                    candidate
-                ]
-
-                break
-
-        if row is None:
+        try:
+    
+            income = self.data[
+                "income_statement"
+            ]
+    
+            row = None
+    
+            for candidate in [
+    
+                "Total Revenue",
+                "Revenue",
+                "Operating Revenue"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    row = income.loc[
+                        candidate
+                    ]
+    
+                    break
+    
+            if row is None:
+                return 0
+    
+            return self._series_score(
+                row.tolist()
+            )
+    
+        except:
+    
             return 0
 
-        return self._series_score(
-            row.tolist()
-        )
+      def earnings_consistency(self):
 
-    except:
-
-        return 0
+        try:
+    
+            income = self.data[
+                "income_statement"
+            ]
+    
+            for candidate in [
+    
+                "Net Income",
+                "NetIncome"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._series_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
 
       def earnings_consistency(self):
 
-    try:
-
-        income = self.data[
-            "income_statement"
-        ]
-
-        for candidate in [
-
-            "Net Income",
-            "NetIncome"
-
-        ]:
-
-            if candidate in income.index:
-
-                return self._series_score(
-
-                    income.loc[
-                        candidate
-                    ].tolist()
-
-                )
-
-        return 0
-
-    except:
-
-        return 0
-
-      def earnings_consistency(self):
-
-    try:
-
-        income = self.data[
-            "income_statement"
-        ]
-
-        for candidate in [
-
-            "Net Income",
-            "NetIncome"
-
-        ]:
-
-            if candidate in income.index:
-
-                return self._series_score(
-
-                    income.loc[
-                        candidate
-                    ].tolist()
-
-                )
-
-        return 0
-
-    except:
-
-        return 0
+        try:
+    
+            income = self.data[
+                "income_statement"
+            ]
+    
+            for candidate in [
+    
+                "Net Income",
+                "NetIncome"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._series_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
 
       def fcf_consistency(self):
 
-    try:
-
-        cashflow = self.data[
-            "cashflow"
-        ]
-
-        for candidate in [
-
-            "Free Cash Flow",
-            "FreeCashFlow"
-
-        ]:
-
-            if candidate in cashflow.index:
-
-                return self._series_score(
-
-                    cashflow.loc[
-                        candidate
-                    ].tolist()
-
-                )
-
-        return 0
-
-    except:
-
-        return 0
+        try:
+    
+            cashflow = self.data[
+                "cashflow"
+            ]
+    
+            for candidate in [
+    
+                "Free Cash Flow",
+                "FreeCashFlow"
+    
+            ]:
+    
+                if candidate in cashflow.index:
+    
+                    return self._series_score(
+    
+                        cashflow.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
 
     def summary(self):
 
-    revenue = self.revenue_consistency()
-
-    earnings = self.earnings_consistency()
-
-    fcf = self.fcf_consistency()
-
-    score = round(
-
-        (
-            revenue
-            +
-            earnings
-            +
-            fcf
+        revenue = self.revenue_consistency()
+    
+        earnings = self.earnings_consistency()
+    
+        fcf = self.fcf_consistency()
+    
+        score = round(
+    
+            (
+                revenue
+                +
+                earnings
+                +
+                fcf
+            )
+            / 3,
+    
+            2
+    
         )
-        / 3,
-
-        2
-
-    )
-
-    return {
-
-        "revenue_consistency":
-            revenue,
-
-        "earnings_consistency":
-            earnings,
-
-        "fcf_consistency":
-            fcf,
-
-        "consistency_score":
+    
+        return {
+    
+            "revenue_consistency":
+                revenue,
+    
+            "earnings_consistency":
+                earnings,
+    
+            "fcf_consistency":
+                fcf,
+    
+            "consistency_score":                                    
             score
 
     }
