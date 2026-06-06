@@ -165,7 +165,7 @@ class ConsistencyAnalyzer:
                         row.tolist()
                     )
                     
-                    self.revenue_debug = result
+                    self.earnings_debug = result
                     
                     return result["score"]
     
