@@ -198,6 +198,7 @@ class ConsistencyAnalyzer:
         fcf_predictability = (
             self.fcf_predictability()
         )
+        
 
         revenue = self.revenue_consistency()
 
@@ -268,6 +269,15 @@ class ConsistencyAnalyzer:
             
             "business_predictability":
                 business_predictability,
+            
+            "revenue_stability":
+                revenue_stability,
+            
+            "earnings_stability":
+                earnings_stability,
+            
+            "fcf_stability":
+                fcf_stability,
         
             "consistency_score":
                 score
@@ -455,5 +465,51 @@ class ConsistencyAnalyzer:
             return 0
     
         except:
-    
-            return 0
+
+            def _max_drawdown_score(self, values):
+
+                clean_values = []
+            
+                for v in values:
+            
+                    try:
+            
+                        if v is not None and not np.isnan(v):
+            
+                            clean_values.append(
+                                float(v)
+                            )
+            
+                    except:
+            
+                        pass
+            
+                values = clean_values
+            
+                if len(values) < 2:
+            
+                    return 0
+            
+                peak = max(values)
+            
+                trough = min(values)
+            
+                if peak <= 0:
+            
+                    return 0
+            
+                drawdown = (
+                    peak - trough
+                ) / peak
+            
+                score = max(
+                    0,
+                    100 - drawdown * 100
+                )
+            
+                return round(
+                    score,
+                    2
+                )
+                
+                        return 0
