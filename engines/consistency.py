@@ -304,3 +304,80 @@ class ConsistencyAnalyzer:
         except:
     
             return 0
+
+    def _predictability_score(self, values):
+
+        clean_values = []
+    
+        for v in values:
+    
+            try:
+    
+                if v is not None and not np.isnan(v):
+    
+                    clean_values.append(
+                        float(v)
+                    )
+    
+            except:
+    
+                pass
+    
+        values = clean_values
+    
+        if len(values) < 3:
+    
+            return 0
+    
+        values = values[::-1]
+    
+        declines = 0
+    
+        for i in range(1, len(values)):
+    
+            if values[i] < values[i - 1]:
+    
+                declines += 1
+    
+        score = max(
+            0,
+            100 - (declines * 35)
+        )
+    
+        return score
+
+    def earnings_predictability(self):
+
+    try:
+
+        income = self.data.get(
+            "income_statement"
+        )
+
+        if income is None or income.empty:
+
+            return 0
+
+        for candidate in [
+
+            "Net Income",
+            "NetIncome",
+            "Net Income Common Stockholders"
+
+        ]:
+
+            if candidate in income.index:
+
+                return self._predictability_score(
+
+                    income.loc[
+                        candidate
+                    ].tolist()
+
+                )
+
+        return 0
+
+    except:
+
+        return 0
