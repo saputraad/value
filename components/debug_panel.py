@@ -23,7 +23,9 @@ def render_debug_panel(
 
     valuation=None,
 
-    decision=None
+    decision=None,
+
+    data_health=None
 
 ):
 
@@ -43,9 +45,9 @@ def render_debug_panel(
         "Data Health"
     ):
 
-    st.json(
-        data_health
-    )
+        st.json(
+            data_health
+        )
 
     with st.expander(
         "Business Components"
