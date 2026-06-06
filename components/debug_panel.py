@@ -196,10 +196,14 @@ def render_debug_panel(
     ):
     
         st.write(
-            consistency
+            "CONSISTENCY TYPE"
         )
-
-        st.json(
+        
+        st.write(
+            type(consistency)
+        )
+        
+        st.write(
             consistency
         )
 
