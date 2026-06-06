@@ -210,6 +210,20 @@ class ConsistencyAnalyzer:
             ) / 2,
             2
         )
+
+        business_predictability = round(
+
+            (
+                revenue_predictability * 0.3
+                +
+                earnings_predictability * 0.4
+                +
+                fcf_predictability * 0.3
+            ),
+        
+            2
+        
+        )
     
         return {
 
@@ -226,20 +240,6 @@ class ConsistencyAnalyzer:
                     "earnings_debug",
                     {}
                 ),
-
-        business_predictability = round(
-
-            (
-                revenue_predictability * 0.3
-                +
-                earnings_predictability * 0.4
-                +
-                fcf_predictability * 0.3
-            ),
-        
-            2
-        
-        )
 
             "fcf_debug":
                 getattr(
