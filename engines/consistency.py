@@ -142,7 +142,15 @@ class ConsistencyAnalyzer:
         except:
     
             return 0
-
+    def revenue_stability(self):
+        return 0
+    
+    def earnings_stability(self):
+        return 0
+    
+    def fcf_stability(self):
+        return 0
+        
     def earnings_consistency(self):
 
         try:
