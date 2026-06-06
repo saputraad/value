@@ -29,13 +29,13 @@ def render_debug_panel(
 
 ):
 
-    with st.expander(
-        "Data Health"
-    ):
+    st.write(
+        "DATA HEALTH INSIDE PANEL:"
+    )
     
-        st.write(
-            data_health
-        )
+    st.write(
+        data_health
+    )
 
     with st.expander(
         "Business Components"
@@ -189,14 +189,7 @@ def render_debug_panel(
     
         })
 
-        with st.expander(
-            "Data Health"
-        ):
-        
-            st.write(
-                data_health
-            )
-    
+
    
 
 
