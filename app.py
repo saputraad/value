@@ -61,9 +61,9 @@ from engines.data_health import (
     DataHealthAnalyzer
 )
 
-# from engines.consistency import (
-#     ConsistencyAnalyzer
-# )
+from engines.consistency import (
+    ConsistencyAnalyzer
+)
 
 # =====================================
 # SIDEBAR
