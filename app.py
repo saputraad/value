@@ -785,6 +785,8 @@ with tabs[7]:
 
             data_health=data_health
 
+            consistency=consistency
+
         )
 
     else:
