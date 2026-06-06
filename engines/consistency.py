@@ -511,5 +511,3 @@ class ConsistencyAnalyzer:
             score,
             2
         )
-        
-                return 0
