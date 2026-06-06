@@ -195,6 +195,14 @@ class ConsistencyAnalyzer:
             self.earnings_predictability()
         )
 
+        fcf_consistency = (
+            self.fcf_consistency()
+        )
+        
+        fcf_predictability = (
+            self.fcf_predictability()
+        )
+
         revenue = self.revenue_consistency()
 
         earnings = self.earnings_consistency()
@@ -234,7 +242,34 @@ class ConsistencyAnalyzer:
                     "earnings_debug",
                     {}
                 ),
+
+        business_predictability = round(
+
+            (
+                revenue_predictability * 0.3
+                +
+                earnings_predictability * 0.4
+                +
+                fcf_predictability * 0.3
+            ),
         
+            2
+        
+        )
+
+            "fcf_debug":
+                getattr(
+                    self,
+                    "fcf_debug",
+                    {}
+                ),
+            
+            "fcf_consistency":
+                fcf_consistency,
+            
+            "fcf_predictability":
+                fcf_predictability,
+            
             "revenue_consistency":
                 revenue,
         
@@ -400,6 +435,82 @@ class ConsistencyAnalyzer:
                         ].tolist()
     
                     )
+    
+            return 0
+    
+        except:
+    
+            return 0
+
+    def fcf_predictability(self):
+
+        try:
+    
+            cashflow = self.data.get(
+                "cashflow"
+            )
+    
+            if cashflow is None or cashflow.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Free Cash Flow",
+                "FreeCashFlow"
+    
+            ]:
+    
+                if candidate in cashflow.index:
+    
+                    return self._predictability_score(
+    
+                        cashflow.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
+
+    def fcf_consistency(self):
+    
+        try:
+    
+            cashflow = self.data.get(
+                "cashflow"
+            )
+    
+            if cashflow is None or cashflow.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Free Cash Flow",
+                "FreeCashFlow"
+    
+            ]:
+    
+                if candidate in cashflow.index:
+    
+                    row = cashflow.loc[
+                        candidate
+                    ]
+    
+                    result = self._series_score(
+                        row.tolist()
+                    )
+    
+                    self.fcf_debug = result
+    
+                    return result[
+                        "score"
+                    ]
     
             return 0
     
