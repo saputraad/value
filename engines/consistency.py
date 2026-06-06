@@ -187,9 +187,13 @@ class ConsistencyAnalyzer:
 
     def summary(self):
 
-        revenue = self.revenue_consistency()
-    
-        earnings = self.earnings_consistency()
+        revenue_predictability = (
+            self.revenue_predictability()
+        )
+        
+        earnings_predictability = (
+            self.earnings_predictability()
+        )
     
         score = round(
             (
@@ -215,11 +219,11 @@ class ConsistencyAnalyzer:
                     {}
                 ),
     
-            "revenue_consistency":
-                revenue,
-    
-            "earnings_consistency":
-                earnings,
+            "revenue_predictability":
+                revenue_predictability,
+            
+            "earnings_predictability":
+                earnings_predictability,
     
             "fcf_consistency":
                 0,
@@ -228,3 +232,75 @@ class ConsistencyAnalyzer:
                 score
     
         }
+
+    def _predictability_score(self, values):
+
+        values = [
+    
+            float(v)
+    
+            for v in values
+    
+            if v is not None
+    
+        ]
+    
+        if len(values) < 3:
+    
+            return 0
+    
+        values = values[::-1]
+    
+        declines = 0
+    
+        for i in range(1, len(values)):
+    
+            if values[i] < values[i - 1]:
+    
+                declines += 1
+    
+        score = max(
+    
+            0,
+    
+            100 - (declines * 30)
+    
+        )
+    
+        return score
+
+    def revenue_predictability(self):
+
+        try:
+    
+            income = self.data.get(
+                "income_statement"
+            )
+    
+            if income is None or income.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Total Revenue",
+                "Revenue",
+                "Operating Revenue"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._predictability_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
