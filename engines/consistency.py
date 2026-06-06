@@ -269,9 +269,6 @@ class ConsistencyAnalyzer:
             "business_predictability":
                 business_predictability,
         
-            "fcf_consistency":
-                0,
-        
             "consistency_score":
                 score
         
