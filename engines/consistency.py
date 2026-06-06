@@ -9,7 +9,7 @@ class ConsistencyAnalyzer:
 
     def _series_score(self, values):
   
-      clean_values = []
+        clean_values = []
 
         for v in values:
         
