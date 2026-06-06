@@ -25,7 +25,9 @@ def render_debug_panel(
 
     decision=None,
 
-    data_health=None
+    data_health=None,
+
+    consistency=None
 
 ):
 
