@@ -28,7 +28,7 @@ class ConsistencyAnalyzer:
         values = clean_values
   
                 if len(values) < 3:
-                   return 0            
+                    return 0            
   
                 values = values[::-1]
               
