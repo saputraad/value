@@ -280,14 +280,6 @@ except Exception as e:
     valuation = {
         "error": str(e)
     }
-    with st.expander(
-        "Data Health"
-    ):
-    
-        st.write(
-            data_health
-        )
-
 # =====================================
 # DECISION
 # =====================================
