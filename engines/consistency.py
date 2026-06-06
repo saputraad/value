@@ -13,6 +13,7 @@ class ConsistencyAnalyzer:
           float(v)
           for v in values
           if v is not None
+          and not np.isnan(v)
       ]
   
       if len(values) < 3:
