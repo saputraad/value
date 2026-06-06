@@ -10,62 +10,88 @@ class ConsistencyAnalyzer:
     def _series_score(self, values):
 
         clean_values = []
-
+    
         for v in values:
-
+    
             try:
-
+    
                 if v is not None and not np.isnan(v):
-
+    
                     clean_values.append(
                         float(v)
                     )
-
+    
             except:
-
+    
                 pass
-
+    
         values = clean_values
-
+    
         if len(values) < 3:
-
-            return 0
-
+    
+            return {
+    
+                "score": 0,
+    
+                "growth_rates": [],
+    
+                "values": values
+    
+            }
+    
         values = values[::-1]
-
+    
         growth = []
-
+    
         for i in range(1, len(values)):
-
+    
             prev = values[i - 1]
-
+    
             curr = values[i]
-
+    
             if prev == 0:
-
+    
                 continue
-
+    
             growth.append(
                 (curr - prev) / abs(prev)
             )
-
+    
         if len(growth) < 2:
-
-            return 0
-
+    
+            return {
+    
+                "score": 0,
+    
+                "growth_rates": growth,
+    
+                "values": values
+    
+            }
+    
         volatility = np.std(
             growth
         )
-
+    
         score = max(
             0,
             100 - volatility * 300
         )
-
-        return round(
-            min(score, 100),
-            2
-        )
+    
+        return {
+    
+            "score": round(
+                min(score, 100),
+                2
+            ),
+    
+            "growth_rates":
+                growth,
+    
+            "values":
+                values
+    
+        }
 
     def revenue_consistency(self):
 
