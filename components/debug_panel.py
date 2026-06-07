@@ -67,8 +67,8 @@ def render_debug_panel(
             "economic_stability":
                 economic_stability,
             
-            "economic_stability":
-                economic_stability
+            "legacy_predictability":
+                legacy_predictability,
 
         })
 
