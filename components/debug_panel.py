@@ -27,7 +27,9 @@ def render_debug_panel(
 
     data_health=None,
 
-    consistency=None
+    consistency=None,
+
+    economic_stability=None
 
 ):
 
@@ -59,6 +61,9 @@ def render_debug_panel(
 
             "cashflow":
                 cashflow
+
+            "economic_stability":
+                economic_stability,
 
         })
 
