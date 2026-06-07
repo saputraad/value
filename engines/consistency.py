@@ -143,13 +143,111 @@ class ConsistencyAnalyzer:
     
             return 0
     def revenue_stability(self):
-        return 0
+
+        try:
+    
+            income = self.data.get(
+                "income_statement"
+            )
+    
+            if income is None or income.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Total Revenue",
+                "Revenue",
+                "Operating Revenue"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._max_drawdown_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
     
     def earnings_stability(self):
-        return 0
+
+        try:
+    
+            income = self.data.get(
+                "income_statement"
+            )
+    
+            if income is None or income.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Net Income",
+                "NetIncome",
+                "Net Income Common Stockholders"
+    
+            ]:
+    
+                if candidate in income.index:
+    
+                    return self._max_drawdown_score(
+    
+                        income.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
     
     def fcf_stability(self):
-        return 0
+
+        try:
+    
+            cashflow = self.data.get(
+                "cashflow"
+            )
+    
+            if cashflow is None or cashflow.empty:
+    
+                return 0
+    
+            for candidate in [
+    
+                "Free Cash Flow",
+                "FreeCashFlow"
+    
+            ]:
+    
+                if candidate in cashflow.index:
+    
+                    return self._max_drawdown_score(
+    
+                        cashflow.loc[
+                            candidate
+                        ].tolist()
+    
+                    )
+    
+            return 0
+    
+        except:
+    
+            return 0
         
     def earnings_consistency(self):
 
