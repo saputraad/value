@@ -609,21 +609,35 @@ class ConsistencyAnalyzer:
     
             return 0
     
-        peak = max(values)
+        values = values[::-1]
     
-        trough = min(values)
+        peak = values[0]
     
-        if peak <= 0:
+        max_drawdown = 0
     
-            return 0
+        for v in values:
     
-        drawdown = (
-            peak - trough
-        ) / peak
+            if v > peak:
+    
+                peak = v
+    
+            drawdown = (
+                peak - v
+            ) / peak
+    
+            max_drawdown = max(
+                max_drawdown,
+                drawdown
+            )
     
         score = max(
+    
             0,
-            100 - drawdown * 100
+    
+            100 - (
+                max_drawdown * 100
+            )
+    
         )
     
         return round(
