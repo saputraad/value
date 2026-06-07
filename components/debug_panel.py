@@ -66,6 +66,9 @@ def render_debug_panel(
 
             "economic_stability":
                 economic_stability
+            
+            "economic_stability":
+                economic_stability
 
         })
 
