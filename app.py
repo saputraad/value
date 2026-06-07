@@ -256,6 +256,11 @@ try:
     
     )
 
+except:
+
+    predictability = 0
+    economic_stability = 0
+
 try:
 
     legacy_predictability = (
