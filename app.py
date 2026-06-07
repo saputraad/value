@@ -197,7 +197,16 @@ except:
     moat = 0
 
 try:
-
+    economic_stability = (
+        ConsistencyAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "economic_stability",
+            0
+        )
+    )
     predictability = (
         PredictabilityAnalyzer(
             data
