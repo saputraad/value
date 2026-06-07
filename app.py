@@ -197,7 +197,28 @@ except:
     moat = 0
 
 try:
+
+    consistency = (
+        ConsistencyAnalyzer(
+            data
+        )
+        .summary()
+    )
+
     predictability = (
+        consistency.get(
+            "business_predictability",
+            0
+        )
+    )
+
+except:
+
+    predictability = 0
+
+try:
+
+    legacy_predictability = (
         PredictabilityAnalyzer(
             data
         )
@@ -210,7 +231,7 @@ try:
 
 except:
 
-    predictability = 0
+    legacy_predictability = 0
 
 try:
     economic_stability = (
