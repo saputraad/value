@@ -216,20 +216,34 @@ try:
     consistency = (
         ConsistencyAnalyzer(
             data
-        )
-        .summary()
+        ).summary()
     )
-
-    predictability = (
+    
+    business_predictability = (
         consistency.get(
             "business_predictability",
             0
         )
     )
-
-except:
-
-    predictability = 0
+    
+    economic_stability = (
+        consistency.get(
+            "economic_stability",
+            0
+        )
+    )
+    
+    predictability = round(
+    
+        (
+            business_predictability * 0.6
+            +
+            economic_stability * 0.4
+        ),
+    
+        2
+    
+    )
 
 try:
 
