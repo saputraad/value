@@ -65,7 +65,7 @@ def render_debug_panel(
                 cashflow,
 
             "economic_stability":
-                economic_stability
+                economic_stability,
             
             "economic_stability":
                 economic_stability
