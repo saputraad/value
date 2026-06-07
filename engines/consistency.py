@@ -342,6 +342,20 @@ class ConsistencyAnalyzer:
             2
         
         )
+
+        economic_stability = round(
+
+            (
+                revenue_stability * 0.4
+                +
+                earnings_stability * 0.4
+                +
+                fcf_stability * 0.2
+            ),
+        
+            2
+        
+        )
     
         return {
 
@@ -395,6 +409,9 @@ class ConsistencyAnalyzer:
             
             "fcf_stability":
                 fcf_stability,
+
+            "economic_stability":
+                economic_stability,
         
             "consistency_score":
                 score
