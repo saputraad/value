@@ -197,6 +197,22 @@ except:
     moat = 0
 
 try:
+    predictability = (
+        PredictabilityAnalyzer(
+            data
+        )
+        .summary()
+        .get(
+            "predictability_score",
+            0
+        )
+    )
+
+except:
+
+    predictability = 0
+
+try:
     economic_stability = (
         ConsistencyAnalyzer(
             data
@@ -210,7 +226,7 @@ try:
 
 except:
 
-    predictability = 0
+    economic_stability = 0
 
 try:
 
@@ -245,23 +261,6 @@ try:
 except:
 
     cashflow = 0
-
-try:
-
-    economic_stability = (
-        ConsistencyAnalyzer(
-            data
-        )
-        .summary()
-        .get(
-            "economic_stability",
-            0
-        )
-    )
-
-except:
-
-    economic_stability = 0
 
 
 # =====================================
