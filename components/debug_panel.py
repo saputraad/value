@@ -60,10 +60,10 @@ def render_debug_panel(
                 trajectory,
 
             "cashflow":
-                cashflow
+                cashflow,
 
             "economic_stability":
-                economic_stability,
+                economic_stability
 
         })
 
