@@ -110,6 +110,21 @@ try:
         .summary()
     
     )
+
+    predictability = (
+        consistency.get(
+            "business_predictability",
+            0
+        )
+    )
+    
+    economic_stability = (
+        consistency.get(
+            "economic_stability",
+            0
+        )
+    )
+    
     st.write(
         "CONSISTENCY APP"
     )
