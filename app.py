@@ -806,7 +806,9 @@ with tabs[7]:
 
             data_health=data_health,
 
-            consistency=consistency
+            consistency=consistency,
+
+            economic_stability=economic_stability
 
         )
 
