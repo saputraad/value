@@ -29,7 +29,9 @@ def render_debug_panel(
 
     consistency=None,
 
-    economic_stability=None
+    economic_stability=None,
+
+    legacy_predictability=None
 
 ):
 
