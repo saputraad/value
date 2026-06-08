@@ -220,18 +220,6 @@ def render_debug_panel(
         data["cashflow"].index.tolist()
 
 
-    with st.expander(
-        "Trajectory"
-    ):
-
-        TrajectoryAnalyzer(
-            data
-        ).summary()
-
-        st.write(
-            Trajectory
-        )
-
 
 
    
