@@ -378,47 +378,48 @@ class ValuationAnalyzer:
     # SUMMARY
     # ==========================================
 
-    # def summary(self):
-    #     "valuation_debug": {
-
-    #         "is_bank":
-    #             self.is_bank(),
-        
-    #         "earnings_yield_score":
-    #             self.earnings_yield_score(),
-        
-    #         "fcf_yield_score":
-    #             self.fcf_yield_score()
-        
-    #     }
+    def summary(self):
 
         return {
-
+    
+            "valuation_debug": {
+    
+                "is_bank":
+                    self.is_bank(),
+    
+                "earnings_yield_score":
+                    self.earnings_yield_score(),
+    
+                "fcf_yield_score":
+                    self.fcf_yield_score()
+    
+            },
+    
             "financial_currency":
                 self.financial_currency(),
-
+    
             "market_cap":
                 self.market_cap,
-
+    
             "net_income":
                 self.net_income(),
-
+    
             "free_cash_flow":
                 self.free_cash_flow(),
-
+    
             "earnings_yield":
                 self.earnings_yield(),
-
+    
             "fcf_yield":
                 self.fcf_yield(),
-
+    
             "earnings_yield_score":
                 self.earnings_yield_score(),
-
+    
             "fcf_yield_score":
                 self.fcf_yield_score(),
-
+    
             "valuation_score":
                 self.valuation_score()
-
+    
         }
