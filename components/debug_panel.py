@@ -245,28 +245,25 @@ def render_debug_panel(
         st.json({
 
     with st.expander(
-        sector
+        "Sector Audit"
     ):
+    
+        info = data.get(
+            "info",
+            {}
+        )
+    
         st.json({
-
+    
             "sector":
-                data.get(
-                    "info",
-                    {}
-                ).get(
+                info.get(
                     "sector"
                 ),
-        
+    
             "industry":
-                data.get(
-                    "info",
-                    {}
-                ).get(
+                info.get(
                     "industry"
                 )
-        
+    
         })
-
-   
-
 
