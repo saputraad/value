@@ -246,8 +246,6 @@ def render_debug_panel(
 
         st.json({
 
-            "ticker": ticker,
-        
             "sector":
                 data.get(
                     "info",
