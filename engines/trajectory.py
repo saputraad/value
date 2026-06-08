@@ -255,22 +255,6 @@ class TrajectoryAnalyzer:
     # ==========================
 
     def summary(self):
-        st.write(
-            {
-                "revenue_growth": revenue_growth,
-                "revenue_score": self.growth_to_score(
-                    revenue_growth
-                ),
-                "earnings_growth": earnings_growth,
-                "earnings_score": self.growth_to_score(
-                    earnings_growth
-                ),
-                "cfo_growth": cfo_growth,
-                "cfo_score": self.growth_to_score(
-                    cfo_growth
-                )
-            }
-        )
 
         base_score = self.score()
     
