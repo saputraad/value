@@ -877,15 +877,5 @@ with tabs[7]:
             data_health
         )
 
-        trajectory = (
-            TrajectoryAnalyzer(
-                data
-            )
-            .summary()
-            )
-            
-            st.json(
-                    trajectory
-                )
 
    
