@@ -281,11 +281,6 @@ def render_debug_panel(
     ):
         st.json(
             data.get(
-                "balance_sheet"
-            ).index.tolist()
-        )
-        st.json(
-            data.get(
                 "info",
                 {}
             )
