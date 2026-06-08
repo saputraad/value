@@ -248,7 +248,7 @@ def render_debug_panel(
         sector
     ):
         st.write(
-            data["info"].keys()
+            data.keys()
         )
 
    
