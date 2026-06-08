@@ -35,34 +35,34 @@ class ValuationAnalyzer:
         )
         
     def is_bank(self):
-    
+
         info = self.data.get(
             "info",
             {}
         )
-    
+
         sector = str(
             info.get(
                 "sector",
                 ""
             )
         ).lower()
-    
+
         industry = str(
             info.get(
                 "industry",
                 ""
             )
         ).lower()
-    
+
         return (
-    
+
             "bank" in industry
-    
+
             or
-    
+
             "bank" in sector
-    
+
         )
 
     # ==========================================
