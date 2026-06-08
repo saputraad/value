@@ -248,8 +248,23 @@ def render_debug_panel(
         sector
     ):
         st.json({
-            "sector": data.get("info", {}).get("sector"),
-            "industry": data.get("info", {}).get("industry")
+
+            "sector":
+                data.get(
+                    "info",
+                    {}
+                ).get(
+                    "sector"
+                ),
+        
+            "industry":
+                data.get(
+                    "info",
+                    {}
+                ).get(
+                    "industry"
+                )
+        
         })
 
    
