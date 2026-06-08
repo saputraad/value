@@ -880,6 +880,7 @@ with tabs[7]:
 
     trajectory = (
         TrajectoryAnalyzer(
+            ticker,
             data
         )
         .summary()
