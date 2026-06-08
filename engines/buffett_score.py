@@ -23,7 +23,7 @@ class BuffettScoreAnalyzer:
             self.moat * 0.25 +
             self.predictability * 0.20 +
             self.trajectory * 0.20 +
-            self.cashflow * 0.10
+            self.cashflow * 0.10,
 
             2
         )
@@ -48,20 +48,30 @@ class BuffettScoreAnalyzer:
 
     def summary(self):
 
-        quality_contribution =
-            self.quality * 0.25
-        
-        moat_contribution =
-            self.moat * 0.25
-        
-        predictability_contribution =
-            self.predictability * 0.20
-        
-        trajectory_contribution =
-            self.trajectory * 0.20
-        
-        cashflow_contribution =
-            self.cashflow * 0.10
+        quality_contribution = round(
+            self.quality * 0.25,
+            2
+        )
+    
+        moat_contribution = round(
+            self.moat * 0.25,
+            2
+        )
+    
+        predictability_contribution = round(
+            self.predictability * 0.20,
+            2
+        )
+    
+        trajectory_contribution = round(
+            self.trajectory * 0.20,
+            2
+        )
+    
+        cashflow_contribution = round(
+            self.cashflow * 0.10,
+            2
+        )
     
         return {
     
