@@ -59,45 +59,11 @@ class ValuationAnalyzer:
     
             return True
     
-        income = self.data.get(
-            "income_statement"
+        return (
+            self.ticker
+            in
+            INDONESIAN_BANKS
         )
-    
-        if income is None:
-    
-            return False
-    
-        rows = [
-    
-            str(x).lower()
-    
-            for x in income.index
-    
-        ]
-    
-        bank_keywords = [
-    
-            "net interest income",
-    
-            "interest income",
-    
-            "interest expense"
-    
-        ]
-    
-        if any(
-    
-            keyword in row
-    
-            for row in rows
-    
-            for keyword in bank_keywords
-    
-        ):
-    
-            return True
-    
-        return False
 
     # ==========================================
     # FINANCIAL CURRENCY
