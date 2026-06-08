@@ -19,15 +19,11 @@ class BuffettScoreAnalyzer:
 
         return round(
 
-            self.quality * 0.30 +
-
+            self.quality * 0.25 +
             self.moat * 0.25 +
-
-            self.predictability * 0.15 +
-
-            self.trajectory * 0.15 +
-
-            self.cashflow * 0.15,
+            self.predictability * 0.20 +
+            self.trajectory * 0.20 +
+            self.cashflow * 0.10
 
             2
         )
