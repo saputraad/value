@@ -62,25 +62,29 @@ class ValuationAnalyzer:
 #             self.market_cap
 #         )
         
-#     def is_bank(self):
+    def is_bank(self):
 
-#         info = self.data.get(
-#             "info",
-#             {}
-#         )
+        info = self.data.get(
+            "info",
+            {}
+        )
     
-#         industry = str(
-#             info.get(
-#                 "industry",
-#                 ""
-#             )
-#         ).lower()
+        industry = str(
+            info.get(
+                "industry",
+                ""
+            )
+        ).lower()
     
-#         if "bank" in industry:
+        if "bank" in industry:
     
-#             return True
+            return True
     
-#         return False
+        return (
+            self.ticker
+            in
+            INDONESIAN_BANKS
+        )
 
     # ==========================================
     # FINANCIAL CURRENCY
