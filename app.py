@@ -281,6 +281,7 @@ try:
 
     trajectory = (
         TrajectoryAnalyzer(
+            ticker,
             data
         )
         .summary()
