@@ -223,8 +223,14 @@ def render_debug_panel(
         if isinstance(
             trajectory,
             dict
-
-
+        ):
+    
+            st.json(
+                trajectory.get(
+                    "trajectory_debug",
+                    {}
+                )
+            )
 
    
 
