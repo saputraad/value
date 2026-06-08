@@ -470,7 +470,7 @@ class ValuationAnalyzer:
                 self.fcf_yield_score(),
     
             "valuation_score":
-                self.valuation_score()
+                self.valuation_score()}
             
     def sector(self):
 
