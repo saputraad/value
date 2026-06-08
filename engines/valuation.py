@@ -41,30 +41,31 @@ class ValuationAnalyzer:
             "info",
             {}
         )
-
+    
         sector = str(
             info.get(
                 "sector",
                 ""
             )
         ).lower()
-
+    
         industry = str(
             info.get(
                 "industry",
                 ""
             )
         ).lower()
-
+    
         return (
-
+    
             "bank" in industry
-
+    
             or
-
+    
             "bank" in sector
-
+    
         )
+
     # ==========================================
     # FINANCIAL CURRENCY
     # ==========================================
