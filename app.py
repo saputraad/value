@@ -878,14 +878,14 @@ with tabs[7]:
         )
 
         trajectory = (
-        TrajectoryAnalyzer(
-            data
-        )
-        .summary()
-        )
-        
-        st.json(
-            trajectory
-        )
+            TrajectoryAnalyzer(
+                data
+            )
+            .summary()
+            )
+            
+            st.json(
+                trajectory
+            )
 
    
