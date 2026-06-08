@@ -4,7 +4,7 @@ print(
 from engines.roic import (
     ROICAnalyzer
 )
-# from config.banks import INDONESIAN_BANKS
+from config.banks import INDONESIAN_BANKS
 
 USD_IDR_RATE = 16000
 
