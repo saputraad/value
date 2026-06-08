@@ -13,6 +13,9 @@ class ValuationAnalyzer:
         ticker,
         data
     ):
+        raise Exception(
+            f"VALUATION INIT: {ticker}"
+        )
 
         self.ticker = ticker.upper()
         self.data = data
