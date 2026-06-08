@@ -888,9 +888,9 @@ with tabs[7]:
         trajectory
     )
 
-    st.write(
-        data.get(
-            "sector"
+    st.json(
+        list(
+            data.keys()
         )
     )
 
