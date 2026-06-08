@@ -304,24 +304,31 @@ class TrajectoryAnalyzer:
         
                 "revenue_growth":
                     self.revenue_growth(),
-        
+                "revenue_score":
+                    self.revenue_score(),
                 "earnings_growth":
                     self.earnings_growth(),
-        
+                "earnings_score":
+                    self.earnings_score(),
                 "cfo_growth":
-                    self.cfo_growth()
+                    self.cfo_growth(),
+                "cfo_score":
+                    self.cfo_score()
         
             },
         
             "revenue_growth":
                 self.revenue_growth(),
-        
+            revenue_score":
+                    self.revenue_score(),
             "earnings_growth":
                 self.earnings_growth(),
-        
+            "earnings_score":
+                    self.earnings_score(),
             "cfo_growth":
                 self.cfo_growth(),
-        
+            "cfo_score":
+                    self.cfo_score(),
             "trajectory_score":
                 final_score,
         
