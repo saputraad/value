@@ -62,17 +62,32 @@ class BuffettDecisionAnalyzer:
 
     def summary(self):
 
+        rejected = (
+            self.business_score < 55
+        )
+    
         return {
-
+    
             "business_score":
                 self.business_score,
-
+    
             "valuation_score":
                 self.valuation_score,
-
+    
+            "decision_debug": {
+    
+                "buffett_gate":
+                    55,
+    
+                "gate_passed":
+                    not rejected
+    
+            },
+    
             "decision_score":
                 self.score(),
-
+    
             "decision_rating":
                 self.rating()
+    
         }
