@@ -14,15 +14,31 @@ class ValuationAnalyzer:
         self,
         data
     ):
-
+    
         self.data = data
-
+    
         self.ticker = (
             data.get(
                 "ticker",
                 ""
+            ).upper()
+        )
+    
+        self.market_cap = (
+    
+            data.get(
+                "market_cap"
             )
-            .upper()
+    
+            or
+    
+            data.get(
+                "info",
+                {}
+            ).get(
+                "marketCap"
+            )
+    
         )
 # class ValuationAnalyzer:
 
