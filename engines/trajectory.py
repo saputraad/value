@@ -180,12 +180,6 @@ class TrajectoryAnalyzer:
         # RED FLAG
         # =====================
     
-        if revenue is not None:
-    
-            if revenue < -0.10:
-    
-                return 20
-    
         score = 0
         count = 0
     
@@ -196,39 +190,15 @@ class TrajectoryAnalyzer:
         ]
     
         for growth in metrics:
-    
+
             if growth is None:
                 continue
-    
+        
             count += 1
-    
-            pct = growth * 100
-    
-            if pct >= 15:
-                score += 100
-            
-            elif pct >= 10:
-                score += 90
-            
-            elif pct >= 5:
-                score += 80
-            
-            elif pct >= 0:
-                score += 60
-            
-            elif pct >= -5:
-                score += 40
-            
-            else:
-                score += 20
-    
-        if count == 0:
-            return 0
-    
-        return round(
-            score / count,
-            2
-        )
+        
+            score += self.growth_to_score(
+                growth
+            )
 
     # ==========================
     # RATING
@@ -296,3 +266,21 @@ class TrajectoryAnalyzer:
             rating
     
         }
+
+    def growth_to_score(self, growth):
+
+    if growth is None:
+        return None
+
+    pct = growth * 100
+
+    if pct >= 15:
+        return 100
+
+    if pct <= -20:
+        return 0
+
+    return round(
+        ((pct + 20) / 35) * 100,
+        2
+    )
