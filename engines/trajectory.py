@@ -305,6 +305,7 @@ class TrajectoryAnalyzer:
         }
 
         return {
+            "TEST_DEBUG": "HELLO_WORLD",
 
             "trajectory_debug": {
 
