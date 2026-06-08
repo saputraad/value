@@ -1,3 +1,6 @@
+print(
+    "VALUATION FILE LOADED"
+)
 from engines.roic import (
     ROICAnalyzer
 )
