@@ -8,7 +8,7 @@ USD_IDR_RATE = 16000
 class ValuationAnalyzer:
 
     def __init__(
-        self,
+        self,def valuation_score(self):
         data
     ):
 
@@ -317,21 +317,15 @@ class ValuationAnalyzer:
             self.fcf_yield_score()
         )
     
-        if self.is_bank():
-    
-            score = earnings_score
-    
-        else:
-    
-            score = (
-    
-                earnings_score * 0.6
-    
-                +
-    
-                fcf_score * 0.4
-    
-            )
+        score = (
+
+            earnings_score * 0.6
+        
+            +
+        
+            fcf_score * 0.4
+        
+        )
     
         try:
     
