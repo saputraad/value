@@ -271,6 +271,38 @@ class TrajectoryAnalyzer:
     
         }
 
+        return {
+
+            "trajectory_debug": {
+        
+                "revenue_growth":
+                    self.revenue_growth(),
+        
+                "earnings_growth":
+                    self.earnings_growth(),
+        
+                "cfo_growth":
+                    self.cfo_growth()
+        
+            },
+        
+            "revenue_growth":
+                self.revenue_growth(),
+        
+            "earnings_growth":
+                self.earnings_growth(),
+        
+            "cfo_growth":
+                self.cfo_growth(),
+        
+            "trajectory_score":
+                final_score,
+        
+            "trajectory_rating":
+                rating
+        
+        }
+
     def growth_to_score(self, growth):
 
         if growth is None:
