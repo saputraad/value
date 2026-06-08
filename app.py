@@ -258,8 +258,9 @@ try:
 
 except:
 
-    predictability = 0
+    business_predictability = 0
     economic_stability = 0
+    predictability = 0
 
 try:
 
