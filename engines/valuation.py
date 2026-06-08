@@ -67,13 +67,15 @@ class ValuationAnalyzer:
     
         bank_keywords = [
     
-            "interest income",
-            "interest expense",
             "net interest income",
-            "loan"
+    
+            "interest income",
+    
+            "interest expense"
+    
         ]
     
-        return any(
+        if any(
     
             keyword in row
     
@@ -81,7 +83,11 @@ class ValuationAnalyzer:
     
             for keyword in bank_keywords
     
-        )
+        ):
+    
+            return True
+    
+        return False
 
     # ==========================================
     # FINANCIAL CURRENCY
