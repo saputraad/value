@@ -131,20 +131,18 @@ try:
         2
     )
 
-except:
+except Exception as e:
 
     predictability = 0
     economic_stability = 0
-    
+
     st.write(
-        "CONSISTENCY APP"
-    )
-    
-    st.write(
-        consistency
+        "CONSISTENCY APP ERROR"
     )
 
-except Exception as e:
+    st.write(
+        str(e)
+    )
 
     st.error(
         f"DATA HEALTH ERROR: {e}"
