@@ -319,7 +319,7 @@ class TrajectoryAnalyzer:
         
             "revenue_growth":
                 self.revenue_growth(),
-            revenue_score":
+            "revenue_score":
                     self.revenue_score(),
             "earnings_growth":
                 self.earnings_growth(),
