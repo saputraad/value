@@ -884,8 +884,8 @@ with tabs[7]:
             .summary()
             )
             
-        st.json(
-                trajectory
-            )
+            st.json(
+                    trajectory
+                )
 
    
