@@ -1,3 +1,18 @@
+import traceback
+
+try:
+
+    from engines.valuation import (
+        ValuationAnalyzer
+    )
+
+except Exception as e:
+
+    print(e)
+
+    traceback.print_exc()
+
+    raise
 import streamlit as st
 # =====================================
 # CONFIG
