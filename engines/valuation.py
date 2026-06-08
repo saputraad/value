@@ -380,11 +380,27 @@ class ValuationAnalyzer:
 
     def summary(self):
 
+        info = self.data.get(
+            "info",
+            {}
+        )
+    
         return {
+    
             "valuation_debug": {
     
                 "is_bank":
                     self.is_bank(),
+    
+                "sector":
+                    info.get(
+                        "sector"
+                    ),
+    
+                "industry":
+                    info.get(
+                        "industry"
+                    ),
     
                 "earnings_yield_score":
                     self.earnings_yield_score(),
