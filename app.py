@@ -102,6 +102,17 @@ try:
 
     )
 
+    trajectory = (
+        TrajectoryAnalyzer(
+            data
+        )
+        .summary()
+    )
+    
+    st.json(
+        trajectory
+    )
+
     consistency = (
         ConsistencyAnalyzer(
             data
