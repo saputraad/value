@@ -8,7 +8,6 @@ from engines.roic import (
 
 USD_IDR_RATE = 16000
 
-
 class ValuationAnalyzer:
 
     def __init__(
@@ -16,56 +15,71 @@ class ValuationAnalyzer:
         ticker,
         data
     ):
-        raise Exception(
-            f"VALUATION INIT: {ticker}"
-        )
-
-        self.ticker = ticker.upper()
+        self.ticker = ticker
         self.data = data
 
-        self.ticker = ticker.upper()
-        self.data = data
+    def summary(self):
 
-        self.market_cap = (
+        return {
+            "test": "ok"
+        }
+# class ValuationAnalyzer:
 
-            data.get(
-                "market_cap"
-            )
+#     def __init__(
+#         self,
+#         ticker,
+#         data
+#     ):
+#         raise Exception(
+#             f"VALUATION INIT: {ticker}"
+#         )
 
-            or
+#         self.ticker = ticker.upper()
+#         self.data = data
 
-            data.get(
-                "info",
-                {}
-            ).get(
-                "marketCap"
-            )
+#         self.ticker = ticker.upper()
+#         self.data = data
 
-        )
-        print(
-            "MARKET CAP:",
-            self.market_cap
-        )
+#         self.market_cap = (
+
+#             data.get(
+#                 "market_cap"
+#             )
+
+#             or
+
+#             data.get(
+#                 "info",
+#                 {}
+#             ).get(
+#                 "marketCap"
+#             )
+
+#         )
+#         print(
+#             "MARKET CAP:",
+#             self.market_cap
+#         )
         
-    def is_bank(self):
+#     def is_bank(self):
 
-        info = self.data.get(
-            "info",
-            {}
-        )
+#         info = self.data.get(
+#             "info",
+#             {}
+#         )
     
-        industry = str(
-            info.get(
-                "industry",
-                ""
-            )
-        ).lower()
+#         industry = str(
+#             info.get(
+#                 "industry",
+#                 ""
+#             )
+#         ).lower()
     
-        if "bank" in industry:
+#         if "bank" in industry:
     
-            return True
+#             return True
     
-        return False
+#         return False
 
     # ==========================================
     # FINANCIAL CURRENCY
