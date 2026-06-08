@@ -269,5 +269,11 @@ def render_debug_panel(
                 )
     
         })
+        st.json(
+            data.get(
+                "info",
+                {}
+            )
+        )
 
 
