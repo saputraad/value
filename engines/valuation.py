@@ -308,22 +308,34 @@ class ValuationAnalyzer:
 
     def valuation_score(self):
 
-        score = (
-
+        earnings_score = (
             self.earnings_yield_score()
-            * 0.6
-
-            +
-
-            self.fcf_yield_score()
-            * 0.4
-
         )
-
+    
+        fcf_score = (
+            self.fcf_yield_score()
+        )
+    
+        if self.is_bank():
+    
+            score = earnings_score
+    
+        else:
+    
+            score = (
+    
+                earnings_score * 0.6
+    
+                +
+    
+                fcf_score * 0.4
+    
+            )
+    
         try:
-
+    
             roic = (
-
+    
                 ROICAnalyzer(
                     self.data
                 )
@@ -331,33 +343,33 @@ class ValuationAnalyzer:
                 .get(
                     "roic"
                 )
-
+    
             )
-
+    
             if roic is not None:
-
+    
                 if roic > 0.20:
-
+    
                     score += 10
-
+    
                 elif roic > 0.15:
-
+    
                     score += 5
-
+    
                 elif roic < 0:
-
+    
                     score -= 20
-
+    
                 elif roic < 0.05:
-
+    
                     score -= 10
-
+    
         except:
-
+    
             pass
-
+    
         return round(
-
+    
             max(
                 0,
                 min(
@@ -365,7 +377,7 @@ class ValuationAnalyzer:
                     100
                 )
             ),
-
+    
             2
         )
 
