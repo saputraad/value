@@ -833,6 +833,16 @@ with tabs[7]:
         st.write(
             "ABOUT TO RUN DEBUG PANEL"
         )
+
+        st.write(
+            type(
+                trajectory
+            )
+        )
+        
+        st.write(
+            trajectory
+        )
         
         render_debug_panel(
 
