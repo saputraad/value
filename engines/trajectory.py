@@ -16,8 +16,13 @@ def safe_get(df, names):
 
 class TrajectoryAnalyzer:
 
-    def __init__(self, data):
-
+    def __init__(
+        self,
+        ticker,
+        data
+    ):
+    
+        self.ticker = ticker
         self.data = data
 
     # ==========================
