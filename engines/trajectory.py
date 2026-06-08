@@ -255,6 +255,18 @@ class TrajectoryAnalyzer:
     # ==========================
 
     def summary(self):
+        revenue_growth = self.revenue_growth()
+
+        earnings_growth = self.earnings_growth()
+        
+        cfo_growth = self.cfo_growth()
+        
+        print(
+            "DEBUG",
+            revenue_growth,
+            earnings_growth,
+            cfo_growth
+        )
 
         base_score = self.score()
     
