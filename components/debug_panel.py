@@ -95,6 +95,9 @@ def render_debug_panel(
         st.json(
             decision
         )
+        st.write(
+            decision
+        )
 
     with st.expander(
         "Financial Statement Rows"
