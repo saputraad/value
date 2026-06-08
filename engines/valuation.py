@@ -378,19 +378,19 @@ class ValuationAnalyzer:
     # SUMMARY
     # ==========================================
 
-    def summary(self):
-        "valuation_debug": {
+    # def summary(self):
+    #     "valuation_debug": {
 
-            "is_bank":
-                self.is_bank(),
+    #         "is_bank":
+    #             self.is_bank(),
         
-            "earnings_yield_score":
-                self.earnings_yield_score(),
+    #         "earnings_yield_score":
+    #             self.earnings_yield_score(),
         
-            "fcf_yield_score":
-                self.fcf_yield_score()
+    #         "fcf_yield_score":
+    #             self.fcf_yield_score()
         
-        }
+    #     }
 
         return {
 
