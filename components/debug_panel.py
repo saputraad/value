@@ -243,22 +243,31 @@ def render_debug_panel(
         
         )
 
-    def is_bank(self):
-
-        info = self.data.get(
+    with st.expander(
+        "Sector Audit"
+    ):
+    
+        info = data.get(
             "info",
             {}
         )
     
-        sector = str(
-            info.get(
-                "sector",
-                ""
-            )
-        ).lower()
+        st.write(
+            info.keys()
+        )
     
-        industry = str(
-            info.get(
-                "industry",
+        st.json({
+    
+            "sector":
+                info.get(
+                    "sector"
+                ),
+    
+            "industry":
+                info.get(
+                    "industry"
+                )
+    
+        })
 
 
