@@ -201,24 +201,6 @@ def render_debug_panel(
     
         })
 
-    with st.expander(
-        "Consistency Engine"
-    ):
-    
-        st.write(
-            "CONSISTENCY TYPE"
-        )
-        
-        st.write(
-            type(consistency)
-        )
-        
-        st.write(
-            consistency
-        )
-
-        data["cashflow"].index.tolist()
-
 
     with st.expander(
         "Consistency Engine"
