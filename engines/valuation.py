@@ -10,17 +10,20 @@ USD_IDR_RATE = 16000
 
 class ValuationAnalyzer:
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        data
+    ):
 
-        raise Exception(
-            f"ARGS={args}, KWARGS={kwargs}"
+        self.data = data
+
+        self.ticker = (
+            data.get(
+                "ticker",
+                ""
+            )
+            .upper()
         )
-
-    def summary(self):
-
-        return {
-            "test": "ok"
-        }
 # class ValuationAnalyzer:
 
 #     def __init__(
