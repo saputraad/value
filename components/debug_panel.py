@@ -6,7 +6,8 @@ from core.data_provider import (
 
 
 def render_debug_panel(
-
+````ticker,
+    
     data,
 
     quality=None,
