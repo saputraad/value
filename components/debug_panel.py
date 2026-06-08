@@ -219,13 +219,28 @@ def render_debug_panel(
 
         data["cashflow"].index.tolist()
 
-        st.json(
-            trajectory.get(
-                "trajectory_debug",
-                {}
+
+    with st.expander(
+        "Consistency Engine"
+    ):
+    
+        st.write(
+            "TRAJECTORY TYPE"
+        )
+    
+        st.write(
+            type(
+                trajectory
             )
         )
-
+    
+        st.write(
+            trajectory
+        )
+    
+        if isinstance(
+            trajectory,
+            dict
 
 
 
