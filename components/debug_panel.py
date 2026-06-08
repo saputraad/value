@@ -242,7 +242,6 @@ def render_debug_panel(
             )
         
         )
-        st.json({
 
     with st.expander(
         "Sector Audit"
@@ -270,4 +269,5 @@ def render_debug_panel(
                 )
     
         })
+
 
