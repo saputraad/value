@@ -275,11 +275,12 @@ def render_debug_panel(
                 {}
             ).keys()
         )
-        with st.expander(
-            "income statement"
-        ):
-            st.write(
-                data["income_statement"].index.tolist()
-            )
+        
+    with st.expander(
+        "income statement"
+    ):
+        st.write(
+            data["income_statement"].index.tolist()
+        )
 
 
