@@ -269,18 +269,18 @@ class TrajectoryAnalyzer:
 
     def growth_to_score(self, growth):
 
-    if growth is None:
-        return None
-
-    pct = growth * 100
-
-    if pct >= 15:
-        return 100
-
-    if pct <= -20:
-        return 0
-
-    return round(
-        ((pct + 20) / 35) * 100,
-        2
-    )
+        if growth is None:
+            return None
+    
+        pct = growth * 100
+    
+        if pct >= 15:
+            return 100
+    
+        if pct <= -20:
+            return 0
+    
+        return round(
+            ((pct + 20) / 35) * 100,
+            2
+        )
