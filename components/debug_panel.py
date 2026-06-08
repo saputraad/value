@@ -247,9 +247,11 @@ def render_debug_panel(
     with st.expander(
         sector
     ):
-            "sector": data.get("info", {}).get("sector"),
-            "industry": data.get("info", {}).get("industry")
-        })
+        st.write("INFO EXISTS?")
+
+        st.write(
+            "info" in data
+        )
         st.error("SECTOR DEBUG ACTIVE")
         st.json({
 
