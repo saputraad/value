@@ -247,9 +247,10 @@ def render_debug_panel(
     with st.expander(
         sector
     ):
-        st.write(
-            data.keys()
-        )
+        st.json({
+            "sector": data.get("info", {}).get("sector"),
+            "industry": data.get("info", {}).get("industry")
+        })
 
    
 
