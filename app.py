@@ -845,6 +845,7 @@ with tabs[7]:
         )
         
         render_debug_panel(
+            ticker=ticker,      
 
             data=data,
 
