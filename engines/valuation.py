@@ -391,7 +391,7 @@ class ValuationAnalyzer:
         return {
     
             "valuation_debug": {
-    
+
                 "is_bank":
                     self.is_bank(),
     
