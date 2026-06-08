@@ -341,13 +341,13 @@ class TrajectoryAnalyzer:
     
         pct = growth * 100
     
-        if pct >= 15:
+        if pct >= 20:
             return 100
     
-        if pct <= -20:
+        if pct <= -50:
             return 0
     
         return round(
-            ((pct + 20) / 35) * 100,
+            ((pct + 50) / 70) * 100,
             2
         )
