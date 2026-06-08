@@ -317,15 +317,17 @@ class ValuationAnalyzer:
             self.fcf_yield_score()
         )
     
-        score = (
+        if self.is_bank():
 
-            earnings_score * 0.6
+            score = earnings_score
         
-            +
+        else:
         
-            fcf_score * 0.4
-        
-        )
+            score = (
+                earnings_score * 0.6
+                +
+                fcf_score * 0.4
+            )
     
         try:
     
