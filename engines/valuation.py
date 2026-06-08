@@ -37,29 +37,50 @@ class ValuationAnalyzer:
             "info",
             {}
         )
-
-        sector = str(
-            info.get(
-                "sector",
-                ""
-            )
-        ).lower()
-
+    
         industry = str(
             info.get(
                 "industry",
                 ""
             )
         ).lower()
-
-        return (
-
-            "bank" in industry
-
-            or
-
-            "bank" in sector
-
+    
+        if "bank" in industry:
+    
+            return True
+    
+        income = self.data.get(
+            "income_statement"
+        )
+    
+        if income is None:
+    
+            return False
+    
+        rows = [
+    
+            str(x).lower()
+    
+            for x in income.index
+    
+        ]
+    
+        bank_keywords = [
+    
+            "interest income",
+            "interest expense",
+            "net interest income",
+            "loan"
+        ]
+    
+        return any(
+    
+            keyword in row
+    
+            for row in rows
+    
+            for keyword in bank_keywords
+    
         )
 
     # ==========================================
