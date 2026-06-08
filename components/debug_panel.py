@@ -275,5 +275,8 @@ def render_debug_panel(
                 {}
             ).keys()
         )
+        st.write(
+            data["income_statement"].index.tolist()
+        )
 
 
