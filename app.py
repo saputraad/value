@@ -102,17 +102,6 @@ try:
 
     )
 
-    trajectory = (
-        TrajectoryAnalyzer(
-            data
-        )
-        .summary()
-    )
-    
-    st.json(
-        trajectory
-    )
-
     consistency = (
         ConsistencyAnalyzer(
             data
@@ -886,6 +875,17 @@ with tabs[7]:
         
         st.write(
             data_health
+        )
+
+        trajectory = (
+        TrajectoryAnalyzer(
+            data
+        )
+        .summary()
+        )
+        
+        st.json(
+            trajectory
         )
 
    
