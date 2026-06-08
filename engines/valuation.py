@@ -65,11 +65,7 @@ class ValuationAnalyzer:
     
             return True
     
-        return (
-            self.ticker
-            in
-            INDONESIAN_BANKS
-        )
+        return False
 
     # ==========================================
     # FINANCIAL CURRENCY
