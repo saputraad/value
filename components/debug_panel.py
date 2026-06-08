@@ -219,6 +219,13 @@ def render_debug_panel(
 
         data["cashflow"].index.tolist()
 
+        st.json(
+            trajectory.get(
+                "trajectory_debug",
+                {}
+            )
+        )
+
 
 
 
