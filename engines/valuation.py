@@ -36,7 +36,7 @@ class ValuationAnalyzer:
         )
         
     def is_bank(self):
-
+    
         info = self.data.get(
             "info",
             {}
