@@ -303,32 +303,40 @@ class TrajectoryAnalyzer:
             "trajectory_debug": {
         
                 "revenue_growth":
-                    self.revenue_growth(),
+                    revenue_growth,
+        
                 "revenue_score":
-                    self.revenue_score(),
+                    self.growth_to_score(
+                        revenue_growth
+                    ),
+        
                 "earnings_growth":
-                    self.earnings_growth(),
+                    earnings_growth,
+        
                 "earnings_score":
-                    self.earnings_score(),
+                    self.growth_to_score(
+                        earnings_growth
+                    ),
+        
                 "cfo_growth":
-                    self.cfo_growth(),
+                    cfo_growth,
+        
                 "cfo_score":
-                    self.cfo_score()
+                    self.growth_to_score(
+                        cfo_growth
+                    )
         
             },
         
             "revenue_growth":
-                self.revenue_growth(),
-            "revenue_score":
-                    self.revenue_score(),
+                revenue_growth,
+        
             "earnings_growth":
-                self.earnings_growth(),
-            "earnings_score":
-                    self.earnings_score(),
+                earnings_growth,
+        
             "cfo_growth":
-                self.cfo_growth(),
-            "cfo_score":
-                    self.cfo_score(),
+                cfo_growth,
+        
             "trajectory_score":
                 final_score,
         
