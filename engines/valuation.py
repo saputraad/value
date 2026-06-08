@@ -426,24 +426,24 @@ class ValuationAnalyzer:
     
         return {
     
-            "valuation_debug": {
+            # "valuation_debug": {
 
-                "is_bank":
-                    self.is_bank(),
+            #     "is_bank":
+            #         self.is_bank(),
     
-                "sector":
-                    self.sector(),
+            #     "sector":
+            #         self.sector(),
                 
-                "industry":
-                    self.industry(),
+            #     "industry":
+            #         self.industry(),
     
-                "earnings_yield_score":
-                    self.earnings_yield_score(),
+            #     "earnings_yield_score":
+            #         self.earnings_yield_score(),
     
-                "fcf_yield_score":
-                    self.fcf_yield_score()
+            #     "fcf_yield_score":
+            #         self.fcf_yield_score()
     
-            },
+            # },
     
             "financial_currency":
                 self.financial_currency(),
