@@ -269,11 +269,11 @@ def render_debug_panel(
                 )
     
         })
-        st.json(
+        st.write(
             data.get(
                 "info",
                 {}
-            )
+            ).keys()
         )
 
 
