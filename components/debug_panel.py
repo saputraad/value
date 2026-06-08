@@ -279,8 +279,10 @@ def render_debug_panel(
     with st.expander(
         "income statement"
     ):
-        st.write(
-            data["income_statement"].index.tolist()
+        st.json(
+            data.get(
+                "balance_sheet"
+            ).index.tolist()
         )
 
 
