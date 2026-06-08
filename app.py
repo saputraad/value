@@ -888,10 +888,8 @@ with tabs[7]:
         trajectory
     )
 
-    st.json(
-        list(
-            data.keys()
-        )
+    st.write(
+        data["info"].keys()
     )
 
 
