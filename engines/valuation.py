@@ -384,6 +384,9 @@ class ValuationAnalyzer:
             "info",
             {}
         )
+        st.write(
+            data["income_statement"].index.tolist()
+        )
     
         return {
     
