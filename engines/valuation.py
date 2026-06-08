@@ -417,7 +417,6 @@ class ValuationAnalyzer:
     # ==========================================
     # SUMMARY
     # ==========================================
-
     def summary(self):
 
         info = self.data.get(
@@ -476,5 +475,47 @@ class ValuationAnalyzer:
     
             "valuation_score":
                 self.valuation_score()
+            
+    def sector(self):
+
+        info = self.data.get(
+            "info",
+            {}
+        )
+    
+        sector = info.get(
+            "sector"
+        )
+    
+        if sector:
+    
+            return sector
+    
+        if self.is_bank():
+    
+            return "Financial Services"
+    
+        return None
+
+    def industry(self):
+
+        info = self.data.get(
+            "info",
+            {}
+        )
+    
+        industry = info.get(
+            "industry"
+        )
+    
+        if industry:
+    
+            return industry
+    
+        if self.is_bank():
+    
+            return "Banks"
+    
+        return None
     
         }
