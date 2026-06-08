@@ -514,4 +514,3 @@ class ValuationAnalyzer:
     
         return None
     
-        }
