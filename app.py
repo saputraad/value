@@ -844,8 +844,7 @@ with tabs[7]:
             trajectory
         )
         
-        render_debug_panel(
-            ticker=ticker,      
+        render_debug_panel(      
 
             data=data,
 
