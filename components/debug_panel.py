@@ -253,6 +253,10 @@ def render_debug_panel(
             {}
         )
     
+        st.write(
+            info.keys()
+        )
+    
         st.json({
     
             "sector":
