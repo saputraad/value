@@ -232,6 +232,15 @@ def render_debug_panel(
                 )
             )
 
+        st.json(
+
+            buffett.get(
+                "buffett_debug",
+                {}
+            )
+        
+        )
+
    
 
 
