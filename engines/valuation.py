@@ -432,14 +432,10 @@ class ValuationAnalyzer:
                     self.is_bank(),
     
                 "sector":
-                    info.get(
-                        "sector"
-                    ),
-    
+                    self.sector(),
+                
                 "industry":
-                    info.get(
-                        "industry"
-                    ),
+                    self.industry(),
     
                 "earnings_yield_score":
                     self.earnings_yield_score(),
