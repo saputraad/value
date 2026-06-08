@@ -384,13 +384,13 @@ class ValuationAnalyzer:
             "info",
             {}
         )
-        st.write(
-            data["income_statement"].index.tolist()
-        )
     
         return {
     
             "valuation_debug": {
+                st.write(
+                    data["income_statement"].index.tolist()
+                )
     
                 "is_bank":
                     self.is_bank(),
