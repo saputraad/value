@@ -177,53 +177,15 @@ class TrajectoryAnalyzer:
 
     def score(self):
 
-        revenue_growth = self.revenue_growth()
-        earnings_growth = self.earnings_growth()
-        cfo_growth = self.cfo_growth()
-        
-        return {
-        
-            "trajectory_debug": {
-        
-                "revenue_growth":
-                    revenue_growth,
-        
-                "revenue_score":
-                    self.growth_to_score(
-                        revenue_growth
-                    ),
-        
-                "earnings_growth":
-                    earnings_growth,
-        
-                "earnings_score":
-                    self.growth_to_score(
-                        earnings_growth
-                    ),
-        
-                "cfo_growth":
-                    cfo_growth,
-        
-                "cfo_score":
-                    self.growth_to_score(
-                        cfo_growth
-                    )
-        
-            },
-        
-            "trajectory_score":
-                final_score,
-        
-            "trajectory_rating":
-                rating
-        
-        }
+        revenue = self.revenue_growth()
+        earnings = self.earnings_growth()
+        cfo = self.cfo_growth()
     
         score = 0
         count = 0
     
         bank_tickers = [
-
+    
             "BBCA",
             "BBRI",
             "BMRI",
@@ -233,23 +195,24 @@ class TrajectoryAnalyzer:
             "BDMN",
             "BBTN",
             "ARTO"
-        
+    
         ]
-        
+    
         if self.ticker in bank_tickers:
-        
+    
             metrics = [
                 revenue,
                 earnings
             ]
-        
+    
         else:
-        
+    
             metrics = [
                 revenue,
                 earnings,
                 cfo
             ]
+    
         for growth in metrics:
     
             if growth is None:
