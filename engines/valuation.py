@@ -8,10 +8,9 @@ USD_IDR_RATE = 16000
 class ValuationAnalyzer:
 
     def __init__(
-        self,def valuation_score(self):
+        self,
         data
     ):
-
         self.data = data
 
         self.market_cap = (
