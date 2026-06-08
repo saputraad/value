@@ -65,6 +65,11 @@ class ValuationAnalyzer:
             INDONESIAN_BANKS
         )
 
+    "valuation_debug": {
+
+        "is_bank":
+            self.is_bank(),
+
     # ==========================================
     # FINANCIAL CURRENCY
     # ==========================================
