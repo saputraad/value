@@ -381,12 +381,6 @@ class ValuationAnalyzer:
     def summary(self):
 
         return {
-            "sector":
-                info.get("sector"),
-            
-            "industry":
-                info.get("industry")
-    
             "valuation_debug": {
     
                 "is_bank":
