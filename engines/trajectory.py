@@ -179,12 +179,34 @@ class TrajectoryAnalyzer:
         score = 0
         count = 0
     
-        metrics = [
-            revenue,
-            earnings,
-            cfo
+        bank_tickers = [
+
+            "BBCA",
+            "BBRI",
+            "BMRI",
+            "BNGA",
+            "BNII",
+            "BBNI",
+            "BDMN",
+            "BBTN",
+            "ARTO"
+        
         ]
-    
+        
+        if self.ticker in bank_tickers:
+        
+            metrics = [
+                revenue,
+                earnings
+            ]
+        
+        else:
+        
+            metrics = [
+                revenue,
+                earnings,
+                cfo
+            ]
         for growth in metrics:
     
             if growth is None:
