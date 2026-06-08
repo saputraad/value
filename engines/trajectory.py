@@ -176,10 +176,6 @@ class TrajectoryAnalyzer:
         earnings = self.earnings_growth()
         cfo = self.cfo_growth()
     
-        # =====================
-        # RED FLAG
-        # =====================
-    
         score = 0
         count = 0
     
@@ -190,15 +186,23 @@ class TrajectoryAnalyzer:
         ]
     
         for growth in metrics:
-
+    
             if growth is None:
                 continue
-        
+    
             count += 1
-        
+    
             score += self.growth_to_score(
                 growth
             )
+    
+        if count == 0:
+            return 0
+    
+        return round(
+            score / count,
+            2
+        )
 
     # ==========================
     # RATING
