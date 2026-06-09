@@ -35,6 +35,20 @@ class CashflowQualityAnalyzer:
             .upper()
         )
 
+    def score(self):
+
+        if self.is_bank():
+    
+            return 70
+        
+    def is_bank(self):
+
+        return (
+            self.ticker
+            in
+            INDONESIAN_BANKS
+        )
+
     # ==========================
     # FREE CASH FLOW
     # ==========================
