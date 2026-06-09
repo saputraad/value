@@ -26,6 +26,14 @@ class CashflowQualityAnalyzer:
     ):
     
         self.data = data
+    
+        self.ticker = (
+            data.get(
+                "ticker",
+                ""
+            )
+            .upper()
+        )
 
     # ==========================
     # FREE CASH FLOW
